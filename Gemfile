@@ -28,6 +28,8 @@ gem 'devise'
 gem 'pry'
 
 gem 'rails_admin'
+
+gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Use Unicorn as the app server

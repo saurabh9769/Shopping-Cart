@@ -3,10 +3,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
   devise_for :admins
-  # devise_for :users
-  devise_for :users do
-    get '/users/sign_out' => 'devise/sessions#destroy'
-  end
+  devise_for :users
   mount RailsAdmin::Engine => '/admins', as: 'rails_admin'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

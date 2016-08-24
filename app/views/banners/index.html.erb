@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-heading"> <h3> All Banners </h3></div>
+  <br>
+  <br>
+  <div class="panel-body">
+    <table class="table table-bordered table-hover" style="width: 50%" >
+      <tr>
+        <th>Banners</th>
+      </tr>
+      <% @banners.each do |banner| %>
+        <tr>
+          <td><%= image_tag banner.image.url %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
