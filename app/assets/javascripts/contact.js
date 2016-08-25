@@ -16,7 +16,23 @@ jQuery(function($) {'use strict',
 // Google Map Customization
 (function(){
 
-	var image = 'assets/map-icon.png';
+	var map;
+
+	map = new GMaps({
+		el: '#gmap',
+		lat: 43.1580159,
+		lng: -77.6030777,
+		scrollwheel:false,
+		zoom: 14,
+		zoomControl : false,
+		panControl : false,
+		streetViewControl : false,
+		mapTypeControl: false,
+		overviewMapControl: false,
+		clickable: false
+	});
+
+	var image = 'images/map-icon.png';
 	map.addMarker({
 		lat: 43.1580159,
 		lng: -77.6030777,
@@ -27,7 +43,7 @@ jQuery(function($) {'use strict',
 		backgroundColor: '#ffffff',
 	});
 
-	var styles = [
+	var styles = [ 
 
 	{
 		"featureType": "road",
@@ -68,7 +84,7 @@ jQuery(function($) {'use strict',
 	map.addStyle({
 		styledMapName:"Styled Map",
 		styles: styles,
-		mapTypeId: "map_style"
+		mapTypeId: "map_style"  
 	});
 
 	map.setStyle("map_style");

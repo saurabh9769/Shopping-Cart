@@ -22,7 +22,6 @@ class ApplicationController < ActionController::Base
 			end
 
 		else
-			
 		end
 	end
 

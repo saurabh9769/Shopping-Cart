@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-	  <meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  <meta name="description" content="">
-	  <meta name="author" content="">
-	  <title>Home | E-Shopper</title>
-	  <link href="/assets/bootstrap.min.css" rel="stylesheet">
-	  <link href="/assets/font-awesome.min.css" rel="stylesheet">
-	  <link href="/assets/prettyPhoto.css" rel="stylesheet">
-	  <link href="/assets/price-range.css" rel="stylesheet">
-	  <link href="/assets/animate.css" rel="stylesheet">
-		<link href="/assets/main.css" rel="stylesheet">
-		<link href="/assets/responsive.css" rel="stylesheet">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | E-Shopper</title>
+    <link href="/assets/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/prettyPhoto.css" rel="stylesheet">
+    <link href="/assets/price-range.css" rel="stylesheet">
+    <link href="/assets/animate.css" rel="stylesheet">
+	<link href="/assets/main.css" rel="stylesheet">
+	<link href="/assets/responsive.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
-    <![endif]-->
+    <![endif]-->       
     <link rel="shortcut icon" href="/assets/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-	</head><!--/head-->
+</head><!--/head-->
 
 <body>
+
 	<script type="text/javascript" src="/assets/jquery-1.11.3.min.js"></script>
   <script type="text/javascript" src="/assets/jssor.slider-21.1.5.mini.js"></script>
   <!-- use jssor.slider-21.1.5.debug.js instead for debug -->
@@ -56,9 +57,9 @@
             $NoDrag: true
           }
         };
-        
+
         var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
-        
+
         //responsive code begin
         //you can remove responsive code if you don't want the slider scales while window resizing
         function ScaleSlider() {
@@ -79,7 +80,7 @@
     });
   </script>
 
-  <style>
+<style>
 
       /* jssor slider bullet navigator skin 01 css */
       /*
@@ -142,7 +143,6 @@
           width: 600px;
           height: 45px;
       }
-      
       .jssort09-600-45 .t {
           font-family: verdana;
           font-weight: normal;
@@ -157,6 +157,7 @@
           padding-left: 10px;
       }
   </style>
+
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
 			<div class="container">
@@ -183,6 +184,7 @@
 				</div>
 			</div>
 		</div><!--/header_top-->
+		
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
 				<div class="row">
@@ -201,7 +203,7 @@
 									<li><a href="#">UK</a></li>
 								</ul>
 							</div>
-
+							
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
 									DOLLAR
@@ -221,17 +223,14 @@
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<% if user_signed_in? %>
-									<li><a href="/users/sign_out" data-method="delete" ><% link_to destroy_user_session_path , method: :delete %><i class="fa fa-sign-out"></i> Logout</a></li>
-								<% else %>
-									<li><a href="users/sign_in"><% link_to new_user_session_path %><i class="fa fa-lock"></i> Login</a></li>
-								<% end %>
+								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div><!--/header-middle-->
+	
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
@@ -248,22 +247,22 @@
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="index.html" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                	<ul role="menu" class="sub-menu">
-                    <li><a href="shop.html">Products</a></li>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="shop.html">Products</a></li>
 										<li><a href="product-details.html">Product Details</a></li> 
 										<li><a href="checkout.html">Checkout</a></li> 
 										<li><a href="cart.html">Cart</a></li> 
 										<li><a href="login.html">Login</a></li> 
-                  </ul>
-              	</li>
+                                    </ul>
+                                </li> 
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                  <ul role="menu" class="sub-menu">
-                    <li><a href="blog.html">Blog List</a></li>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="blog.html">Blog List</a></li>
 										<li><a href="blog-single.html">Blog Single</a></li>
-                  </ul>
-              </li>
-							<li><a href="404.html">404</a></li>
-							<li><a href="contact-us.html">Contact</a></li>
+                                    </ul>
+                                </li> 
+								<li><a href="404.html">404</a></li>
+								<li><a href="contact-us.html">Contact</a></li>
 							</ul>
 						</div>
 					</div>
@@ -276,62 +275,11 @@
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
-	<section id="slider">
+	
+	<section id="slider"><!--slider-->
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<!-- <div id="slider-carousel" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-							<li data-target="#slider-carousel" data-slide-to="1"></li>
-							<li data-target="#slider-carousel" data-slide-to="2"></li>
-						</ol>
-
-						<div class="carousel-inner">
-							<div class="item active">
-								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>Free E-Commerce Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="/assets/home/girl1.jpg" class="girl img-responsive" alt="" />
-									<img src="/assets/home/pricing.png"  class="pricing" alt="" />
-								</div>
-							</div>
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>100% Responsive Design</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="/assets/home/girl2.jpg" class="girl img-responsive" alt="" />
-									<img src="/assets/home/pricing.png"  class="pricing" alt="" />
-								</div>
-							</div>
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>Free Ecommerce Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="/assets/home/girl3.jpg" class="girl img-responsive" alt="" />
-									<img src="/assets/home/pricing.png" class="pricing" alt="" />
-								</div>
-							</div>
-						</div>
-						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
-						</a>
-						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-							<i class="fa fa-angle-right"></i>
-						</a>
-					</div> -->
 					<div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden; visibility: hidden;">
 			        <!-- Loading Screen -->
 			        <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
@@ -365,11 +313,12 @@
 			        <span data-u="arrowleft" class="jssora05l" style="top:0px;left:8px;width:40px;height:40px;" data-autocenter="2"></span>
 			        <span data-u="arrowright" class="jssora05r" style="top:0px;right:8px;width:40px;height:40px;" data-autocenter="2"></span>
 			    </div>
+					
 				</div>
 			</div>
 		</div>
-	</section>
-
+	</section><!--/slider-->
+	
 	<section>
 		<div class="container">
 			<div class="row">
@@ -377,109 +326,27 @@
 					<div class="left-sidebar">
 						<h2>Category</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											Sportswear
-										</a>
-									</h4>
+							<% @category.each do |i|%>
+								<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-toggle="collapse" data-parent="#accordian" href="#<%= "#{i.id}" %>">
+													<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+													<%= "#{i.name}" %>
+												</a>
+											</h4>
+										</div>
+										<div id="<%= "#{i.id}" %>" class="panel-collapse collapse">
+											<div class="panel-body">
+												<ul>
+												<% i.subcategories.each do |j| %>
+													<li><a href="#"><%= "#{j.name}"%> </a></li>
+													<% end %>
+												</ul>
+											</div>
+										</div>
 								</div>
-								<div id="sportswear" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul>
-											<li><a href="#">Nike </a></li>
-											<li><a href="#">Under Armour </a></li>
-											<li><a href="#">Adidas </a></li>
-											<li><a href="#">Puma</a></li>
-											<li><a href="#">ASICS </a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#mens">
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											Mens
-										</a>
-									</h4>
-								</div>
-								<div id="mens" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul>
-											<li><a href="#">Fendi</a></li>
-											<li><a href="#">Guess</a></li>
-											<li><a href="#">Valentino</a></li>
-											<li><a href="#">Dior</a></li>
-											<li><a href="#">Versace</a></li>
-											<li><a href="#">Armani</a></li>
-											<li><a href="#">Prada</a></li>
-											<li><a href="#">Dolce and Gabbana</a></li>
-											<li><a href="#">Chanel</a></li>
-											<li><a href="#">Gucci</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#womens">
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											Womens
-										</a>
-									</h4>
-								</div>
-								<div id="womens" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul>
-											<li><a href="#">Fendi</a></li>
-											<li><a href="#">Guess</a></li>
-											<li><a href="#">Valentino</a></li>
-											<li><a href="#">Dior</a></li>
-											<li><a href="#">Versace</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Kids</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Fashion</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Households</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Interiors</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Clothing</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Bags</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Shoes</a></h4>
-								</div>
-							</div>
+							<% end %>
 						</div><!--/category-products-->
 					
 						<div class="brands_products"><!--brands_products-->
@@ -508,10 +375,10 @@
 						<div class="shipping text-center"><!--shipping-->
 							<img src="/assets/home/shipping.jpg" alt="" />
 						</div><!--/shipping-->
-					
+
 					</div>
 				</div>
-				
+
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
@@ -667,7 +534,9 @@
 								</div>
 							</div>
 						</div>
+						
 					</div><!--features_items-->
+					
 					<div class="category-tab"><!--category-tab-->
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
@@ -689,6 +558,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -701,6 +571,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -713,6 +584,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -725,10 +597,12 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
 							</div>
+							
 							<div class="tab-pane fade" id="blazers" >
 								<div class="col-sm-3">
 									<div class="product-image-wrapper">
@@ -739,6 +613,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -751,6 +626,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -763,6 +639,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -775,10 +652,12 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
 							</div>
+							
 							<div class="tab-pane fade" id="sunglass" >
 								<div class="col-sm-3">
 									<div class="product-image-wrapper">
@@ -789,6 +668,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -801,6 +681,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -813,6 +694,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -825,10 +707,12 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
 							</div>
+							
 							<div class="tab-pane fade" id="kids" >
 								<div class="col-sm-3">
 									<div class="product-image-wrapper">
@@ -839,6 +723,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -851,6 +736,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -863,6 +749,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -875,10 +762,12 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
 							</div>
+							
 							<div class="tab-pane fade" id="poloshirt" >
 								<div class="col-sm-3">
 									<div class="product-image-wrapper">
@@ -889,6 +778,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -901,7 +791,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
-
+											
 										</div>
 									</div>
 								</div>
@@ -914,7 +804,7 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
-
+											
 										</div>
 									</div>
 								</div>
@@ -927,20 +817,20 @@
 												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
-
+											
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div><!--/category-tab-->
-
+					
 					<div class="recommended_items"><!--recommended_items-->
 						<h2 class="title text-center">recommended items</h2>
-
+						
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner">
-								<div class="item active">
+								<div class="item active">	
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
@@ -950,7 +840,7 @@
 													<p>Easy Polo Black Edition</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
-
+												
 											</div>
 										</div>
 									</div>
@@ -963,7 +853,7 @@
 													<p>Easy Polo Black Edition</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
-
+												
 											</div>
 										</div>
 									</div>
@@ -976,12 +866,12 @@
 													<p>Easy Polo Black Edition</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
-
+												
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="item">
+								<div class="item">	
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
@@ -991,7 +881,7 @@
 													<p>Easy Polo Black Edition</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
-
+												
 											</div>
 										</div>
 									</div>
@@ -1004,7 +894,7 @@
 													<p>Easy Polo Black Edition</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
-
+												
 											</div>
 										</div>
 									</div>
@@ -1017,7 +907,7 @@
 													<p>Easy Polo Black Edition</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
-
+												
 											</div>
 										</div>
 									</div>
@@ -1028,15 +918,15 @@
 							  </a>
 							  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
 								<i class="fa fa-angle-right"></i>
-							  </a>
+							  </a>			
 						</div>
 					</div><!--/recommended_items-->
-
+					
 				</div>
 			</div>
 		</div>
 	</section>
-
+	
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
 			<div class="container">
@@ -1062,7 +952,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-
+						
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -1077,7 +967,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-
+						
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -1092,7 +982,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-
+						
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -1117,7 +1007,7 @@
 				</div>
 			</div>
 		</div>
-
+		
 		<div class="footer-widget">
 			<div class="container">
 				<div class="row">
@@ -1179,11 +1069,11 @@
 							</form>
 						</div>
 					</div>
-
+					
 				</div>
 			</div>
 		</div>
-
+		
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
@@ -1192,15 +1082,16 @@
 				</div>
 			</div>
 		</div>
-
+		
 	</footer><!--/Footer-->
+	
 
-	<script src="/assets/jquery.js"></script>
-	<script src="/assets/contact.js"></script>
+  
+    <script src="/assets/jquery.js"></script>
 	<script src="/assets/bootstrap.min.js"></script>
 	<script src="/assets/jquery.scrollUp.min.js"></script>
 	<script src="/assets/price-range.js"></script>
-  <script src="/assets/jquery.prettyPhoto.js"></script>
-  <script src="/assets/main.js"></script>
+    <script src="/assets/jquery.prettyPhoto.js"></script>
+    <script src="/assets/main.js"></script>
 </body>
 </html>
