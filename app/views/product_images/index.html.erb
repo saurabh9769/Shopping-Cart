@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-heading"> <h3> All Product Images </h3></div>
+  <br>
+  <br>
+  <div class="panel-body">
+    <table class="table table-bordered table-hover" style="width: 50%" >
+      <tr>
+        <th>Product Images</th>
+      </tr>
+      <% @productimages.each do |product| %>
+        <tr>
+          <td><%= image_tag product.image.url %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

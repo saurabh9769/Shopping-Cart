@@ -5,7 +5,7 @@ class BannersController < ApplicationController
 	end
 
 	def create
-	  	@banner = Banner.create( banner_params )
+  	@banner = Banner.create( banner_params )
 	end
 
 	def show
