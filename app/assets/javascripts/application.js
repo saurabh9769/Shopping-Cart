@@ -18,9 +18,6 @@
 //= require html5shiv
 //= require jquery.prettyPhoto
 //= require jquery.scrollUp.min
-//= jssor.slider-21.1.5.debug
-//= jssor.slider-21.1.5.min
-//= jssor.slider-21.1.5.mini
 //= require main
 //= require price-range
 //= require_tree .
