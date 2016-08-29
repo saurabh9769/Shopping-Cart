@@ -14,7 +14,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -31,6 +31,9 @@ Rails.application.configure do
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
 
+  config.action_mailer.perform_deliveries = true
+
+
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
@@ -38,5 +41,22 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'smtp.wwindia.com' }
+  ENV['FACEBOOK_APP_ID'] = '139185996528544';
+  ENV['FACEBOOK_SECRET'] = '964136c8422b721d086a03c49e14aa49';
+  # binding.pry
+  ENV['TWITTER_KEY'] = "l26r74acbdmvMSfPebDh0YkPE";
+  ENV['TWITTER_SECRET'] = "sUt7LOIoDmqoXgF9lAA9KMbN6MkPdmVB5aaSJWTMqrdjI0qBy3";
+
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    address: "smtp.wwindia.com",
+    user_name: ENV["saurabh.sangani@wwindia.com"],
+    password: ENV["saurabhs123"],
+    ssl: true,
+    openssl_verify_mode: 'none'
+  }
 end

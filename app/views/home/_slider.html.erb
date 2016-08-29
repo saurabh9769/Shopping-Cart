@@ -1,0 +1,35 @@
+<section id="slider"><!--slider-->
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div id="slider-carousel" class="carousel slide" data-ride="carousel">
+					<div class="carousel-inner">
+						<% @check = 'active' %>
+						<% @cnt = 0 %>
+						<% @banner.each do |i| %>
+							<% if @cnt == 1 %>
+								<% @check = "" %>
+							<% end -%>
+							<% @cnt += 1 %>
+							<div class='item <%= @check -%>'>
+								<div class="col-sm-6">
+									<p><strong><%= "#{i.body}" %></strong></p>
+									<button type="button" class="btn btn-default get">Get it now</button>
+								</div>
+								<div class="col-sm-6">
+									<%= image_tag "#{i.image_file_name}" %>
+								</div>
+							</div>
+						<% end %>
+					</div>
+					<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+						<i class="fa fa-angle-left"></i>
+					</a>
+					<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+						<i class="fa fa-angle-right"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

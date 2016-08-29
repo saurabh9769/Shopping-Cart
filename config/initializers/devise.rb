@@ -275,4 +275,8 @@ Devise.setup do |config|
 
   config.sign_out_all_scopes = false
 
+  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET'] , callback_url: "https://localhost:3000/users/auth/facebook" , :client_options => {:ssl => {:ca_file => '/usr/share/ca-certificates'}}
+  config.omniauth :twitter, ENV["TWITTER_KEY"], ENV["TWITTER_SECRET"] ,  callback_url: "https://localhost:3000/users/auth/twitter" , :client_options => {:ssl => {:ca_file => '/usr/share/ca-certificates' }}
+
+
 end

@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+  <div class="panel-heading"> <h3> All Products </h3></div>
+  <br>
+  <br>
+  <div class="panel-body">
+    <table class="table table-bordered table-hover" style="width: 50%" >
+      <tr>
+        <th>Products</th>
+      </tr>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.name %></td>
+          <td><%= product.price %></td>
+          <td><%= product.status %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+  <div class="panel-heading"> <h3> All Products </h3></div>
+  <br>
+  <br>
+  <div class="panel-body">
+    <table class="table table-bordered table-hover" >
+      <tr>
+        <th style="text-align: center">Products</th>
+      </tr>
+      <% @products.each do |product| %>
+        <tr>
+          <% product.product_images.each do |l| %>
+            <td><%= product.name %></td>
+            <td><%= product.price %></td>
+            <td><%= product.status %></td>
+            <td><%= image_tag "#{l.image_file_name}" , style: "height: 185px ; width: auto; margin: auto;" %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
