@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   devise_for :admins
   devise_for :users
   resources :products
-  resources :home
+  get 'home/addtocart' => 'home#addtocart'
 
   mount RailsAdmin::Engine => '/admins', as: 'rails_admin'
   # The priority is based upon order of creation: first created -> highest priority.

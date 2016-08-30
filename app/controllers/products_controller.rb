@@ -5,7 +5,6 @@ class ProductsController < ApplicationController
 
 	def show
 		@products = Product.all
-		# binding.pry
 	end
 
 	private

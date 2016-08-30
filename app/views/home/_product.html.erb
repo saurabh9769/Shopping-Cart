@@ -1,21 +1,21 @@
 <div class="testproduct" data-remote = "true">
-	<% @product_category.each do |k| %>
+	<% @products.each do |product| %>
 		<div class="col-sm-4">
 			<div class="product-image-wrapper">
 				<div class="single-products">
 					<div class="productinfo text-center">
-						<% k.product_images.each do |l| %>
-							<%= image_tag "#{l.image_file_name}" , style: "height: 185px ; width: auto; margin: auto;" %>
+						<% product.product_images.each do |l| %>
+							<%= image_tag "#{l.image.url}" , style: "height: 185px ; width: auto; margin: auto;" %>
 						<% end %>
-						<h2><%= k.price %></h2>
-						<p><%= k.name %></p>
-						<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+						<h2><%= product.price %></h2>
+						<p><%= product.name %></p>
+						<%= link_to (raw('<i class="fa fa-shopping-cart"></i>Add to cart')), home_addtocart_path(product_id: product.id) , class: "btn btn-default add-to-cart" , remote: true %>
 					</div>
 					<div class="product-overlay">
 						<div class="overlay-content">
-							<h2><%= k.price %></h2>
-							<p><%= k.name %></p>
-							<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+							<h2><%= product.price %></h2>
+							<p><%= product.name %></p>
+							<%= link_to (raw('<i class="fa fa-shopping-cart"></i>Add to cart')), home_addtocart_path(product_id: product.id) , class: "btn btn-default add-to-cart" , remote: true %>
 						</div>
 					</div>
 				</div>

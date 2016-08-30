@@ -44,7 +44,6 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'smtp.wwindia.com' }
   ENV['FACEBOOK_APP_ID'] = '139185996528544';
   ENV['FACEBOOK_SECRET'] = '964136c8422b721d086a03c49e14aa49';
-  # binding.pry
   ENV['TWITTER_KEY'] = "l26r74acbdmvMSfPebDh0YkPE";
   ENV['TWITTER_SECRET'] = "sUt7LOIoDmqoXgF9lAA9KMbN6MkPdmVB5aaSJWTMqrdjI0qBy3";
 

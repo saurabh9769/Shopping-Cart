@@ -4,7 +4,6 @@ class AdminsController < ApplicationController
 	before_action :configure_permitted_parameters, if: :devise_controller?
 
 	def after_sign_in_path_for(admin)
-		# binding.pry
 		if current_admin.present?
 			rails_admin.index_path('rails_admin')
 		else
@@ -18,12 +17,12 @@ class AdminsController < ApplicationController
 
 	private
 
-	 	def configure_permitted_parameters
-  			devise_parameter_sanitizer.permit(:sign_up) do |admin_params|
-    			admin_params.permit(:email, :password, :password_confirmation)
-  			end
+ 	def configure_permitted_parameters
+		devise_parameter_sanitizer.permit(:sign_up) do |admin_params|
+			admin_params.permit(:email, :password, :password_confirmation)
+		end
 
-  		devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:email, :password, :remember_me) }
+		devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:email, :password, :remember_me) }
 	end
 
 end

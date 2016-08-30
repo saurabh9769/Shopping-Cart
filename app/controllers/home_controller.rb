@@ -1,15 +1,17 @@
 class HomeController < ApplicationController
-  def index
 
+
+  def index
 		@banner = Banner.all
 	  @categories = Category.where( parent_id: nil)
-	  binding.pry
-	  if ( "#{params[:category_id]}".present?)
-	  	@product_category = Product.joins(:category).where( "products.category_id = #{params[:category_id]}" )
-	  else
-	  	@product_category = Product.joins(:category).where("products.category_id = categories.id")
-	  end
+	  @products = Product.all
+	  @products = @products.where(category_id: params[:category_id]) if params[:category_id].present?
+ 		session[:product_ids] = []
+ 	end
 
+ 	def addtocart
+ 		session[:product_ids] << params[:product_id]
+ 		@cart = session[:product_ids].count
  	end
 
 
