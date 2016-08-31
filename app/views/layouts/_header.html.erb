@@ -13,8 +13,8 @@
 				<div class="col-sm-6">
 					<div class="social-icons pull-right">
 						<ul class="nav navbar-nav">
-							<li><a href="/users/auth/facebook"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="/users/auth/twitter"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="users/auth/facebook"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="users/auth/twitter"><i class="fa fa-twitter"></i></a></li>
 							<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
 							<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
 							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -60,7 +60,7 @@
 							<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
 							<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 							<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-							<li><a href="cart.html" id="cart" class="addtocart"><i class="fa fa-shopping-cart"></i> Cart(<span class="cartcount"><%= @cart %></span>)</a></li>
+							<li><a href="cart.html" id="cart" class="addtocart"><i class="fa fa-shopping-cart"></i> Cart(<span class="cartcount"><%= @cartvalue %></span>)</a></li>
 							<% if user_signed_in? %>
 								<li><a href="/users/sign_out" data-method="delete"><% link_to destroy_user_session_path, method: :delete %><i class="fa fa-lock"></i> Logout</a></li>
 							<% else %>

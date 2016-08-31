@@ -30,6 +30,12 @@ class ApplicationController < ActionController::Base
 		home_index_path
 	end
 
+	def addtocart
+		(session[:product_ids]) << params[:product_id] if params[:product_id].present?
+		@cart = session[:product_ids]
+ 		@cartvalue = @cart.count(session[:product_ids])
+ 	end
+
 	private
 
 	  def configure_permitted_parameters
