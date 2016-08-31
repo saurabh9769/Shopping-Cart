@@ -242,6 +242,7 @@ DEPENDENCIES
   devise
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   omniauth-facebook
   omniauth-twitter
   paperclip!
