@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def addtocart
-		(session[:product_ids]) << params[:product_id] if params[:product_id].present?
+		(session[:product_ids] ||= []) << params[:product_id] if params[:product_id].present?
 		@cart = session[:product_ids]
  		@cartvalue = @cart.count(session[:product_ids])
  	end
