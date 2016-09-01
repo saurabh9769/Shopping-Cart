@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-
+  # before_action :addtocart
 
 	def after_sign_in_path_for(user)
 
@@ -29,12 +29,6 @@ class ApplicationController < ActionController::Base
 	def after_sign_up_path_for(user)
 		home_index_path
 	end
-
-	def addtocart
-		(session[:product_ids] ||= []) << params[:product_id] if params[:product_id].present?
-		@cart = session[:product_ids]
- 		@cartvalue = @cart.count(session[:product_ids])
- 	end
 
 	private
 
