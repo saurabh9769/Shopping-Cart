@@ -8,4 +8,8 @@ class HomeController < ApplicationController
 	  @products = @products.where(category_id: params[:category_id]) if params[:category_id].present?
  	end
 
+ 	def addtocart
+ 		@products = Product.all
+ 	end
+
 end
