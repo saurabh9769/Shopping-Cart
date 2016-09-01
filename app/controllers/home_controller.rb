@@ -10,9 +10,10 @@ class HomeController < ApplicationController
 
 
 	def addtocart
-		@products = Product.all #just for temporary purpose
 		(session[:product_ids] ||= []) << params[:product_id] if params[:product_id].present?
 		@cart = session[:product_ids].count
+		binding.pry
+		@cartproducts = Product.find(session[:product_ids])
 	end
 
 end
