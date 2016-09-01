@@ -60,11 +60,7 @@
 							<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
 							<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 							<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-							<% if "#{@cart}".present? %>
 								<li><%= link_to (raw('<i class="fa fa-shopping-cart"></i>Cart (<span class="cartcount">' + "#{@cart}" + '  </span>)')) , home_addtocart_path, id: 'cart' , class:'addtocart' %></li>
-							<% else %>
-								<li><%= link_to (raw('<i class="fa fa-shopping-cart"></i>Cart (<span class="cartcount">' + " 0 " + '  </span>)')) , home_addtocart_path, id: 'cart' , class:'addtocart' %></li>
-								<% end %>
 							<% if user_signed_in? %>
 								<li><a href="/users/sign_out" data-method="delete"><% link_to destroy_user_session_path, method: :delete %><i class="fa fa-lock"></i> Logout</a></li>
 							<% else %>

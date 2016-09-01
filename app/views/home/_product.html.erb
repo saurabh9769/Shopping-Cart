@@ -9,13 +9,13 @@
 						<% end %>
 						<h2><%= product.price %></h2>
 						<p><%= product.name %></p>
-						<%= link_to (raw('<i class="fa fa-shopping-cart"></i>Add to cart')), home_addtocart_path(product_id: product.id) , class: "btn btn-default add-to-cart" , remote: true %>
+						<%= link_to (raw('<i class="fa fa-shopping-cart"></i>Add to cart')), home_addtocart_path(product_id: product.id, product_quantity: product.quantity) , class: "btn btn-default add-to-cart" , remote: true %>
 					</div>
 					<div class="product-overlay">
 						<div class="overlay-content">
 							<h2><%= product.price %></h2>
 							<p><%= product.name %></p>
-							<%= link_to (raw('<i class="fa fa-shopping-cart"></i>Add to cart')), home_addtocart_path(product_id: product.id) , class: "btn btn-default add-to-cart" , remote: true %>
+							<%= link_to (raw('<i class="fa fa-shopping-cart"></i>Add to cart')), home_addtocart_path(product_id: product.id , product_quantity: product.quantity) , class: "btn btn-default add-to-cart" , remote: true %>
 						</div>
 					</div>
 				</div>
