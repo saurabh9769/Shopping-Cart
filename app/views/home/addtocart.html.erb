@@ -20,6 +20,7 @@
 				</thead>
 				<tbody>
 				<%#= session[:product_idss].keys %>
+					<% total ||= [] %>
 				  <% @cartproducts.each do |product| %>
 						<tr>
 							<td class="cart_product">
@@ -39,18 +40,27 @@
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
 									<a class="cart_quantity_up" > + </a>
-									<!-- <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2"> -->
-									<%= session[:product_ids][(product.id).to_s] %>
+									<input class="cart_quantity_input" type="text" name="quantity" value="<%= session[:product_ids][(product.id).to_s] %>" autocomplete="off" size="2">
 									<a class="cart_quantity_down"> - </a>
 								</div>
 							<td class="cart_total">
-								<p class="cart_total_price"><%= product.price %></p>
+								<% quantity = (session[:product_ids][(product.id).to_s]) %>
+								<p class="cart_total_price"><%= product.price * quantity.to_f %></p>
 							</td>
 							<td class="cart_delete">
 								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
+  					<% total << (product.price * quantity.to_f) %>
+  					<% @totalvalue = total.inject(0){|sum,x| sum + x } %>
 					<% end %>
+						<tr>
+							<td><h4 style="text-align: center">Total Price </h4></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td><%= @totalvalue %></td>
+						</tr>
 				</tbody>
 			</table>
 		</div>
