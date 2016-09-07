@@ -37,7 +37,9 @@ gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 
 gem 'kaminari'
 
-# gem 'rails_12factor'
+group :development do
+	gem 'rails_12factor'
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
