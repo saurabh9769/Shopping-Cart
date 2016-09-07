@@ -13,13 +13,10 @@
 	def add_to_cart
 		session[:product_ids] ||= []
     session[:product_ids] << params[:product_id] if params[:product_id].present?
-    # @quantity = 1
     @cart = session[:product_ids].count
     @products_cart = Product.find(session[:product_ids])
-    # id = params[:product_id]
     if session[:product_ids].include?(params[:product_id])
       @quantity = session[:product_ids].count(params[:product_id])
-		  # binding.pry
 		end
   end
 
