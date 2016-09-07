@@ -20,4 +20,5 @@
 //= require jquery.scrollUp.min
 //= require main
 //= require price-range
+//= require_self
 //= require_tree .

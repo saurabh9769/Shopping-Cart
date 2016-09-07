@@ -1,32 +1,34 @@
 <div class="testproduct" data-remote = "true">
 	<% @products.each do |product| %>
-		<div class="col-sm-4">
-			<div class="product-image-wrapper">
-				<div class="single-products">
-					<div class="productinfo text-center">
-						<% product.product_images.each do |l| %>
-							<%= image_tag "#{l.image.url}" , style: "height: 185px ; width: auto; margin: auto;" %>
-						<% end %>
-						<h2><%= product.price %></h2>
-						<p><%= product.name %></p>
-						<%= link_to (raw('<i class="fa fa-shopping-cart"></i>Add to cart')), home_addtocart_path(product_id: product.id, product_quantity: product.quantity) , class: "btn btn-default add-to-cart" , remote: true %>
-					</div>
-					<div class="product-overlay">
-						<div class="overlay-content">
+		<% if product.status == ('active') %>
+			<div class="col-sm-4">
+				<div class="product-image-wrapper">
+					<div class="single-products">
+						<div class="productinfo text-center">
+							<% product.product_images.each do |image| %>
+								<%= image_tag "#{image.image.url}" , style: "height: 185px ; width: auto; margin: auto;" %>
+							<% end %>
 							<h2><%= product.price %></h2>
 							<p><%= product.name %></p>
-							<%= link_to (raw('<i class="fa fa-shopping-cart"></i>Add to cart')), home_addtocart_path(product_id: product.id , product_quantity: product.quantity) , class: "btn btn-default add-to-cart" , remote: true %>
+							<%= link_to (raw('<i class="fa fa-shopping-cart"></i>Add to cart')), home_add_to_cart_path(product_id: product.id, product_quantity: product.quantity) , class: "btn btn-default add-to-cart" , remote: true %>
+						</div>
+						<div class="product-overlay">
+							<div class="overlay-content">
+								<h2><%= product.price %></h2>
+								<p><%= product.name %></p>
+								<%= link_to (raw('<i class="fa fa-shopping-cart"></i>Add to cart')), home_add_to_cart_path(product_id: product.id , product_quantity: product.quantity) , class: "btn btn-default add-to-cart" , remote: true %>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="choose">
-					<ul class="nav nav-pills nav-justified">
-						<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-						<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-					</ul>
+					<div class="choose">
+						<ul class="nav nav-pills nav-justified">
+							<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+							<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
-		</div>
+		<% end %>
 	<% end %>
 	<div style="text-align: center ">
 		<%= paginate @products %>

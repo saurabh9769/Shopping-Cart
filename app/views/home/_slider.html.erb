@@ -4,20 +4,14 @@
 			<div class="col-sm-12">
 				<div id="slider-carousel" class="carousel slide" data-ride="carousel">
 					<div class="carousel-inner">
-						<% @check = 'active' %>
-						<% @cnt = 0 %>
-						<% @banner.each do |i| %>
-							<% if @cnt == 1 %>
-								<% @check = "" %>
-							<% end -%>
-							<% @cnt += 1 %>
-							<div class='item <%= @check -%>'>
+						<% @banner.each_with_index do |banner, index| %>
+							<div class='item <%= 'active' if index == 0 -%>'>
 								<div class="col-sm-6">
-									<p><strong><%= "#{i.body}" %></strong></p>
+									<p><strong><%= banner.body %></strong></p>
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<%= image_tag "#{i.image_file_name}" %>
+									<%= image_tag "#{banner.image_file_name}" %>
 								</div>
 							</div>
 						<% end %>
