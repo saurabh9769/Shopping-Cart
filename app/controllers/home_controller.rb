@@ -26,7 +26,7 @@
       if session[:product_ids].include?(product.id.to_s)
         @quantity = session[:product_ids].count(product.id.to_s)
       end
-      @cart_products << {product.id => { :quantity => @quantity , :price => (product.price * product.quantity.to_f) }}
+      @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
     end
   end
 
@@ -42,7 +42,7 @@
     if session[:product_ids].include?(product.id.to_s)
       @quantity = session[:product_ids].count(product.id.to_s)
     end
-      @cart_products << {product.id => { :quantity => @quantity , :price => (product.price * product.quantity.to_f) }}
+      @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
     end
 	end
 
