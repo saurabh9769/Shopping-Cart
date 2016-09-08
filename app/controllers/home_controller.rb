@@ -6,7 +6,7 @@
 		@categories = Category.where( parent_id: nil)
 		@products = Product.per_page_kaminari(params[:page]).per(3)
 		@products = @products.where(category_id: params[:category_id]) if params[:category_id].present?
-		@cart = session[:product_ids].count if params[:product_id].present?
+		@cart = session[:product_ids].count if session[:product_ids].present?
 	end
 
 
@@ -15,9 +15,6 @@
     session[:product_ids] << params[:product_id] if params[:product_id].present?
     @cart = session[:product_ids].count
     @products_cart = Product.find(session[:product_ids])
-    if session[:product_ids].include?(params[:product_id])
-      @quantity = session[:product_ids].count(params[:product_id])
-		end
   end
 
   def show_cart
