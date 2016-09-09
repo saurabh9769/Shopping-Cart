@@ -15,14 +15,12 @@ class ApplicationController < ActionController::Base
 			  	new_user_session_path
 			end
 
-			elsif resource.class == Admin
-				if current_admin.present?
-					rails_admin.index_path('rails_admin')
-				else
-					new_admin_session_path
+		elsif resource.class == Admin
+			if current_admin.present?
+				rails_admin.index_path('rails_admin')
+			else
+				new_admin_session_path
 			end
-
-		else
 		end
 	end
 
@@ -32,7 +30,7 @@ class ApplicationController < ActionController::Base
 
 	private
 
-	  def configure_permitted_parameters
+	def configure_permitted_parameters
   		devise_parameter_sanitizer.permit(:sign_up) do |user_params|
     		user_params.permit(:email, :password, :password_confirmation)
   		end
@@ -40,6 +38,6 @@ class ApplicationController < ActionController::Base
   		devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:email, :password, :remember_me) }
 
   		devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:password, :password_confirmation, :current_password) }
-		end
+	end
 
 end
