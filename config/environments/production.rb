@@ -89,18 +89,18 @@ Rails.application.configure do
   # }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :sendmail
-  config.action_mailer.sendmail_settings = {
-    # address: "smtp.wwindia.com",
-    # user_name: ENV["saurabh.sangani@wwindia.com"],
-    # password: ENV["saurabhs123"],
-    # ssl: true,
-    # openssl_verify_mode: 'none'
-    location: '/usr/sbin/sendmail',
-    arguments: '-i -t',
-    enable_starttls_auto: true
-  }
   config.action_mailer.default_url_options = { host: 'shopoholics.herokuapp.com' }
+  config.action_mailer.delivery_method = :sendmail
+  # config.action_mailer.sendmail_settings = {
+  #   # address: "smtp.wwindia.com",
+  #   # user_name: ENV["saurabh.sangani@wwindia.com"],
+  #   # password: ENV["saurabhs123"],
+  #   # ssl: true,
+  #   # openssl_verify_mode: 'none'
+  #   location: '/usr/sbin/sendmail',
+  #   arguments: '-i -t',
+  #   enable_starttls_auto: true
+  # }
   ENV['FACEBOOK_APP_ID'] = '139185996528544';
   ENV['FACEBOOK_SECRET'] = '964136c8422b721d086a03c49e14aa49';
   ENV['TWITTER_KEY'] = "l26r74acbdmvMSfPebDh0YkPE";
