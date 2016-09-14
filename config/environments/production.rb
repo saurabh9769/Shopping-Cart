@@ -80,4 +80,29 @@ Rails.application.configure do
 
   config.assets.initialize_on_precompile = false
 
+  # config.action_mailer.smtp_settings = {
+  #   address: "smtp.wwindia.com",
+  #   user_name: ENV["saurabh.sangani@wwindia.com"],
+  #   password: ENV["saurabhs123"],
+  #   ssl: true,
+  #   openssl_verify_mode: 'none'
+  # }
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.sendmail_settings = {
+    # address: "smtp.wwindia.com",
+    # user_name: ENV["saurabh.sangani@wwindia.com"],
+    # password: ENV["saurabhs123"],
+    # ssl: true,
+    # openssl_verify_mode: 'none'
+    location: '/usr/sbin/sendmail',
+    arguments: '-i -t',
+    enable_starttls_auto: true
+  }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  ENV['FACEBOOK_APP_ID'] = '139185996528544';
+  ENV['FACEBOOK_SECRET'] = '964136c8422b721d086a03c49e14aa49';
+  ENV['TWITTER_KEY'] = "l26r74acbdmvMSfPebDh0YkPE";
+  ENV['TWITTER_SECRET'] = "sUt7LOIoDmqoXgF9lAA9KMbN6MkPdmVB5aaSJWTMqrdjI0qBy3";
 end
