@@ -3,17 +3,14 @@
   <br>
   <br>
   <div class="panel-body">
-    <table class="table table-bordered table-hover" >
+    <table class="table table-bordered table-hover">
       <tr>
         <th style="text-align: center">Products</th>
       </tr>
       <% @products.each do |product| %>
         <tr>
           <% product.product_images.each do |l| %>
-            <td><%= product.name %></td>
-            <td><%= product.price %></td>
-            <td><%= product.status %></td>
-            <td><%= image_tag "#{l.image_file_name}" , style: "height: 185px ; width: auto; margin: auto;" %></td>
+            <td style="text-align: center"><%= image_tag "#{l.image_file_name}" , style: "height: 185px ; width: auto; margin: auto;" %><hr><%= product.name %><br><%= product.price %></td>
           <% end %>
         </tr>
       <% end %>
