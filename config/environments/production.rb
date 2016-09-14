@@ -88,10 +88,10 @@ Rails.application.configure do
   #   openssl_verify_mode: 'none'
   # }
 
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: 'shopoholics.herokuapp.com' }
-  config.action_mailer.delivery_method = :sendmail
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.default_url_options = { host: 'shopoholics.herokuapp.com' }
+  # config.action_mailer.delivery_method = :sendmail
   # config.action_mailer.sendmail_settings = {
   #   # address: "smtp.wwindia.com",
   #   # user_name: ENV["saurabh.sangani@wwindia.com"],
@@ -106,4 +106,14 @@ Rails.application.configure do
   ENV['FACEBOOK_SECRET'] = '964136c8422b721d086a03c49e14aa49';
   ENV['TWITTER_KEY'] = "l26r74acbdmvMSfPebDh0YkPE";
   ENV['TWITTER_SECRET'] = "sUt7LOIoDmqoXgF9lAA9KMbN6MkPdmVB5aaSJWTMqrdjI0qBy3";
+
+  config.action_mailer.delivery_method = :sendmail
+  # Defaults to:
+  # config.action_mailer.sendmail_settings = {
+  #   location: '/usr/sbin/sendmail',
+  #   arguments: '-i -t'
+  # }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = {from: 'no-reply@example.com'}
 end
