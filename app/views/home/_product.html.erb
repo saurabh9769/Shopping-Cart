@@ -5,8 +5,8 @@
 				<div class="product-image-wrapper">
 					<div class="single-products">
 						<div class="productinfo text-center">
-							<% product.product_images.each do |image| %>
-								<%= image_tag "#{image.image.url}" , style: "height: 185px ; width: auto; margin: auto;" %>
+							<% if product.product_images.length > 0 %>
+								<%= image_tag "#{product.product_images[0].image.url}" , style: "height: 185px ; width: auto; margin: auto;" %>
 							<% end %>
 							<h2><%= product.price %></h2>
 							<p><%= product.name %></p>

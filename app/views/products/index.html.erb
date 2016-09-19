@@ -3,15 +3,15 @@
   <br>
   <br>
   <div class="panel-body">
-    <table class="table table-bordered table-hover" style="width: 50%" >
-      <tr>
-        <th>Products</th>
-      </tr>
-      <% @products.each do |product| %>
+    <table class="table table-bordered table-hover">
+      <% @products.in_groups_of(3, false).each do |product_show| %>
         <tr>
-          <td><%= product.name %></td>
-          <td><%= product.price %></td>
-          <td><%= product.status %></td>
+          <% product_show.each do |product| %>
+            <% if product.product_images.length > 0 %>
+              <td style="text-align: center"><%= link_to (image_tag "#{product.product_images[0].image.url}" , style: "height: 185px ; width: auto; margin: auto;"), product_path(product.id) %><hr><%= product.name %><br><%= product.price %>
+              </td>
+            <% end %>
+          <% end %>
         </tr>
       <% end %>
     </table>

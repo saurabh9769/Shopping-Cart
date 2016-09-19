@@ -38,5 +38,51 @@ RailsAdmin.config do |config|
     ## With an audit adapter, you can add:
     # history_index
     # history_show
+    config.model Category do
+      list do
+        field :id
+        field :name
+        field :created_by
+        field :parent_id do
+          formatted_value do
+            bindings[:object].category.name if bindings[:object].parent_id != nil
+          end
+        end
+        field :status
+        field :modify_by
+        exclude_fields :created_at
+        exclude_fields :updated_at
+      end
+
+      # create do
+      #   field :id
+      #   field :name
+      #   field :created_by
+      #   field :parent_id, :string do
+      #     formatted_value do
+      #       bindings[:object].name if bindings[:object].parent_id == nil
+      #     end
+      #   end
+      #   field :status
+      #   field :modify_by
+      #   exclude_fields :created_at
+      #   exclude_fields :updated_at
+      # end
+
+      # edit do
+      #   field :id
+      #   field :name
+      #   field :created_by
+      #   field :parent_id do
+      #     formatted_value do
+      #       bindings[:object].name if bindings[:object].parent_id == nil
+      #     end
+      #   end
+      #   field :status
+      #   field :modify_by
+      #   exclude_fields :created_at
+      #   exclude_fields :updated_at
+      # end
+    end
   end
 end
