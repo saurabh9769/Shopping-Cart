@@ -1,10 +1,12 @@
 class ProductsController < ApplicationController
 
 	def index
+		@cart = session[:product_ids].count
 		@products = Product.all
 	end
 
 	def show
+		@cart = session[:product_ids].count
 		@product = Product.find(params[:id])
 	end
 

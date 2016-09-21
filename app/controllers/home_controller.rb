@@ -27,7 +27,7 @@
         if @cart_products_show.first.keys[0] == product.id.to_s
           @quantity = @cart_products_show.first.fetch(params[:id]).fetch(:quantity).to_i
         else
-          @quantity = session[:product_ids].count(product.id.to_s)
+          @quantity = session[:product_ids].count(product.id.to_s) + @cart_products_show.first.fetch(params[:id]).fetch(:quantity).to_i
         end
         @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
       end
@@ -54,18 +54,18 @@
     product_ids = session[:product_ids].flatten.reject{|r| r == ""}
     @cart_products = []
     @products_cart = Product.find(session[:product_ids])
-    @cart = session[:product_ids].count
     @cart_products_show = {params[:id] => { :quantity => params[:quantity] }}
     @products_cart.each do |product|
       if session[:product_ids].include?(product.id.to_s)
         if @cart_products_show.first[0] == product.id.to_s
-          @quantity = @cart_products_show.fetch(params[:id]).fetch(:quantity).to_i
+          @quantity = session[:product_ids].count(product.id.to_s)
         else
           @quantity = session[:product_ids].count(product.id.to_s)
         end
       end
       @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
     end
+    @cart = session[:product_ids].count
 	end
 
   def cart_quantity_up
@@ -77,11 +77,12 @@
     @cart_products_show << {params[:id] => { :quantity => params[:quantity] }}
     @products_cart.each do |product|
       if session[:product_ids].include?(product.id.to_s)
-        if @cart_products_show.first.keys[0] == product.id.to_s
-          @quantity = @cart_products_show.first.fetch(params[:id]).fetch(:quantity).to_i
-        else
+        # binding.pry
+        # if @cart_products_show.first.keys[0] == product.id.to_s
+          # @quantity = @cart_products_show.first.fetch(params[:id]).fetch(:quantity).to_i + session[:product_ids].count(product.id.to_s)
           @quantity = session[:product_ids].count(product.id.to_s)
-        end
+        # else
+        # end
         @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
       end
     end
