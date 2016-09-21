@@ -46,7 +46,6 @@
 								</td>
 								<td class="cart_delete">
 									<%= link_to (raw('<i class="fa fa-times"></i>')), home_remove_from_cart_path(product_id: product.id), class: "cart_quantity_delete" ,remote: true , confirm: 'are you sure?' %>
-									<!-- <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a> -->
 								</td>
 							</tr>
 	  					<% total << (product.price * cart.fetch(product.id).fetch(:quantity).to_f) %>

@@ -30,18 +30,17 @@
 					<td class="cart_quantity">
 						<div class="cart_quantity_button">
 							<%= link_to "+" , home_cart_quantity_up_path(product_status: "add", product_id: product.id ), class: "cart_quantity_up" , remote: true %>
-							<input class="cart_quantity_input" type="text" name="quantity" value="<%= cart.fetch(product.id.to_s).fetch(:quantity) %>" autocomplete="off" size="2">
+							<input class="cart_quantity_input" type="text" name="quantity" value="<%= cart.fetch(product.id).fetch(:quantity) %>" autocomplete="off" size="2">
 							<%= link_to "-" , home_cart_quantity_down_path(product_status: "subtract", product_id: product.id ), class: "cart_quantity_down" , remote: true %>
 						</div>
 					<td class="cart_total">
-						<p class="cart_total_price"><%= product.price * cart.fetch(product.id.to_s).fetch(:quantity).to_f %></p>
+						<p class="cart_total_price"><%= product.price * cart.fetch(product.id).fetch(:quantity).to_f %></p>
 					</td>
 					<td class="cart_delete">
 						<%= link_to (raw('<i class="fa fa-times"></i>')), home_remove_from_cart_path(product_id: product.id), class: "cart_quantity_delete" ,remote: true , confirm: 'are you sure?' %>
-						<!-- <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a> -->
 					</td>
 				</tr>
-				<% total << (product.price * cart.fetch(product.id.to_s).fetch(:quantity).to_f) %>
+				<% total << (product.price * cart.fetch(product.id).fetch(:quantity).to_f) %>
 				<% @totalvalue = total.inject(0){|sum,x| sum + x } %>
 			<% end %>
 			<tr>

@@ -14,39 +14,7 @@
     @cart = session[:product_ids].count
   end
 
-  # def product_show_cart
-  #   @cart_products = []
-  #   session[:product_ids] << params[:id] if params[:id].present?
-  #   @cart = session[:product_ids].count
-  #   @cart_products_show = []
-  #   @products_cart = Product.find(session[:product_ids])
-  #   @cart = session[:product_ids].count
-  #   @cart_products_show << {params[:id] => { :quantity => params[:quantity] }}
-  #   @products_cart.each do |product|
-  #     if session[:product_ids].include?(product.id.to_s)
-  #       if @cart_products_show.first.keys[0] == product.id.to_s
-  #         @quantity = @cart_products_show.first.fetch(params[:id]).fetch(:quantity).to_i
-  #       else
-  #         @quantity = session[:product_ids].count(product.id.to_s)
-  #       end
-  #       @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
-  #     end
-  #     binding.pry
-  #   end
-  #   show_cart
-  #   redirect_to "/home/show_cart"
-  # end
-
   def show_cart
-    # @cart_products = []
-    # @products_cart = Product.find(session[:product_ids])
-    # @cart = session[:product_ids].count
-    # @products_cart.each do |product|
-    #   if session[:product_ids].include?(product.id.to_s)
-    #     @quantity = session[:product_ids].count(product.id.to_s)
-    #   end
-    #   @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
-    # end
     @cart_products = []
     session[:product_ids] << params[:id] if params[:id].present?
     @cart = session[:product_ids].count
@@ -106,7 +74,6 @@
     @cart = session[:product_ids].count
     @cart_products_show = []
     @products_cart = Product.find(session[:product_ids])
-    # @cart = session[:product_ids].count
     @cart_products_show << {params[:id] => { :quantity => params[:quantity] }}
     @products_cart.each do |product|
       if session[:product_ids].include?(product.id.to_s)
@@ -122,13 +89,14 @@
 
   def cart_quantity_down
     @cart_products = []
+    remove_element = [params[:product_id].to_s]
+    remove_element.each do |del|
+      session[:product_ids].delete_at(session[:product_ids].index(del))
+    end
     @products_cart = Product.find(session[:product_ids])
-    # session[:product_ids].count(params[:product_id].to_s) - 1
-    # binding.pry
-    @quantity = session[:product_ids].count(params[:product_id].to_s) - 1
-    @cart_products << {params[:product_id] => { :quantity => @quantity }}
-    # binding.pry
     @products_cart.each do |product|
+      @quantity = session[:product_ids].count(product.id.to_s)
+      @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
     end
     @cart = session[:product_ids].count
   end
