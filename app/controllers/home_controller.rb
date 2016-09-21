@@ -16,22 +16,27 @@
 
   def show_cart
     @cart_products = []
-    session[:product_ids] << params[:id] if params[:id].present?
-    @cart = session[:product_ids].count
+    add = [params[:id]] * params[:quantity].to_i if params[:quantity].present?
+    session[:product_ids] << add if add.present?
+    session[:product_ids] = session[:product_ids].flatten
     @cart_products_show = []
-    @products_cart = Product.find(session[:product_ids])
-    @cart = session[:product_ids].count
-    @cart_products_show << {params[:id] => { :quantity => params[:quantity] }}
-    @products_cart.each do |product|
-      if session[:product_ids].include?(product.id.to_s)
-        if @cart_products_show.first.keys[0] == product.id.to_s
-          @quantity = @cart_products_show.first.fetch(params[:id]).fetch(:quantity).to_i
-        else
-          @quantity = session[:product_ids].count(product.id.to_s) + @cart_products_show.first.fetch(params[:id]).fetch(:quantity).to_i
+    @cart_products_show << {params[:id] => { :quantity => add.count.to_s }} if add.present?
+    @products_cart = Product.find(session[:product_ids]) if session[:product_ids].present?
+    if @products_cart.present?
+      @products_cart.each do |product|
+        if session[:product_ids].include?(product.id.to_s)
+          if @cart_products_show.present? && @cart_products_show.first.keys[0] == product.id.to_s
+            @quantity = @cart_products_show.first.fetch(params[:id]).fetch(:quantity)
+            binding.pry
+          else
+            @quantity = session[:product_ids].count(product.id.to_s) + @cart_products_show.first.fetch(params[:id]).fetch(:quantity).to_i if @cart_products_show.present?
+          end
+          @quantity = session[:product_ids].count(product.id.to_s)
+          @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
         end
-        @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
       end
     end
+    @cart = session[:product_ids].count if session[:product_ids].present?
   end
 
   def redeem_coupon
@@ -47,9 +52,9 @@
     @code = Coupon.where(code: params[:coupon_code]).first
   end
 
-	def remove_from_cart
-		session[:product_ids] ||= []
-		session[:product_ids].delete(params[:product_id])
+  def remove_from_cart
+    session[:product_ids] ||= []
+    session[:product_ids].delete(params[:product_id])
     @cart = session[:product_ids].count
     product_ids = session[:product_ids].flatten.reject{|r| r == ""}
     @cart_products = []
@@ -66,15 +71,13 @@
       @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
     end
     @cart = session[:product_ids].count
-	end
+  end
 
   def cart_quantity_up
     @cart_products = []
     session[:product_ids] << params[:product_id] if params[:product_id].present?
     @cart = session[:product_ids].count
-    @cart_products_show = []
     @products_cart = Product.find(session[:product_ids])
-    @cart_products_show << {params[:id] => { :quantity => params[:quantity] }}
     @products_cart.each do |product|
       if session[:product_ids].include?(product.id.to_s)
         @quantity = session[:product_ids].count(product.id.to_s)

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'home/add_to_cart' => 'home#add_to_cart'
   get 'home/remove_from_cart' => 'home#remove_from_cart'
   get 'home/show_cart' => 'home#show_cart'
+  post 'home/show_cart' => 'home#show_cart'
   get 'home/redeem_coupon' => 'home#redeem_coupon'
   get 'home/product_show_cart' => 'home#product_show_cart'
   get 'home/cart_quantity_up' => 'home#cart_quantity_up'
