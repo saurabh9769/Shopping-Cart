@@ -1,16 +1,29 @@
-<h2>Resend confirmation instructions</h2>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <section id="form"><!--form-->
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5 col-sm-offset-1"><h2>Resend confirmation instructions</h2>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
-  </div>
+						<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+						  <%= devise_error_messages! %>
 
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
-  </div>
-<% end %>
+						  <div class="field">
+						    <%= f.label :email %><br />
+						    <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+						  </div>
+							<br>
+						  <div class="actions">
+						    <%= f.submit "Resend confirmation instructions" %>
+						  </div>
+						<% end %>
 
-<%= render "users/shared/links" %>
+						<%= render "users/shared/links" %>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>

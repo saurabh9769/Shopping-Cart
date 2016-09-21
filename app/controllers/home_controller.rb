@@ -87,7 +87,7 @@
     @cart_products = []
     remove_element = [params[:product_id].to_s]
     remove_element.each do |del|
-      session[:product_ids].delete_at(session[:product_ids].index(del))
+      session[:product_ids].delete_at(session[:product_ids].index(del)) if params[:product_quantity] > "1"
     end
     @products_cart = Product.find(session[:product_ids])
     @products_cart.each do |product|
