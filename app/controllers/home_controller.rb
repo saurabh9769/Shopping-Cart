@@ -27,7 +27,6 @@
         if session[:product_ids].include?(product.id.to_s)
           if @cart_products_show.present? && @cart_products_show.first.keys[0] == product.id.to_s
             @quantity = @cart_products_show.first.fetch(params[:id]).fetch(:quantity)
-            binding.pry
           else
             @quantity = session[:product_ids].count(product.id.to_s) + @cart_products_show.first.fetch(params[:id]).fetch(:quantity).to_i if @cart_products_show.present?
           end
