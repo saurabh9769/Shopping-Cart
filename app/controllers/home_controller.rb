@@ -77,12 +77,7 @@
     @cart_products_show << {params[:id] => { :quantity => params[:quantity] }}
     @products_cart.each do |product|
       if session[:product_ids].include?(product.id.to_s)
-        # binding.pry
-        # if @cart_products_show.first.keys[0] == product.id.to_s
-          # @quantity = @cart_products_show.first.fetch(params[:id]).fetch(:quantity).to_i + session[:product_ids].count(product.id.to_s)
-          @quantity = session[:product_ids].count(product.id.to_s)
-        # else
-        # end
+        @quantity = session[:product_ids].count(product.id.to_s)
         @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
       end
     end
