@@ -10,9 +10,12 @@ Rails.application.routes.draw do
   get 'home/show_cart' => 'home#show_cart'
   post 'home/show_cart' => 'home#show_cart'
   get 'home/redeem_coupon' => 'home#redeem_coupon'
+  post 'home/redeem_coupon' => 'home#redeem_coupon'
   get 'home/product_show_cart' => 'home#product_show_cart'
+  get 'home/coupon_used' => 'home#coupon_used'
   get 'home/cart_quantity_up' => 'home#cart_quantity_up'
   get 'home/cart_quantity_down' => 'home#cart_quantity_down'
+  get 'orders/checkout' => 'orders#checkout'
 
   mount RailsAdmin::Engine => '/admins', as: 'rails_admin'
   # The priority is based upon order of creation: first created -> highest priority.

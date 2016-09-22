@@ -4,16 +4,22 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  # before_action :addtocart
 
 	def after_sign_in_path_for(user)
 
 		if resource.class == User
-			if current_user.present?
-				home_index_path
-			else
-			  	new_user_session_path
-			end
+			sign_in_url = new_user_session_url
+	    if request.referer == sign_in_url
+	      super
+	    else
+	      binding.pry
+	    	orders_checkout_path || stored_location_for(resource) || request.referer || root_path
+	    end
+			# if current_user.present?
+			# 	home_index_path
+			# else
+			#   new_user_session_path
+			# end
 
 		elsif resource.class == Admin
 			if current_admin.present?
@@ -31,13 +37,13 @@ class ApplicationController < ActionController::Base
 	private
 
 	def configure_permitted_parameters
-  		devise_parameter_sanitizer.permit(:sign_up) do |user_params|
-    		user_params.permit(:email, :password, :password_confirmation)
-  		end
+		devise_parameter_sanitizer.permit(:sign_up) do |user_params|
+  		user_params.permit(:email, :password, :password_confirmation)
+		end
 
-  		devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:email, :password, :remember_me) }
+		devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:email, :password, :remember_me) }
 
-  		devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:password, :password_confirmation, :current_password) }
+		devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:password, :password_confirmation, :current_password) }
 	end
 
 end

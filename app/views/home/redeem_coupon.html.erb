@@ -24,11 +24,9 @@
 						<% @cart_products.each do |cart| %>
 					  	<% product = Product.find(cart.keys[0]) %>
 								<td class="cart_product">
-									<a href="">
-										<% if product.product_images.length > 0 %>
-          						<%= image_tag product.product_images[0].image.url , style: " width: 110px; height: 110px;" %>
-        						<% end %>
-									</a>
+									<% if product.product_images.length > 0 %>
+        						<%= image_tag product.product_images[0].image.url , style: " width: 110px; height: 110px;" %>
+      						<% end %>
 								</td>
 								<td class="cart_description">
 									<h4><%= link_to product.name %></h4>
@@ -48,26 +46,40 @@
 								</td>
 								<td class="cart_delete">
 									<%= link_to (raw('<i class="fa fa-times"></i>')), home_remove_from_cart_path(product_id: product.id), class: "cart_quantity_delete" ,remote: true , confirm: 'are you sure?' %>
-									<!-- <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a> -->
 								</td>
 							</tr>
 	  					<% total << (product.price * cart.fetch(product.id).fetch(:quantity).to_f) %>
 	  					<% @totalvalue = total.inject(0){|sum,x| sum + x } %>
 	  					<% @discounted_price = @totalvalue - (@code.percent_off * @totalvalue/100) if @code.present? %>
 						<% end %>
-					<tr>
-						<td><h4 style="text-align: center">Total</h4></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><p class="cart_total_price">
-							<% if @discounted_price.present? %>
-								<%= @discounted_price %>
-							<% else %>
-								<%= @totalvalue %>
-							<% end %>
-						</p></td>
-					</tr>
+					<% if @discounted_price.present? %>
+						<tr>
+							<td><h4 style="text-align: center">Discount</h4></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td><p class="cart_total_price">
+								<% if @discounted_price.present? %>
+									<%= @code.percent_off %>
+								<% end %>
+							</p></td>
+						</tr>
+					<% end %>
+					<% if @totalvalue.present? %>
+						<tr>
+							<td><h4 style="text-align: center">Total</h4></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td><p class="cart_total_price">
+								<% if @discounted_price.present? %>
+									<%= @discounted_price %>
+								<% else %>
+									<%= @totalvalue %>
+								<% end %>
+							</p></td>
+						</tr>
+					<% end %>
 				</tbody>
 			</table>
 		</div>
@@ -88,7 +100,7 @@
 							<input type="checkbox" class="checkbox1">
 							<label>Use Coupon Code</label>
 							<div class="coupon_code" style="display:none;">
-								<%= form_tag "/home/redeem_coupon", method: "get" do %>
+								<%= form_tag "/home/redeem_coupon", method: "post" do %>
 									<%= text_field_tag(:coupon_code) %>
 									<%= submit_tag("Submit") %>
 								<% end %>
@@ -142,13 +154,24 @@
 			<div class="col-sm-6">
 				<div class="total_area">
 					<ul>
-						<li>Cart Sub Total <span>$59</span></li>
-						<li>Eco Tax <span>$2</span></li>
+						<li>Cart Sub Total <span><%= @totalvalue %></span></li>
+						<li>Discount <span>
+							<% if @discounted_price.present? %>
+								<% if @discounted_price.present? %>
+									<%= @code.percent_off %>
+								<% end %>
+							<% end %>
+						</span></li>
 						<li>Shipping Cost <span>Free</span></li>
-						<li>Total <span>$61</span></li>
+						<li>Total <span>
+							<% if @discounted_price.present? %>
+								<%= @discounted_price %>
+							<% else %>
+								<%= @totalvalue %>
+							<% end %>
+						</span></li>
 					</ul>
-						<a class="btn btn-default update" href="">Update</a>
-						<a class="btn btn-default check_out" href="">Check Out</a>
+						<%= link_to "Check Out", orders_checkout_path , class: 'btn btn-default check_out' %>
 				</div>
 			</div>
 		</div>

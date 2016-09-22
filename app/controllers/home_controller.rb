@@ -1,5 +1,7 @@
   class HomeController < ApplicationController
 
+  after_action :coupon_used
+
 	def index
 		@banner = Banner.all
 		@categories = Category.where( parent_id: nil)
@@ -49,6 +51,15 @@
       @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
     end
     @code = Coupon.where(code: params[:coupon_code]).first
+  end
+
+  def coupon_used
+    if @code.present?
+      @code = Coupon.where(code: params[:coupon_code]).first
+      Coupon.where(id: @code.id).each do |coupon_used|
+        CouponsUsed.create(coupon_id: coupon_used.id)
+      end
+    end
   end
 
   def remove_from_cart

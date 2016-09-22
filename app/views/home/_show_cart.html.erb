@@ -43,15 +43,6 @@
 				<% total << (product.price * cart.fetch(product.id).fetch(:quantity).to_f) %>
 				<% @totalvalue = total.inject(0){|sum,x| sum + x } %>
 			<% end %>
-			<% if @totalvalue.present? %>
-				<tr>
-					<td><h4 style="text-align: center">Total</h4></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td><p class="cart_total_price"><%= @totalvalue %></p></td>
-				</tr>
-			<% end %>
 		</tbody>
 	</table>
 </div>
