@@ -131,8 +131,7 @@
 						<li>Shipping Cost <span>Free</span></li>
 						<li>Total <span><%= @totalvalue.to_i %></span></li>
 					</ul>
-						<% binding.pry %>
-						<%= link_to "Check Out", orders_checkout_path , class: 'btn btn-default check_out' %>
+					<%= link_to "Check Out", order_orders_checkout_path(order_id: 1) , class: 'btn btn-default check_out' %>
 				</div>
 			</div>
 		</div>

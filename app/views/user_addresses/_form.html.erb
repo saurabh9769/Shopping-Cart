@@ -1,0 +1,22 @@
+<%= javascript_tag do %>
+	$(document).ready(function() {
+	  return CountryStateSelect({
+	    country_id: "user_address_country",
+	    state_id: "user_address_state"
+	  });
+		$(".chosen-select").chosen();
+	});
+<% end %>
+<%= form_for (@address) do |f| %>
+	<%= f.text_field :address_1, placeholder: 'Address 1' %>
+	<%= f.text_field :address_2, placeholder: 'Address 2' %>
+  <%= f.select :country, Collection: CountryStateSelect.countries_collection, class: "chosen-select", placeholder: "Select Country", style: "width: 100px;" %>
+  <br>
+  <br>
+  <%= f.select :state, CountryStateSelect.state_options(options = {label: "Select State"  , form: f, field_names: { country: :country, state: :state } }).values, selected: @address.state, placeholder: "Select State" %>
+	<br>
+	<br>
+	<%= f.text_field :city, placeholder: 'Enter City' %>
+	<%= f.text_field :zipcode, placeholder: 'Enter Zipcode' %>
+  <%= f.submit ("Submit"), class: "btn btn-primary" %>
+<% end %>

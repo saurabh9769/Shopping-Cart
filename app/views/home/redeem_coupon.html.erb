@@ -52,34 +52,6 @@
 	  					<% @totalvalue = total.inject(0){|sum,x| sum + x } %>
 	  					<% @discounted_price = @totalvalue - (@code.percent_off * @totalvalue/100) if @code.present? %>
 						<% end %>
-					<% if @discounted_price.present? %>
-						<tr>
-							<td><h4 style="text-align: center">Discount</h4></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td><p class="cart_total_price">
-								<% if @discounted_price.present? %>
-									<%= @code.percent_off %>
-								<% end %>
-							</p></td>
-						</tr>
-					<% end %>
-					<% if @totalvalue.present? %>
-						<tr>
-							<td><h4 style="text-align: center">Total</h4></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td><p class="cart_total_price">
-								<% if @discounted_price.present? %>
-									<%= @discounted_price %>
-								<% else %>
-									<%= @totalvalue %>
-								<% end %>
-							</p></td>
-						</tr>
-					<% end %>
 				</tbody>
 			</table>
 		</div>
@@ -171,7 +143,7 @@
 							<% end %>
 						</span></li>
 					</ul>
-						<%= link_to "Check Out", orders_checkout_path , class: 'btn btn-default check_out' %>
+					<%= link_to "Check Out", orders_checkout_path , class: 'btn btn-default check_out' %>
 				</div>
 			</div>
 		</div>

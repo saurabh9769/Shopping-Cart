@@ -20,7 +20,7 @@
     @cart_products = []
     add = [params[:id]] * params[:quantity].to_i if params[:quantity].present?
     session[:product_ids] << add if add.present?
-    session[:product_ids] = session[:product_ids].flatten
+    session[:product_ids] = session[:product_ids].flatten if session[:product_ids].present?
     @cart_products_show = []
     @cart_products_show << {params[:id] => { :quantity => add.count.to_s }} if add.present?
     @products_cart = Product.find(session[:product_ids]) if session[:product_ids].present?

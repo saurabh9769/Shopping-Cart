@@ -4,22 +4,18 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  #before_filter :store_current_location, :unless => :devise_controller?
 
 	def after_sign_in_path_for(user)
 
 		if resource.class == User
-			sign_in_url = new_user_session_url
-	    if request.referer == sign_in_url
-	      super
-	    else
-	      binding.pry
-	    	orders_checkout_path || stored_location_for(resource) || request.referer || root_path
-	    end
-			# if current_user.present?
-			# 	home_index_path
-			# else
-			#   new_user_session_path
-			# end
+		#binding.pry
+		#
+			if current_user.present?
+				stored_location_for(user) || root_url
+			else
+			  new_user_session_path
+			end
 
 		elsif resource.class == Admin
 			if current_admin.present?
@@ -35,6 +31,14 @@ class ApplicationController < ActionController::Base
 	end
 
 	private
+
+	# def store_current_location
+ #    store_location_for(:user, request.url)
+ #  end
+
+  def after_sign_out_path_for(resource)
+    request.referrer || root_path
+  end
 
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.permit(:sign_up) do |user_params|

@@ -11,14 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap.min
+//= require turbolinks
 //= require contact
+//= require chosen.jquery
 //= require html5shiv
 //= require jquery.prettyPhoto
 //= require jquery.scrollUp.min
 //= require main
 //= require price-range
 //= require_self
-//= require_tree .

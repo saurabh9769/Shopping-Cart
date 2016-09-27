@@ -1,0 +1,7 @@
+<ul>
+	<li>Cart Sub Total <span><%= @totalvalue.to_i %></span></li>
+	<li>Discount <span></span></li>
+	<li>Shipping Cost <span>Free</span></li>
+	<li>Total <span><%= @totalvalue.to_i %></span></li>
+</ul>
+<%= link_to "Proceed To Payment", order_orders_proceed_to_payment_path , class: 'btn btn-default check_out' %>

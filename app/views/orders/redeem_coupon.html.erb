@@ -17,8 +17,8 @@
 						<% @billing_addresses.each do |address| %>
 					    <div class="col-sm-4" style="margin-bottom: 15px;">
 					      <div class="bill-to">
-									<div class="form-one billing-address">
-										<%= radio_button_tag(:billing_address, "#{address.id}") %>
+									<div class="form-one">
+										<%= radio_button_tag(address.id, "Select Address") %>
 										<%= "Address 1:  #{address.address_1} " %><br>
 										<%= "Address 2: #{address.address_2} " %><br>
 										<%= "City: #{address.city}" %><br>
@@ -34,30 +34,30 @@
 			    </div>
 				</div>
 			</div>
-			<hr>
-			<div class="row">
-				<div class="container">
-					<div class="bill-to"><p>Ship To</p></div>
-			    <div class="row grid-divider">
-						<% @shipping_addresses.each do |address| %>
-					    <div class="col-sm-4" style="margin-bottom: 15px;">
-					      <div class="bill-to">
-									<div class="form-one shipping-address">
-										<%= radio_button_tag(:shipping_address, "#{address.id}") %>
-										<%= "Address 1:  #{address.address_1} " %><br>
-										<%= "Address 2: #{address.address_2} " %><br>
-										<%= "City: #{address.city}" %><br>
-										<%= "State: #{address.state}" %><br>
-										<%= "Country: #{address.country}" %><br>
-										<%= "Zip Code: #{address.zipcode}" %><br>
-										<%= link_to "Edit Address", edit_user_address_path(address.id), class:"btn btn-primary" %>
-										<%= link_to "Delete Address", order_path(address.id), class:"btn btn-primary", method: :delete %>
-									</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="container">
+				<div class="bill-to"><p>Ship To</p></div>
+		    <div class="row grid-divider">
+					<% @shipping_addresses.each do |address| %>
+				    <div class="col-sm-4" style="margin-bottom: 15px;">
+				      <div class="bill-to">
+								<div class="form-one">
+									<%= radio_button_tag(:shipping_address, "Select Address") %>
+									<%= "Address 1:  #{address.address_1} " %><br>
+									<%= "Address 2: #{address.address_2} " %><br>
+									<%= "City: #{address.city}" %><br>
+									<%= "State: #{address.state}" %><br>
+									<%= "Country: #{address.country}" %><br>
+									<%= "Zip Code: #{address.zipcode}" %><br>
+									<%= link_to "Edit Address", edit_user_address_path(address.id), class:"btn btn-primary" %>
+									<%= link_to "Delete Address", order_path(address.id), class:"btn btn-primary", method: :delete %>
 								</div>
-					    </div>
-						<% end %>
-			    </div>
-				</div>
+							</div>
+				    </div>
+					<% end %>
+		    </div>
 			</div>
 		</div>
 		<%= link_to "Add New Address", new_user_address_path, class:"btn btn-primary" %>
@@ -111,12 +111,14 @@
 									</tr>
 			  					<% total << (product.price * cart.fetch(product.id).fetch(:quantity).to_f) %>
 			  					<% @totalvalue = total.inject(0){|sum,x| sum + x } %>
+			  					<% @discounted_price = @totalvalue - (@code.percent_off * @totalvalue/100) if @code.present? %>
 								<% end %>
 						</tbody>
 					</table>
-				</div>
+				<!-- </div> -->
 			</div>
 		</section> <!--/#cart_items-->
+
 		<section id="do_action">
 			<div class="container">
 				<div class="heading">
@@ -186,12 +188,24 @@
 					<div class="col-sm-6">
 						<div class="total_area">
 							<ul>
-								<li>Cart Sub Total <span><%= @totalvalue.to_i %></span></li>
-								<li>Discount <span></span></li>
+								<li>Cart Sub Total <span><%= @totalvalue %></span></li>
+								<li>Discount <span>
+									<% if @discounted_price.present? %>
+										<% if @discounted_price.present? %>
+											<%= "#{@code.percent_off.to_i}%" %>
+										<% end %>
+									<% end %>
+								</span></li>
 								<li>Shipping Cost <span>Free</span></li>
-								<li>Total <span><%= @totalvalue.to_i %></span></li>
+								<li>Total <span>
+									<% if @discounted_price.present? %>
+										<%= @discounted_price %>
+									<% else %>
+										<%= @totalvalue %>
+									<% end %>
+								</span></li>
 							</ul>
-							<%= link_to "Proceed To Payment", order_orders_proceed_to_payment_path() , id: "address" , class: 'btn btn-default check_out', method: :post %>
+							<%= link_to "Proceed To Payment", order_orders_proceed_to_payment_path , class: 'btn btn-default check_out' %>
 						</div>
 					</div>
 				</div>
@@ -216,17 +230,5 @@
 		$(".checkbox1").click(function(){
 		   $(".coupon_code").toggle();
 		});
-	  $(".billing-address").click(function(){
-	    var billingAddress = $("input[name='billing_address']:checked").val();
-	    var url = $('#address').attr('href') + '?billing_address_id=' + billingAddress;
-      $('#address').attr('href', url);
-      alert(url);
-	  });
-    $(".shipping-address").click(function(){
-      var shippingAddress = $("input[name='shipping_address']:checked").val();
-      var url = $('#address').attr('href') + '&shipping_address_id=' + shippingAddress;
-      $('#address').attr('href', url);
-      alert(url);
-    });
 	});
 </script>

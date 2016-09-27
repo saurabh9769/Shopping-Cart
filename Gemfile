@@ -18,6 +18,8 @@ gem 'omniauth-facebook'
 
 gem 'omniauth-twitter'
 
+gem 'jquery-turbolinks'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -36,6 +38,8 @@ gem 'rails_admin'
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 
 gem 'kaminari'
+
+gem 'country_state_select', '3.0.0'
 
 group :production do
 	gem 'rails_12factor'

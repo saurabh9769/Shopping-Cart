@@ -1,71 +1,44 @@
+<div class="shopper-informations">
+	<div class="row">
+		<div class="container">
+			<div class="bill-to"><p>Bill To</p></div>
+	    <div class="row grid-divider">
+		    <div class="col-sm-4" style="margin-bottom: 15px;">
+		      <div class="bill-to">
+						<div class="form-one billing-address">
+							<%= "Address 1:  #{@billing_address.address_1} " %><br>
+							<%= "Address 2: #{@billing_address.address_2} " %><br>
+							<%= "City: #{@billing_address.city}" %><br>
+							<%= "State: #{@billing_address.state}" %><br>
+							<%= "Country: #{@billing_address.country}" %><br>
+							<%= "Zip Code: #{@billing_address.zipcode}" %><br>
+						</div>
+					</div>
+		    </div>
+	    </div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="container">
+			<div class="bill-to"><p>Ship To</p></div>
+	    <div class="row grid-divider">
+		    <div class="col-sm-4" style="margin-bottom: 15px;">
+		      <div class="bill-to">
+						<div class="form-one shipping-address">
+							<%= "Address 1:  #{@shipping_address.address_1} " %><br>
+							<%= "Address 2: #{@shipping_address.address_2} " %><br>
+							<%= "City: #{@shipping_address.city}" %><br>
+							<%= "State: #{@shipping_address.state}" %><br>
+							<%= "Country: #{@shipping_address.country}" %><br>
+							<%= "Zip Code: #{@shipping_address.zipcode}" %><br>
+						</div>
+					</div>
+		    </div>
+	    </div>
+		</div>
+	</div>
+</div>
 <section id="cart_items">
-	<div class="container">
-		<div class="breadcrumbs">
-			<ol class="breadcrumb">
-			  <li><a href="#">Home</a></li>
-			  <li class="active">Check out</li>
-			</ol>
-		</div><!--/breadcrums-->
-		<div class="step-one">
-			<h2 class="heading">Step1</h2>
-		</div>
-		<div class="shopper-informations">
-			<div class="row">
-				<div class="container">
-					<div class="bill-to"><p>Bill To</p></div>
-			    <div class="row grid-divider">
-						<% @billing_addresses.each do |address| %>
-					    <div class="col-sm-4" style="margin-bottom: 15px;">
-					      <div class="bill-to">
-									<div class="form-one billing-address">
-										<%= radio_button_tag(:billing_address, "#{address.id}") %>
-										<%= "Address 1:  #{address.address_1} " %><br>
-										<%= "Address 2: #{address.address_2} " %><br>
-										<%= "City: #{address.city}" %><br>
-										<%= "State: #{address.state}" %><br>
-										<%= "Country: #{address.country}" %><br>
-										<%= "Zip Code: #{address.zipcode}" %><br>
-										<%= link_to "Edit Address", edit_user_address_path(address.id), class:"btn btn-primary" %>
-										<%= link_to "Delete Address", order_path(address.id), class:"btn btn-primary", method: :delete %>
-									</div>
-								</div>
-					    </div>
-						<% end %>
-			    </div>
-				</div>
-			</div>
-			<hr>
-			<div class="row">
-				<div class="container">
-					<div class="bill-to"><p>Ship To</p></div>
-			    <div class="row grid-divider">
-						<% @shipping_addresses.each do |address| %>
-					    <div class="col-sm-4" style="margin-bottom: 15px;">
-					      <div class="bill-to">
-									<div class="form-one shipping-address">
-										<%= radio_button_tag(:shipping_address, "#{address.id}") %>
-										<%= "Address 1:  #{address.address_1} " %><br>
-										<%= "Address 2: #{address.address_2} " %><br>
-										<%= "City: #{address.city}" %><br>
-										<%= "State: #{address.state}" %><br>
-										<%= "Country: #{address.country}" %><br>
-										<%= "Zip Code: #{address.zipcode}" %><br>
-										<%= link_to "Edit Address", edit_user_address_path(address.id), class:"btn btn-primary" %>
-										<%= link_to "Delete Address", order_path(address.id), class:"btn btn-primary", method: :delete %>
-									</div>
-								</div>
-					    </div>
-						<% end %>
-			    </div>
-				</div>
-			</div>
-		</div>
-		<%= link_to "Add New Address", new_user_address_path, class:"btn btn-primary" %>
-		<div class="review-payment">
-			<h2>Review & Payment</h2>
-		</div>
-		<!-- <div class="table-responsive cart_info"> -->
-		<section id="cart_items">
 			<div class="container">
 				<div class="table-responsive cart_info">
 					<table class="table table-condensed">
@@ -98,9 +71,7 @@
 										</td>
 										<td class="cart_quantity">
 											<div class="cart_quantity_button">
-												<%= link_to "+" , orders_quantity_up_orders_path(product_quantity: cart.fetch(product.id).fetch(:quantity), product_id: product.id), class: "cart_quantity_up" , remote: true %>
 												<input class="cart_quantity_input" type="text" name="quantity" value="<%= cart.fetch(product.id).fetch(:quantity) %>" autocomplete="off" size="2">
-												<%= link_to "-" , orders_quantity_down_orders_path(product_quantity: cart.fetch(product.id).fetch(:quantity), product_id: product.id), class: "cart_quantity_down" , remote: true %>
 											</div>
 										<td class="cart_total">
 											<p class="cart_total_price"><%= product.price * cart.fetch(product.id).fetch(:quantity).to_f %></p>
@@ -116,15 +87,15 @@
 					</table>
 				</div>
 			</div>
-		</section> <!--/#cart_items-->
+		</section>
 		<section id="do_action">
 			<div class="container">
-				<div class="heading">
+				<!-- <div class="heading">
 					<h3>What would you like to do next?</h3>
 					<p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
-				</div>
+				</div> -->
 				<div class="row">
-					<div class="col-sm-6">
+					<!-- <div class="col-sm-6">
 						<div class="chose_area">
 							<ul class="user_option">
 								<li>
@@ -182,7 +153,7 @@
 							<a class="btn btn-default update" href="">Get Quotes</a>
 							<a class="btn btn-default check_out" href="">Continue</a>
 						</div>
-					</div>
+					</div> -->
 					<div class="col-sm-6">
 						<div class="total_area">
 							<ul>
@@ -191,42 +162,9 @@
 								<li>Shipping Cost <span>Free</span></li>
 								<li>Total <span><%= @totalvalue.to_i %></span></li>
 							</ul>
-							<%= link_to "Proceed To Payment", order_orders_proceed_to_payment_path() , id: "address" , class: 'btn btn-default check_out', method: :post %>
+							<%= link_to "Make Payment", order_orders_proceed_to_payment_path() , id: "address" , class: 'btn btn-default check_out', method: :post %>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		<!-- </div> -->
-		<div class="payment-options">
-			<span>
-				<label><input type="checkbox"> Direct Bank Transfer</label>
-			</span>
-			<span>
-				<label><input type="checkbox"> Check Payment</label>
-			</span>
-			<span>
-				<label><input type="checkbox"> Paypal</label>
-			</span>
-		</div>
-	</div>
-</section> <!--/#cart_items-->
-<script type="text/javascript">
-	$(document).ready(function($) {
-		$(".checkbox1").click(function(){
-		   $(".coupon_code").toggle();
-		});
-	  $(".billing-address").click(function(){
-	    var billingAddress = $("input[name='billing_address']:checked").val();
-	    var url = $('#address').attr('href') + '?billing_address_id=' + billingAddress;
-      $('#address').attr('href', url);
-      alert(url);
-	  });
-    $(".shipping-address").click(function(){
-      var shippingAddress = $("input[name='shipping_address']:checked").val();
-      var url = $('#address').attr('href') + '&shipping_address_id=' + shippingAddress;
-      $('#address').attr('href', url);
-      alert(url);
-    });
-	});
-</script>

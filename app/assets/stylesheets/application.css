@@ -12,6 +12,7 @@
  *
  *= require animate
  *= require bootstrap.min
+ *= require chosen
  *= require font-awesome.min
  *= require main
  *= require prettyPhoto
