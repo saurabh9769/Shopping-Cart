@@ -17,8 +17,8 @@
 						<% @billing_addresses.each do |address| %>
 					    <div class="col-sm-4" style="margin-bottom: 15px;">
 					      <div class="bill-to">
-									<div class="form-one">
-										<%= radio_button_tag(address.id, "Select Address") %>
+									<div class="form-one billing-address">
+										<%= radio_button_tag(:billing_address, "#{address.id}") %>
 										<%= "Address 1:  #{address.address_1} " %><br>
 										<%= "Address 2: #{address.address_2} " %><br>
 										<%= "City: #{address.city}" %><br>
@@ -43,8 +43,8 @@
 					<% @shipping_addresses.each do |address| %>
 				    <div class="col-sm-4" style="margin-bottom: 15px;">
 				      <div class="bill-to">
-								<div class="form-one">
-									<%= radio_button_tag(:shipping_address, "Select Address") %>
+								<div class="form-one shipping-address">
+									<%= radio_button_tag(:shipping_address, "#{address.id}") %>
 									<%= "Address 1:  #{address.address_1} " %><br>
 									<%= "Address 2: #{address.address_2} " %><br>
 									<%= "City: #{address.city}" %><br>
@@ -106,7 +106,7 @@
 											<p class="cart_total_price"><%= product.price * cart.fetch(product.id).fetch(:quantity).to_f %></p>
 										</td>
 										<td class="cart_delete">
-											<%= link_to (raw('<i class="fa fa-times"></i>')), order_orders_remove_from_cart_path(product_id: product.id, order_id: 1), class: "cart_quantity_delete" ,remote: true , confirm: 'are you sure?' %>
+											<%= link_to (raw('<i class="fa fa-times"></i>')), orders_remove_from_cart_orders_path(product_id: product.id), class: "cart_quantity_delete" ,remote: true , confirm: 'are you sure?' %>
 										</td>
 									</tr>
 			  					<% total << (product.price * cart.fetch(product.id).fetch(:quantity).to_f) %>
@@ -133,7 +133,7 @@
 									<input type="checkbox" class="checkbox1">
 									<label>Use Coupon Code</label>
 									<div class="coupon_code" style="display:none;">
-										<%= form_tag order_orders_redeem_coupon_path, method: "post" do %>
+										<%= form_tag orders_redeem_coupon_orders_path, method: "post" do %>
 											<%= text_field_tag(:coupon_code) %>
 											<%= hidden_field_tag :id, @code.id if @code.present? %>
 											<%= submit_tag("Submit") %>
@@ -193,6 +193,7 @@
 									<% if @discounted_price.present? %>
 										<% if @discounted_price.present? %>
 											<%= "#{@code.percent_off.to_i}%" %>
+											<%= hidden_field_tag :id, @code.id %>
 										<% end %>
 									<% end %>
 								</span></li>
@@ -205,7 +206,7 @@
 									<% end %>
 								</span></li>
 							</ul>
-							<%= link_to "Proceed To Payment", order_orders_proceed_to_payment_path , class: 'btn btn-default check_out' %>
+							<%= link_to "Proceed To Payment", orders_proceed_to_payment_orders_path, id: "address" , class: 'btn btn-default check_out', method: :post %>
 						</div>
 					</div>
 				</div>
@@ -230,5 +231,29 @@
 		$(".checkbox1").click(function(){
 		   $(".coupon_code").toggle();
 		});
+		$(".billing-address").click(function(){
+	    var billingAddress = $("input[name='billing_address']:checked").val();
+	    if($('#address').attr('href').indexOf("?") > -1){
+		    var url = $('#address').attr('href') + '&billing_address_id=' + billingAddress;
+  	    $('#address').attr('href', url);
+  	  }
+  	  else{
+  	  	var url = $('#address').attr('href') + '?billing_address_id=' + billingAddress;
+  	    $('#address').attr('href', url);
+  	  }
+      alert(url);
+	  });
+    $(".shipping-address").click(function(){
+      var shippingAddress = $("input[name='shipping_address']:checked").val();
+      if($('#address').attr('href').indexOf("?") > -1){
+	      var url = $('#address').attr('href') + '&shipping_address_id=' + shippingAddress;
+	      $('#address').attr('href', url);
+    	}
+    	else{
+    		var url = $('#address').attr('href') + '?shipping_address_id=' + shippingAddress;
+	      $('#address').attr('href', url);
+    	}
+      alert(url);
+    });
 	});
 </script>

@@ -59,7 +59,7 @@
 						<ul class="nav navbar-nav">
 							<li><%= link_to (raw('<i class="fa fa-user"></i>Account')), edit_user_registration_path %>
 							<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-							<li><%= link_to (raw('<i class="fa fa-crosshairs"></i>CheckOut')), order_orders_checkout_path(order_id: 1) %></li>
+							<li><%= link_to (raw('<i class="fa fa-crosshairs"></i>CheckOut')), orders_checkout_orders_path %></li>
 							<li><%= link_to (raw('<i class="fa fa-shopping-cart"></i>Cart (<span class="cartcount">' + "#{@cart}" +'</span>)')), home_show_cart_path, id: 'cart' , class:'addtocart' %></li>
 							<% if user_signed_in? %>
 								<li><a href="/users/sign_out" data-method="delete"><% link_to destroy_user_session_path, method: :delete %><i class="fa fa-lock"></i> Logout</a></li>

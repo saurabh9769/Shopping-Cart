@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
 
-	def checkout
+  def checkout
     @billing_addresses = current_user.user_addresses.all
     @shipping_addresses = current_user.user_addresses.all
     @cart_products = []
@@ -25,14 +25,15 @@ class OrdersController < ApplicationController
       end
     end
     @cart = session[:product_ids].count if session[:product_ids].present?
-	end
-
-	def show
-    @address = current_user.user_addresses.all
-    redirect_to order_orders_checkout_path(order_id: 1)
   end
 
-	def destroy
+  def show
+    # binding.pry
+    @address = current_user.user_addresses.all
+    redirect_to order_orders_checkout_path
+  end
+
+  def destroy
     @address = UserAddress.find(params[:id])
     @address.destroy
     redirect_to order_orders_checkout_path
@@ -75,6 +76,7 @@ class OrdersController < ApplicationController
       @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
     end
     @code = Coupon.where(code: params[:coupon_code]).first
+    binding.pry
     coupon_used
   end
 
@@ -88,7 +90,7 @@ class OrdersController < ApplicationController
   end
 
   def remove_from_cart
-  	@addresses = current_user.user_addresses.all
+    @addresses = current_user.user_addresses.all
     session[:product_ids] ||= []
     session[:product_ids].delete(params[:product_id])
     @cart = session[:product_ids].count
@@ -110,7 +112,7 @@ class OrdersController < ApplicationController
   end
 
   def quantity_up
-  	# binding.pry
+    # binding.pry
     @addresses = current_user.user_addresses.all
     @cart_products = []
     session[:product_ids] << params[:product_id] if params[:product_id].present?
@@ -140,16 +142,16 @@ class OrdersController < ApplicationController
   end
 
   def proceed_to_payment
-  	# binding.pry
-  	@billing_address = UserAddress.find(params[:billing_address_id])
-  	@shipping_address = UserAddress.find(params[:shipping_address_id])
-  	if @code.present?
-	    @code = Coupon.where(code: params[:coupon_code]).first
-  	  Order.create(user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id], coupon_id: @code.id)
-  	 else
-  	 	Order.create(user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id])
-  	 end
-  	@cart_products = []
+    # binding.pry
+    @billing_address = UserAddress.find(params[:billing_address_id])
+    @shipping_address = UserAddress.find(params[:shipping_address_id])
+    if @code.present?
+      @code = Coupon.where(code: params[:coupon_code]).first
+      Order.create(user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id], coupon_id: @code.id)
+     else
+      Order.create(user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id])
+     end
+    @cart_products = []
     add = [params[:id]] * params[:quantity].to_i if params[:quantity].present?
     session[:product_ids] << add if add.present?
     session[:product_ids] = session[:product_ids].flatten if session[:product_ids].present?
@@ -170,6 +172,19 @@ class OrdersController < ApplicationController
       end
     end
     @cart = session[:product_ids].count if session[:product_ids].present?
+  end
+  def make_payment
+    @amount = 10
+    #This will create a charge with stripe for $10
+    #Save this charge in your DB for future reference
+    charge = Stripe::Charge.create(
+      :amount => @amount * 100,
+      :currency => "usd",
+      :source => params[:stripeToken],
+      :description => "Test Charge"
+    )
+    flash[:notice] = "Successfully created a charge"
+    redirect_to '/subscription'
   end
 
 end

@@ -16,20 +16,24 @@ Rails.application.routes.draw do
   get 'home/cart_quantity_up' => 'home#cart_quantity_up'
   get 'home/cart_quantity_down' => 'home#cart_quantity_down'
   resources :orders do
-    get 'orders/checkout' => 'orders#checkout'
-    post 'orders/checkout' => 'orders#checkout'
-    get 'orders/redeem_coupon' => 'orders#redeem_coupon'
-    post 'orders/redeem_coupon' => 'orders#redeem_coupon'
-    get 'orders/remove_from_cart' => 'orders#remove_from_cart'
-    get 'orders/coupon_used' => 'orders#coupon_used'
+    get 'orders/checkout' => 'orders#checkout', on: :collection
+    post 'orders/checkout' => 'orders#checkout', on: :collection
+    get 'orders/redeem_coupon' => 'orders#redeem_coupon', on: :collection
+    post 'orders/redeem_coupon' => 'orders#redeem_coupon', on: :collection
+    get 'orders/remove_from_cart' => 'orders#remove_from_cart', on: :collection
+    get 'orders/coupon_used' => 'orders#coupon_used', on: :collection
     get 'orders/quantity_up' => 'orders#quantity_up', on: :collection
     post 'orders/quantity_up' => 'orders#quantity_up', on: :collection
     get 'orders/quantity_down' => 'orders#quantity_down', on: :collection
     post 'orders/quantity_down' => 'orders#quantity_down', on: :collection
-    get 'orders/proceed_to_payment' => 'orders#proceed_to_payment'
-    post 'orders/proceed_to_payment' => 'orders#proceed_to_payment'
+    get 'orders/proceed_to_payment' => 'orders#proceed_to_payment', on: :collection
+    post 'orders/proceed_to_payment' => 'orders#proceed_to_payment', on: :collection
+    get 'orders/make_payment' => 'orders#make_payment', on: :collection
+    post 'orders/make_payment' => 'orders#make_payment', on: :collection
   end
   resources :user_addresses
+  resources :charges
+
   mount RailsAdmin::Engine => '/admins', as: 'rails_admin'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
