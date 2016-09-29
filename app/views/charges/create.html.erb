@@ -1,4 +1,6 @@
-<h2>Thanks, you paid <strong>$5.00</strong>!</h2>
+<h2>Thanks, you paid <strong><%= @@price %></strong>!</h2>
 <script type="text/javascript">
-    window.location.href = "/home/index"  // put your correct path in a string here
+	setTimeout(function(){
+	  window.location.href = "/home/index"
+  }, 3000);
 </script>

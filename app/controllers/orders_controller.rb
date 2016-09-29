@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  after_action :coupon_used
 
   def checkout
     @billing_addresses = current_user.user_addresses.all
@@ -76,8 +77,6 @@ class OrdersController < ApplicationController
       @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
     end
     @code = Coupon.where(code: params[:coupon_code]).first
-    binding.pry
-    coupon_used
   end
 
   def coupon_used
@@ -112,7 +111,6 @@ class OrdersController < ApplicationController
   end
 
   def quantity_up
-    # binding.pry
     @addresses = current_user.user_addresses.all
     @cart_products = []
     session[:product_ids] << params[:product_id] if params[:product_id].present?
@@ -142,15 +140,14 @@ class OrdersController < ApplicationController
   end
 
   def proceed_to_payment
-    # binding.pry
     @billing_address = UserAddress.find(params[:billing_address_id])
     @shipping_address = UserAddress.find(params[:shipping_address_id])
+    @code = Coupon.where(code: params[:coupon_code]).first
     if @code.present?
-      @code = Coupon.where(code: params[:coupon_code]).first
-      Order.create(user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id], coupon_id: @code.id)
-     else
+      Order.create(coupon_id: @code.id, user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id])
+    else
       Order.create(user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id])
-     end
+    end
     @cart_products = []
     add = [params[:id]] * params[:quantity].to_i if params[:quantity].present?
     session[:product_ids] << add if add.present?
@@ -174,12 +171,12 @@ class OrdersController < ApplicationController
     @cart = session[:product_ids].count if session[:product_ids].present?
   end
   def make_payment
-    @amount = 10
+    @amount = params[:totalvalue]
     #This will create a charge with stripe for $10
     #Save this charge in your DB for future reference
     charge = Stripe::Charge.create(
       :amount => @amount * 100,
-      :currency => "usd",
+      :currency => "inr",
       :source => params[:stripeToken],
       :description => "Test Charge"
     )

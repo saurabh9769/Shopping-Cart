@@ -131,10 +131,12 @@
 									<input type="checkbox" class="checkbox1">
 									<label>Use Coupon Code</label>
 									<div class="coupon_code" style="display:none;">
-										<%= form_tag orders_redeem_coupon_orders_path, method: "post" do %>
+										<%= form_tag orders_proceed_to_payment_orders_path, id: "coupon_form", method: "post" do %>
 											<%= text_field_tag(:coupon_code) %>
 											<%= hidden_field_tag :id, @code.id if @code.present? %>
-											<%= submit_tag("Submit") %>
+											<%= hidden_field_tag 'billing_address_id', 'billing_address_id' %>
+											<%= hidden_field_tag 'shipping_address_id', 'shipping_address_id' %>
+											<%= submit_tag "Proceed To Payment", class: 'btn btn-default check_out', style: 'margin-bottom: 22px;' %>
 										<% end %>
 									</div>
 								</li>
@@ -191,11 +193,7 @@
 								<li>Shipping Cost <span>Free</span></li>
 								<li>Total <span><%= @totalvalue.to_i %></span></li>
 							</ul>
-							<% if @code.present? %>
-								<%= link_to "Proceed To Payment", orders_proceed_to_payment_orders_path(code_percent_off: @code.percent_off.to_i) , id: "address" , class: 'btn btn-default check_out', method: :post %>
-							<% else %>
-								<%= link_to "Proceed To Payment", orders_proceed_to_payment_orders_path, id: "address" , class: 'btn btn-default check_out', method: :post %>
-							<% end %>
+							<%= link_to "Proceed To Payment", orders_proceed_to_payment_orders_path, id: "address" , class: 'btn btn-default check_out', method: :post %>
 						</div>
 					</div>
 				</div>
@@ -219,30 +217,23 @@
 	$(document).ready(function($) {
 		$(".checkbox1").click(function(){
 		  $(".coupon_code").toggle();
+		  $("#address").toggle();
 		});
-	  $(".billing-address").click(function(){
-	    var billingAddress = $("input[name='billing_address']:checked").val();
-	    if($('#address').attr('href').indexOf("?") > -1){
-		    var url = $('#address').attr('href') + '&billing_address_id=' + billingAddress;
-  	    $('#address').attr('href', url);
-  	  }
-  	  else{
-  	  	var url = $('#address').attr('href') + '?billing_address_id=' + billingAddress;
-  	    $('#address').attr('href', url);
-  	  }
-      alert(url);
-	  });
-    $(".shipping-address").click(function(){
-      var shippingAddress = $("input[name='shipping_address']:checked").val();
-      if($('#address').attr('href').indexOf("?") > -1){
-	      var url = $('#address').attr('href') + '&shipping_address_id=' + shippingAddress;
-	      $('#address').attr('href', url);
-    	}
-    	else{
-    		var url = $('#address').attr('href') + '?shipping_address_id=' + shippingAddress;
-	      $('#address').attr('href', url);
-    	}
-      alert(url);
-    });
+   	$("#coupon_form").submit(function(){
+   		var billingAddress = $("input[name='billing_address']:checked").val();
+   		if (billingAddress == ""){
+   			return false;
+   		}
+   		else {
+   			$("#billing_address_id").val(billingAddress);
+   		}
+   		var shippingAddress = $("input[name='shipping_address']:checked").val();
+   		if (shippingAddress == ""){
+   			return false;
+   		}
+   		else {
+   			$("#shipping_address_id").val(shippingAddress);
+   		}
+   	});
 	});
 </script>
