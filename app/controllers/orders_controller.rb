@@ -144,9 +144,9 @@ class OrdersController < ApplicationController
     @shipping_address = UserAddress.find(params[:shipping_address_id])
     @code = Coupon.where(code: params[:coupon_code]).first
     if @code.present?
-      Order.create(coupon_id: @code.id, user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id])
+      @order = Order.create(coupon_id: @code.id, user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id], status: 0)
     else
-      Order.create(user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id])
+      @order = Order.create(user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id], status: 0)
     end
     @cart_products = []
     add = [params[:id]] * params[:quantity].to_i if params[:quantity].present?
@@ -170,18 +170,4 @@ class OrdersController < ApplicationController
     end
     @cart = session[:product_ids].count if session[:product_ids].present?
   end
-  def make_payment
-    @amount = params[:totalvalue]
-    #This will create a charge with stripe for $10
-    #Save this charge in your DB for future reference
-    charge = Stripe::Charge.create(
-      :amount => @amount * 100,
-      :currency => "inr",
-      :source => params[:stripeToken],
-      :description => "Test Charge"
-    )
-    flash[:notice] = "Successfully created a charge"
-    redirect_to '/subscription'
-  end
-
 end

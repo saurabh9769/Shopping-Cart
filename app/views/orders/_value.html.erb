@@ -1,7 +1,20 @@
+<% @discounted_price = @totalvalue - (@code.percent_off * @totalvalue/100) if @code.present? %>
 <ul>
 	<li>Cart Sub Total <span><%= @totalvalue.to_i %></span></li>
 	<li>Discount <span></span></li>
 	<li>Shipping Cost <span>Free</span></li>
-	<li>Total <span><%= @totalvalue.to_i %></span></li>
+	<li>Total
+		<span>
+			<% if @discounted_price.present? %>
+				<%= @price = @discounted_price %>
+			<% else %>
+				<%= @price = @totalvalue %>
+			<% end %>
+		</span>
+	</li>
 </ul>
-<%= link_to "Proceed To Payment", orders_proceed_to_payment_orders_path , class: 'btn btn-default check_out' %>
+<% if @code.present? %>
+	<%= link_to "Continue To Payment", new_charge_path(totalvalue: @price), class: 'btn btn-default check_out' %>
+<% else %>
+	<%= link_to "Proceed To Payment", orders_proceed_to_payment_orders_path, id: "address" , class: 'btn btn-default check_out', method: :post %>
+<% end %>

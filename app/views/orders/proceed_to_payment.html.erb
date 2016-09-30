@@ -1,46 +1,48 @@
 <div class="shopper-informations">
-<div class="row">
-<div class="container">
-	<div class="bill-to"><p>Bill To</p></div>
-  <div class="row grid-divider">
-    <div class="col-sm-4" style="margin-bottom: 15px;">
-      <div class="bill-to">
-				<div class="form-one billing-address">
-				<% if @billing_address.present? %>
-					<%= "Address 1: #{@billing_address.address_1} " %><br>
-					<%= "Address 2: #{@billing_address.address_2} " %><br>
-					<%= "City: #{@billing_address.city}" %><br>
-					<%= "State: #{@billing_address.state}" %><br>
-					<%= "Country: #{@billing_address.country}" %><br>
-					<%= "Zip Code: #{@billing_address.zipcode}" %><br>
-				<% end %>
-				</div>
+	<div class="row">
+		<div class="container">
+			<div class="bill-to"><p>Bill To</p></div>
+			  <div class="row grid-divider">
+			    <div class="col-sm-4" style="margin-bottom: 15px;">
+			      <div class="bill-to">
+							<div class="form-one billing-address">
+							<% if @billing_address.present? %>
+								<%= "Address 1: #{@billing_address.address_1} " %><br>
+								<%= "Address 2: #{@billing_address.address_2} " %><br>
+								<%= "City: #{@billing_address.city}" %><br>
+								<%= "State: #{@billing_address.state}" %><br>
+								<%= "Country: #{@billing_address.country}" %><br>
+								<%= "Zip Code: #{@billing_address.zipcode}" %><br>
+							<% end %>
+							</div>
+						</div>
+			    </div>
+			  </div>
 			</div>
-    </div>
-  </div>
-</div>
-</div>
-<div class="row">
-<div class="container">
-	<div class="bill-to"><p>Ship To</p></div>
-  <div class="row grid-divider">
-    <div class="col-sm-4" style="margin-bottom: 15px;">
-      <div class="bill-to">
-				<div class="form-one shipping-address">
-				<% if @shipping_address.present? %>
-					<%= "Address 1:  #{@shipping_address.address_1} " %><br>
-					<%= "Address 2: #{@shipping_address.address_2} " %><br>
-					<%= "City: #{@shipping_address.city}" %><br>
-					<%= "State: #{@shipping_address.state}" %><br>
-					<%= "Country: #{@shipping_address.country}" %><br>
-					<%= "Zip Code: #{@shipping_address.zipcode}" %><br>
-				<% end %>
-				</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="container">
+			<div class="bill-to"><p>Ship To</p></div>
+			  <div class="row grid-divider">
+			    <div class="col-sm-4" style="margin-bottom: 15px;">
+			      <div class="bill-to">
+							<div class="form-one shipping-address">
+							<% if @shipping_address.present? %>
+								<%= "Address 1:  #{@shipping_address.address_1} " %><br>
+								<%= "Address 2: #{@shipping_address.address_2} " %><br>
+								<%= "City: #{@shipping_address.city}" %><br>
+								<%= "State: #{@shipping_address.state}" %><br>
+								<%= "Country: #{@shipping_address.country}" %><br>
+								<%= "Zip Code: #{@shipping_address.zipcode}" %><br>
+							<% end %>
+							</div>
+						</div>
+			    </div>
+			  </div>
 			</div>
-    </div>
-  </div>
-</div>
-</div>
+		</div>
+	</div>
 </div>
 <section id="cart_items">
 	<div class="container">
@@ -117,7 +119,7 @@
 							<% end %>
 						</span></li>
 					</ul>
-					<%= link_to "Continue To Payment", new_charge_path(totalvalue: @price), class: 'btn btn-default check_out' %>
+					<%= link_to "Continue To Payment", new_charge_path(totalvalue: @price, order_id: @order.id), class: 'btn btn-default check_out' %>
 				</div>
 			</div>
 		</div>

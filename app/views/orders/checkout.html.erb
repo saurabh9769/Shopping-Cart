@@ -140,49 +140,7 @@
 										<% end %>
 									</div>
 								</li>
-								<li>
-									<input type="checkbox">
-									<label>Use Gift Voucher</label>
-								</li>
-								<li>
-									<input type="checkbox">
-									<label>Estimate Shipping & Taxes</label>
-								</li>
 							</ul>
-							<ul class="user_info">
-								<li class="single_field">
-									<label>Country:</label>
-									<select>
-										<option>United States</option>
-										<option>Bangladesh</option>
-										<option>UK</option>
-										<option>India</option>
-										<option>Pakistan</option>
-										<option>Ucrane</option>
-										<option>Canada</option>
-										<option>Dubai</option>
-									</select>
-								</li>
-								<li class="single_field">
-									<label>Region / State:</label>
-									<select>
-										<option>Select</option>
-										<option>Dhaka</option>
-										<option>London</option>
-										<option>Dillih</option>
-										<option>Lahore</option>
-										<option>Alaska</option>
-										<option>Canada</option>
-										<option>Dubai</option>
-									</select>
-								</li>
-								<li class="single_field zip-field">
-									<label>Zip Code:</label>
-									<input type="text">
-								</li>
-							</ul>
-							<a class="btn btn-default update" href="">Get Quotes</a>
-							<a class="btn btn-default check_out" href="">Continue</a>
 						</div>
 					</div>
 					<div class="col-sm-6">
@@ -200,17 +158,6 @@
 			</div>
 		</section>
 		<!-- </div> -->
-		<div class="payment-options">
-			<span>
-				<label><input type="checkbox"> Direct Bank Transfer</label>
-			</span>
-			<span>
-				<label><input type="checkbox"> Check Payment</label>
-			</span>
-			<span>
-				<label><input type="checkbox"> Paypal</label>
-			</span>
-		</div>
 	</div>
 </section> <!--/#cart_items-->
 <script type="text/javascript">
@@ -235,5 +182,27 @@
    			$("#shipping_address_id").val(shippingAddress);
    		}
    	});
+		$(".billing-address").click(function(){
+ 	    var billingAddress = $("input[name='billing_address']:checked").val();
+ 	    if($('#address').attr('href').indexOf("?") > -1){
+ 	    	var url = $('#address').attr('href') + '&billing_address_id=' + billingAddress;
+ 	    	$('#address').attr('href', url);
+ 	    }
+ 	    else{
+  	  	var url = $('#address').attr('href') + '?billing_address_id=' + billingAddress;
+		    $('#address').attr('href', url);
+		  }
+		});
+	  $(".shipping-address").click(function(){
+	  	var shippingAddress = $("input[name='shipping_address']:checked").val();
+	  	if($('#address').attr('href').indexOf("?") > -1){
+	  		var url = $('#address').attr('href') + '&shipping_address_id=' + shippingAddress;
+	      $('#address').attr('href', url);
+	  	}
+  		else{
+  			var url = $('#address').attr('href') + '?shipping_address_id=' + shippingAddress;
+      	$('#address').attr('href', url);
+  		}
+  	});
 	});
 </script>

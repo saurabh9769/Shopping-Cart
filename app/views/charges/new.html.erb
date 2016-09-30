@@ -8,12 +8,14 @@
     <label class="amount">
       <span>Amount: <%= @amount %></span>
     </label>
+    <%= hidden_field_tag 'order_id', params[:order_id] %>
+    <%= hidden_field_tag 'totalvalue', params[:totalvalue] %>
   </article>
 
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
     data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
     data-description="A month's subscription"
-    data-amount="<%= @amount %>"
+    data-amount="<%= (@amount.to_i * 100) %>"
     data-locale="auto">
   </script>
 <% end %>
