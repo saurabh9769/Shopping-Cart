@@ -13,7 +13,7 @@
 				<div class="col-sm-6">
 					<div class="social-icons pull-right">
 						<ul class="nav navbar-nav">
-							<li><a href="users/auth/facebook"><i class="fa fa-facebook"></i></a></li>
+							<li><%= link_to (raw('<i class="fa fa-facebook"></i>')), user_facebook_omniauth_authorize_path %></li>
 							<li><a href="users/auth/twitter"><i class="fa fa-twitter"></i></a></li>
 							<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
 							<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
@@ -57,7 +57,12 @@
 				<div class="col-sm-8">
 					<div class="shop-menu pull-right">
 						<ul class="nav navbar-nav">
-							<li><%= link_to (raw('<i class="fa fa-user"></i>Account')), edit_user_registration_path %>
+							<li><%= link_to (raw('<i class="fa fa-user"></i>Account')), edit_user_registration_path, style: 'background: none' %>
+                <ul role="menu" class="sub-menu">
+                  <li><%= link_to "My Orders" , orders_my_orders_orders_path, style: 'background: none' %></li>
+									<li><%= link_to "Change Password" , products_path, style: 'background: none' %></li>
+                </ul>
+	            </li>
 							<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 							<li><%= link_to (raw('<i class="fa fa-crosshairs"></i>CheckOut')), orders_checkout_orders_path %></li>
 							<li><%= link_to (raw('<i class="fa fa-shopping-cart"></i>Cart (<span class="cartcount">' + "#{@cart}" +'</span>)')), home_show_cart_path, id: 'cart' , class:'addtocart' %></li>

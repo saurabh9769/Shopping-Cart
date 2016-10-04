@@ -142,12 +142,6 @@ class OrdersController < ApplicationController
   def proceed_to_payment
     @billing_address = UserAddress.find(params[:billing_address_id])
     @shipping_address = UserAddress.find(params[:shipping_address_id])
-    @code = Coupon.where(code: params[:coupon_code]).first
-    if @code.present?
-      @order = Order.create(coupon_id: @code.id, user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id], status: 0)
-    else
-      @order = Order.create(user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id], status: 0)
-    end
     @cart_products = []
     add = [params[:id]] * params[:quantity].to_i if params[:quantity].present?
     session[:product_ids] << add if add.present?
@@ -169,5 +163,18 @@ class OrdersController < ApplicationController
       end
     end
     @cart = session[:product_ids].count if session[:product_ids].present?
+    @code = Coupon.where(code: params[:coupon_code]).first
+    if @code.present?
+      @order = Order.create(coupon_id: @code.id, user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id], status: 0)
+    else
+      @order = Order.create(user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id], status: 0)
+      @products_cart.each do |product|
+        OrderDetail.create(user_id: current_user.id, order_id: @order.id, product_id: product.id, quantity: session[:product_ids].count(product.id.to_s))
+      end
+    end
+  end
+
+  def my_orders
+    @orders = Order.where(user_id: current_user.id)
   end
 end

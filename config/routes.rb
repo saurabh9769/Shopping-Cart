@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
   devise_for :admins
-  devise_for :users
+  devise_for :users, controllers: { :omniauth_callbacks => "omniauth_callbacks" }
   resources :products
   get 'home/add_to_cart' => 'home#add_to_cart'
   get 'home/remove_from_cart' => 'home#remove_from_cart'
@@ -30,9 +30,11 @@ Rails.application.routes.draw do
     post 'orders/proceed_to_payment' => 'orders#proceed_to_payment', on: :collection
     get 'orders/make_payment' => 'orders#make_payment', on: :collection
     post 'orders/make_payment' => 'orders#make_payment', on: :collection
+    get 'orders/my_orders' => 'orders#my_orders', on: :collection
   end
   resources :user_addresses
   resources :charges
+  # errdo.root_path
 
   mount RailsAdmin::Engine => '/admins', as: 'rails_admin'
   # The priority is based upon order of creation: first created -> highest priority.
