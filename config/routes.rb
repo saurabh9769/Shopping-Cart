@@ -16,21 +16,16 @@ Rails.application.routes.draw do
   get 'home/cart_quantity_up' => 'home#cart_quantity_up'
   get 'home/cart_quantity_down' => 'home#cart_quantity_down'
   resources :orders do
-    get 'orders/checkout' => 'orders#checkout', on: :collection
-    post 'orders/checkout' => 'orders#checkout', on: :collection
-    get 'orders/redeem_coupon' => 'orders#redeem_coupon', on: :collection
-    post 'orders/redeem_coupon' => 'orders#redeem_coupon', on: :collection
-    get 'orders/remove_from_cart' => 'orders#remove_from_cart', on: :collection
-    get 'orders/coupon_used' => 'orders#coupon_used', on: :collection
-    get 'orders/quantity_up' => 'orders#quantity_up', on: :collection
-    post 'orders/quantity_up' => 'orders#quantity_up', on: :collection
-    get 'orders/quantity_down' => 'orders#quantity_down', on: :collection
-    post 'orders/quantity_down' => 'orders#quantity_down', on: :collection
-    get 'orders/proceed_to_payment' => 'orders#proceed_to_payment', on: :collection
-    post 'orders/proceed_to_payment' => 'orders#proceed_to_payment', on: :collection
-    get 'orders/make_payment' => 'orders#make_payment', on: :collection
-    post 'orders/make_payment' => 'orders#make_payment', on: :collection
-    get 'orders/my_orders' => 'orders#my_orders', on: :collection
+    match 'orders/checkout' => 'orders#checkout', on: :collection, via: [:get, :post]
+    match 'orders/redeem_coupon' => 'orders#redeem_coupon', on: :collection, via: [:get, :post]
+    match 'orders/remove_from_cart' => 'orders#remove_from_cart', on: :collection, via: [:get, :post]
+    match 'orders/coupon_used' => 'orders#coupon_used', on: :collection, via: [:get, :post]
+    match 'orders/quantity_up' => 'orders#quantity_up', on: :collection, via: [:get, :post]
+    match 'orders/quantity_down' => 'orders#quantity_down', on: :collection, via: [:get, :post]
+    match 'orders/proceed_to_payment' => 'orders#proceed_to_payment', on: :collection, via: [:get, :post]
+    match 'orders/make_payment' => 'orders#make_payment', on: :collection, via: [:get, :post]
+    match 'orders/my_orders' => 'orders#my_orders', on: :collection, via: [:get, :post]
+    match 'orders/track_package' => 'orders#track_package', on: :collection, via: [:get, :post]
   end
   resources :user_addresses
   resources :charges

@@ -175,6 +175,12 @@ class OrdersController < ApplicationController
   end
 
   def my_orders
+    @cart = session[:product_ids].count if session[:product_ids].present?
     @orders = Order.where(user_id: current_user.id)
+  end
+
+  def track_package
+    @cart = session[:product_ids].count if session[:product_ids].present?
+    @order = Order.find(params[:order_id])
   end
 end

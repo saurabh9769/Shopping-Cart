@@ -1,7 +1,8 @@
 class Order < ActiveRecord::Base
 
-	enum status: { In_Progress: 0,  Placed: 1, Shipped: 2, Cancelled: 3 }
+	enum status: { Accepted: 0, In_Progress: 1, Shipped: 2, Delivered: 3 , Completed: 4, Cancelled: 5 }
 	belongs_to :user
-	has_one :order_detail
+	has_many :order_details
+	has_many :products, through: :order_details
 
 end

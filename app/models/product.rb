@@ -4,5 +4,6 @@ class Product < ActiveRecord::Base
 
 	belongs_to :category
   	has_many :product_images
-  	has_one :order_detail
+  	has_many :order_details
+  	has_many :orders, through: :order_details
 end

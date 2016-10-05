@@ -1,0 +1,59 @@
+<section id="cart_items">
+  <div class="container">
+    <div class="table-responsive cart_info">
+      <div class="row shop-tracking-status">
+        <div class="col-md-12">
+          <div class="well">
+            <h4>Your order status:</h4>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <span class="prefix">Date created:</span>
+                <span class="label label-success"><%= @order.created_at %></span>
+              </li>
+              <li class="list-group-item">
+                <span class="prefix">Last update:</span>
+                <span class="label label-success"><%= @order.updated_at %></span>
+              </li>
+            </ul>
+            <div class="order-status">
+              <div class="order-status-timeline">
+                <!-- class names: c0 c1 c2 c3 and c4 -->
+                <% if @order.status == "Accepted" %>
+                  <div class="order-status-timeline-completion c0"></div>
+                <% elsif @order.status == "In_Progress" %>
+                  <div class="order-status-timeline-completion c1"></div>
+                <% elsif @order.status == "Shipped" %>
+                  <div class="order-status-timeline-completion c2"></div>
+                <% elsif @order.status == "Delivered" %>
+                  <div class="order-status-timeline-completion c3"></div>
+                <% elsif @order.status == "Completed" %>
+                  <div class="order-status-timeline-completion c4"></div>
+                <% end %>
+              </div>
+              <div class="image-order-status image-order-status-new active img-circle">
+                <span class="status">Accepted</span>
+                <div class="icon"></div>
+              </div>
+              <div class="image-order-status image-order-status-active active img-circle">
+                <span class="status">In progress</span>
+                <div class="icon"></div>
+              </div>
+              <div class="image-order-status image-order-status-intransit active img-circle">
+                <span class="status">Shipped</span>
+                <div class="icon"></div>
+              </div>
+              <div class="image-order-status image-order-status-delivered active img-circle">
+                <span class="status">Delivered</span>
+                <div class="icon"></div>
+              </div>
+              <div class="image-order-status image-order-status-completed active img-circle">
+                <span class="status">Completed</span>
+                <div class="icon"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

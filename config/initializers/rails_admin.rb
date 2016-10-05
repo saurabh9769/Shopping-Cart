@@ -53,36 +53,22 @@ RailsAdmin.config do |config|
         exclude_fields :created_at
         exclude_fields :updated_at
       end
-
-      # create do
-      #   field :id
-      #   field :name
-      #   field :created_by
-      #   field :parent_id, :string do
-      #     formatted_value do
-      #       bindings[:object].name if bindings[:object].parent_id == nil
-      #     end
-      #   end
-      #   field :status
-      #   field :modify_by
-      #   exclude_fields :created_at
-      #   exclude_fields :updated_at
-      # end
-
-      # edit do
-      #   field :id
-      #   field :name
-      #   field :created_by
-      #   field :parent_id do
-      #     formatted_value do
-      #       bindings[:object].name if bindings[:object].parent_id == nil
-      #     end
-      #   end
-      #   field :status
-      #   field :modify_by
-      #   exclude_fields :created_at
-      #   exclude_fields :updated_at
-      # end
+    end
+    config.model Order do
+      list do
+        field :id
+        field :user_id do
+          formatted_value do
+            bindings[:object].user.email
+          end
+        end
+        field :billing_address_id
+        field :shipping_address_id
+        field :status
+        field :grand_total
+        field :shipping_charges
+        field :coupon_id
+      end
     end
   end
 end
