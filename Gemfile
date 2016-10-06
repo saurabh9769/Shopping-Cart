@@ -24,6 +24,10 @@ gem 'stripe'
 
 gem 'ckeditor', github: 'galetahub/ckeditor'
 
+gem 'mailchimp-api', require: 'mailchimp'
+
+gem 'gibbon', '~> 1.0', '>= 1.0.4'
+
 # gem 'errdo'
 
 # Use jquery as the JavaScript library

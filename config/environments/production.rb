@@ -106,6 +106,7 @@ Rails.application.configure do
   ENV['FACEBOOK_SECRET'] = '964136c8422b721d086a03c49e14aa49';
   ENV['TWITTER_KEY'] = "l26r74acbdmvMSfPebDh0YkPE";
   ENV['TWITTER_SECRET'] = "sUt7LOIoDmqoXgF9lAA9KMbN6MkPdmVB5aaSJWTMqrdjI0qBy3";
+  ENV['MAILCHIMP-API-KEY'] = 'e17c54c331c92550ba14c38040e5db4c-us14'
 
   config.action_mailer.delivery_method = :smtp
   # # Defaults to:

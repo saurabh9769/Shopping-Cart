@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
-  get 'home/index'
+  match 'home/index' => 'home#index', via: [:get, :post]
 
   root 'home#index'
   devise_for :admins

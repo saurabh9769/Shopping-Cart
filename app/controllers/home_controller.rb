@@ -117,4 +117,14 @@
       flash[:success] = "You will be contacted shortly!"
     end
   end
+
+  def subscribe
+    @list_id = "711123f3ee"
+    gb = Gibbon::API.new
+
+    gb.lists.subscribe({
+      :id => @list_id,
+      :email => {:email => params[:email][:address]}
+    })
+  end
 end
