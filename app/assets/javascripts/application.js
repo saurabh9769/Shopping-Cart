@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require bootstrap.min
 //= require turbolinks
+//= require ckeditor/init
 //= require contact
 //= require chosen.jquery
 //= require html5shiv

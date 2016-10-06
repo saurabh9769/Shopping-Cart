@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/galetahub/ckeditor.git
+  revision: 2dfb02f29fd85b30d826a43cec523b4f86b687db
+  specs:
+    ckeditor (4.2.0)
+      cocaine
+      orm_adapter (~> 0.5.0)
+
+GIT
   remote: git://github.com/thoughtbot/paperclip.git
   revision: 7edb35a2a9a80c9598dfde235c7e593c023fc914
   specs:
@@ -297,6 +305,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  ckeditor!
   coffee-rails (~> 4.1.0)
   country_state_select (= 3.0.0)
   devise

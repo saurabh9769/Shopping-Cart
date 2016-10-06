@@ -22,6 +22,8 @@ gem 'jquery-turbolinks'
 
 gem 'stripe'
 
+gem 'ckeditor', github: 'galetahub/ckeditor'
+
 # gem 'errdo'
 
 # Use jquery as the JavaScript library

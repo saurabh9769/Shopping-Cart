@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   get 'home/index'
 
   root 'home#index'
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
   get 'home/coupon_used' => 'home#coupon_used'
   get 'home/cart_quantity_up' => 'home#cart_quantity_up'
   get 'home/cart_quantity_down' => 'home#cart_quantity_down'
+  match 'home/contact_us' => 'home#contact_us', via: [:get, :post]
   resources :orders do
     match 'orders/checkout' => 'orders#checkout', on: :collection, via: [:get, :post]
     match 'orders/redeem_coupon' => 'orders#redeem_coupon', on: :collection, via: [:get, :post]

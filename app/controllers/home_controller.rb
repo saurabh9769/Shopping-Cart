@@ -1,6 +1,7 @@
   class HomeController < ApplicationController
 
   after_action :coupon_used
+  after_action :contact_us
 
 	def index
 		@banner = Banner.all
@@ -108,5 +109,12 @@
       @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
     end
     @cart = session[:product_ids].count
+  end
+
+  def contact_us
+    if params[:name].present?
+      ContactUs.create(name: params[:name], email: params[:email], message: params[:message])
+      flash[:success] = "You will be contacted shortly!"
+    end
   end
 end

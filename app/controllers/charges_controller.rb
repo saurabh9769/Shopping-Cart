@@ -19,8 +19,8 @@ class ChargesController < ApplicationController
 	  )
 
 	  if charge["paid"] == true
-			Order.where(id: params[:order_id]).update_all(status: 1, grand_total: params[:totalvalue])
-			Transaction.create(order_id: params[:order_id], totalvalue: params[:totalvalue], stripe_token: params[:stripeToken], stripe_token_type: params[:stripeTokenType], stripe_email: params[:stripeEmail])
+			transaction = Transaction.create(order_id: params[:order_id], totalvalue: params[:totalvalue], stripe_token: params[:stripeToken], stripe_token_type: params[:stripeTokenType], stripe_email: params[:stripeEmail])
+			Order.where(id: params[:order_id]).update_all(status: 1, grand_total: params[:totalvalue], transaction_id: transaction.id)
 			OrderDetail.where(order_id: params[:order_id]).update_all(amount: params[:totalvalue])
 	  end
 
