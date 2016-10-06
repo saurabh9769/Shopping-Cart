@@ -31,6 +31,9 @@ Rails.application.routes.draw do
   end
   resources :user_addresses
   resources :charges
+  match 'user_wish_list/show_wish_list' => 'user_wish_list#show_wish_list', via: [:get, :post]
+  delete 'user_wish_list/remove_from_wish_list' => 'user_wish_list#remove_from_wish_list'
+  get 'user_wish_list/add_to_cart' => 'user_wish_list#add_to_cart'
   # errdo.root_path
 
   mount RailsAdmin::Engine => '/admins', as: 'rails_admin'

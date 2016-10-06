@@ -1,30 +1,29 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
+	# Include default devise modules. Others available are:
+	# :confirmable, :lockable, :timeoutable and :omniauthable
+	devise :database_authenticatable, :registerable, :confirmable,
+				 :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
 
-  has_many :user_addresses
-    has_many :orders
-  # validates :email, presence: true
-  # validates :encrypted_password, presence: true
+	has_many :user_addresses
+	has_many :orders
+	has_many :user_wish_lists
+	has_many :products, through: :user_wish_lists
+	# validates :email, presence: true
+	# validates :encrypted_password, presence: true
 
-  # def self.find_for_oauth(auth)
-  #   find_or_create_by(uid: auth.uid, provider: auth.provider)
-  # end
-  def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0,20]
-    end
-  end
+	def self.from_omniauth(auth)
+		where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+			user.email = auth.info.email
+			user.password = Devise.friendly_token[0,20]
+		end
+	end
 
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
-      end
-    end
-  end
+	def self.new_with_session(params, session)
+		super.tap do |user|
+			if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+				user.email = data["email"] if user.email.blank?
+			end
+		end
+	end
 
 end

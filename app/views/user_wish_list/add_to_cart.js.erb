@@ -1,0 +1,6 @@
+$('.flash-display').html(" Added To Cart").slideDown();
+$('.cartcount').html("<%= @cart %>");
+setTimeout(function(){
+	$('.flash-display').html("").slideUp();
+}, 3000);
+window.location.replace("<%= home_show_cart_path %>");
