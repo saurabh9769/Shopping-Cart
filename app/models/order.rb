@@ -4,5 +4,15 @@ class Order < ActiveRecord::Base
 	belongs_to :user
 	has_many :order_details
 	has_many :products, through: :order_details
+	after_update :change_status
+
+	private
+
+    def change_status
+      if self.status_changed?
+      	@order_id = self.id
+	      UserMailer.change_status_mail(user, self.status, @order_id).deliver_now
+	  	end
+    end
 
 end

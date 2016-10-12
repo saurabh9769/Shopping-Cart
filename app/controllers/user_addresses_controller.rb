@@ -13,7 +13,6 @@ class UserAddressesController < ApplicationController
   end
 
   def create
-    binding.pry
     @address = UserAddress.create(address_params)
     @address.user_id = current_user.id
     # @address = current_user.user_addresses.create(address_params) if user_addresses.present?

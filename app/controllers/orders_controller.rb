@@ -29,7 +29,6 @@ class OrdersController < ApplicationController
   end
 
   def show
-    # binding.pry
     @address = current_user.user_addresses.all
     redirect_to order_orders_checkout_path
   end
@@ -183,4 +182,5 @@ class OrdersController < ApplicationController
     @cart = session[:product_ids].count if session[:product_ids].present?
     @order = Order.find(params[:order_id])
   end
+
 end

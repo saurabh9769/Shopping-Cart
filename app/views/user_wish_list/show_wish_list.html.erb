@@ -12,8 +12,6 @@
 									<td class="image">Items</td>
 									<td class="description">Product Description</td>
 									<td class="price">Price</td>
-									<!-- <td class="quantity">Quantity</td> -->
-									<!-- <td class="total">Total</td> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -33,10 +31,6 @@
 									<td class="cart_price" style="width: 150px">
 										<p><%= product.price %></p>
 									</td>
-									<!-- <td class="cart_quantity" style="width: 150px">
-										<input class="cart_quantity_input" type="text" name="quantity" value="<%= product.quantity %>" autocomplete="off" size="2">
-										</div>
-									</td> -->
 									<td class="cart_total" style="width: 120px">
 										<p class="cart_total_price"><%= link_to "Remove from Wishlist", user_wish_list_remove_from_wish_list_path(product_id: product.id), class: "btn btn-default add-to-cart", remote: :true, method: :delete %></p>
 										<p class="cart_total_price"><%= link_to (raw('<i class="fa fa-shopping-cart"></i>Add to cart')), user_wish_list_add_to_cart_path(product_id: product.id , product_quantity: product.quantity) , class: "btn btn-default add-to-cart" , remote: :true %></p>

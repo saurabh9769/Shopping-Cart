@@ -1,0 +1,48 @@
+Hi <%= @user.email %>
+
+You have successfully placed an order with us.
+Please find the details of order
+
+THANK YOU FOR YOUR ORDER FROM My Shopping cart.
+Once your package ships we will send an email with a link to track your order. Your order summary is below. Thank you again for your business.
+Call Us: +91 - 22 - 40500699
+Email: info@shopoholics.com
+<% @order.each do |order| %>
+	<% @products.each do |product| %>
+		Your order # <%= order.id %>
+		Placed on DATE : <%= order.created_at %>
+		Product : <%= product.name %>
+		<% quant_val = OrderDetail.where(order_id: order.id) %>
+		<% quant_val.each do |quantity_value| %>
+			Quantity : <%= quantity_value.quantity %>
+		<% end %>
+		Unit Price : <%=  product.price %>
+		Total : <%= order.grand_total %>
+	<% end %>
+
+	BILL TO:
+
+	<% billing_address = UserAddress.where(id: order.billing_address_id) %>
+	<% billing_address.each do |b_address| %>
+	Billing Address : <%= "Address 1: #{b_address.address_1} " %><br>
+										<%= "Address 2: #{b_address.address_2} " %><br>
+										<%= "City: #{b_address.city}" %><br>
+										<%= "State: #{b_address.state}" %><br>
+										<%= "Country: #{b_address.country}" %><br>
+										<%= "Zip Code: #{b_address.zipcode}" %><br>
+	<% end %>
+
+	SHIP TO:
+
+	<% shipping_address = UserAddress.where(id: order.shipping_address_id) %>
+	<% shipping_address.each do |s_address| %>
+	Shipping Address :  <%= "Address 1:  #{s_address.address_1} " %><br>
+										  <%= "Address 2: #{s_address.address_2} " %><br>
+											<%= "City: #{s_address.city}" %><br>
+											<%= "State: #{s_address.state}" %><br>
+											<%= "Country: #{s_address.country}" %><br>
+											<%= "Zip Code: #{s_address.zipcode}" %><br>
+	<% end %>
+
+	PAYMENT METHOD: <%=  %>
+<% end %>

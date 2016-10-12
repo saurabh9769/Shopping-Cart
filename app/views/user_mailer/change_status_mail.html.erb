@@ -1,0 +1,5 @@
+<h1>Welcome to shopoholics.com, <%= @user.email %></h1>
+<p>
+	Your Order Status has been updated.<br>
+</p>
+<p><%= link_to "Check Status", orders_track_package_orders_url(order_id: @order_id) %></p>
