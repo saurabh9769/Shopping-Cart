@@ -38,7 +38,7 @@ class UserMailer < ApplicationMailer
       @products = order_id.products
     end
     mail(to: @user.email, subject: 'Order has been received',
-         cc: 'admin@shopoholics.com', subject: 'Order Placed'
+         cc: 'admin@shopoholics.com'
         )
   end
 
@@ -46,7 +46,7 @@ class UserMailer < ApplicationMailer
     @user = user
     @contact_us = contact_us
     mail(to: @contact_us.email, subject: 'Request has been received',
-         cc: 'admin@shopoholics.com', subject: 'Request received'
+         cc: 'admin@shopoholics.com'
         )
   end
 
@@ -55,7 +55,7 @@ class UserMailer < ApplicationMailer
     @status = status
     @order_id = order_id
     mail(to: @user.email, subject: 'Status Update For Your Order',
-         cc: 'admin@shopoholics.com', subject: 'Status Changed'
+         cc: 'admin@shopoholics.com'
       )
   end
 
