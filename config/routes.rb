@@ -35,7 +35,6 @@ Rails.application.routes.draw do
   delete 'user_wish_list/remove_from_wish_list' => 'user_wish_list#remove_from_wish_list'
   get 'user_wish_list/add_to_cart' => 'user_wish_list#add_to_cart'
   # errdo.root_path
-
   mount RailsAdmin::Engine => '/admins', as: 'rails_admin'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

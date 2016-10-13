@@ -1,0 +1,11 @@
+<h1>WishList Of Users</h1>
+<p>
+	WishList <br>
+</p>
+<p>
+	<% @wishlist.each do |wishlist| %>
+		<%= wishlist.id %>
+		<%= wishlist.user.email %>
+		<%= wishlist.product %>
+	<% end %>
+</p>

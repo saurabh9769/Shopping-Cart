@@ -15,6 +15,9 @@
 //= require jquery_ujs
 //= require bootstrap.min
 //= require turbolinks
+//= require highcharts
+//= require highcharts-more
+//= require no-data-to-display
 //= require ckeditor/init
 //= require contact
 //= require chosen.jquery

@@ -30,13 +30,13 @@ class OrdersController < ApplicationController
 
   def show
     @address = current_user.user_addresses.all
-    redirect_to order_orders_checkout_path
+    redirect_to orders_checkout_orders_path
   end
 
   def destroy
     @address = UserAddress.find(params[:id])
     @address.destroy
-    redirect_to order_orders_checkout_path
+    redirect_to orders_checkout_orders_path
   end
 
   def show_cart
@@ -183,4 +183,31 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:order_id])
   end
 
+  def index
+    @chart_data ||= []
+    total ||= []
+    @chart = LazyHighCharts::HighChart.new('graph') do |f|
+      f.title(text: "Sales Report(Order By Day)")
+      f.xAxis(title: {text: "Months"}, categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'])
+      order = Order.all
+      order.each do |mon|
+        @id = mon.id
+        @month = mon.created_at.strftime("%b")
+        binding.pry
+        total << mon.grand_total
+        @totalvalue = total.inject(0){|sum,x| sum + x }
+        @chart_data << {@month => @totalvalue }
+      end
+      f.series(name: "Orders", yAxis: 0, data: [340, 1270, 130, 810, 100, 700, 300, 400, 100, 550, 1345, 1234])
+      f.series(name: "Total Sales", yAxis: 1, data: [310, 1470, 1340, 81, 65])
+
+      f.yAxis [
+        {title: {text: "Orders for the month", margin: 70} },
+        {title: {text: "Total Sales"}, opposite: true},
+      ]
+
+      f.legend(align: 'right', verticalAlign: 'top', y: 75, x: -50, layout: 'vertical')
+      f.chart({defaultSeriesType: "column"})
+    end
+  end
 end

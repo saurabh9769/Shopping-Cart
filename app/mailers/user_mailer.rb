@@ -2,8 +2,6 @@ class UserMailer < ApplicationMailer
   after_action :set_delivery_options,
                :set_business_headers
 
-
-
   def welcome_email(user)
     @user = user
     @url  = 'http://localhost:3000/users/sign_in'
@@ -57,6 +55,25 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Status Update For Your Order',
          cc: 'admin@shopoholics.com'
       )
+  end
+
+  def check_note_admin_mail(email, note_admin, contact_us_id)
+    @email = email
+    @note_admin = note_admin
+    @contact_us_id = contact_us_id
+    mail(to: @email, subject: 'Response from Admin',
+         cc: 'admin@shopoholics.com'
+        )
+  end
+
+  def my_orders_email(orders)
+    @orders = orders
+    mail(to: 'admin@shopoholics.com', subject: 'Orders for the day')
+  end
+
+  def my_wishlist_email(wishlist)
+    @wishlist = wishlist
+    mail(to: 'admin@shopoholics.com', subject: "User's Wishlist for the week")
   end
 
   def feedback_message(business, user)

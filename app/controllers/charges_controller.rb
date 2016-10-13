@@ -24,7 +24,7 @@ class ChargesController < ApplicationController
 			@order = Order.where(id: params[:order_id])
       UserMailer.order_confirmation(current_user, @order).deliver_now
 			OrderDetail.where(order_id: params[:order_id]).update_all(amount: params[:totalvalue])
-			session[:product_ids] = []
+			session[:product_ids] = nil
 	  end
 
 	rescue Stripe::CardError => e

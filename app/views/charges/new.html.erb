@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <body>
-    <section id="form"><!--form-->
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-4 col-sm-offset-1">
-            <div class="login-form">
-              <%= form_tag charges_path do %>
-                <article>
-                  <% if flash[:error].present? %>
-                    <div id="error_explanation">
-                      <p><%= flash[:error] %></p>
-                    </div>
-                  <% end %>
-                  <label class="amount">
-                    <span>Amount: <%= @amount %></span>
-                  </label>
-                  <%= hidden_field_tag 'order_id', params[:order_id] %>
-                  <%= hidden_field_tag 'totalvalue', params[:totalvalue] %>
-                </article>
+	<body>
+		<section id="form"><!--form-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 col-sm-offset-1">
+						<div class="login-form">
+							<%= form_tag charges_path do %>
+								<article>
+									<% if flash[:error].present? %>
+										<div id="error_explanation">
+											<p><%= flash[:error] %></p>
+										</div>
+									<% end %>
+									<label class="amount">
+										<span>Amount: <%= @amount %></span>
+									</label>
+									<%= hidden_field_tag 'order_id', params[:order_id] %>
+									<%= hidden_field_tag 'totalvalue', params[:totalvalue] %>
+								</article>
 
-                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                  data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                  data-description="A month's subscription"
-                  data-amount="<%= (@amount.to_i * 100) %>"
-                  data-locale="auto">
-                </script>
-              <% end %>
-            </div>
-          </div><!--/login form-->
-        </div>
-      </div>
-    </section><!--/form-->
-  </body>
+								<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+									data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+									data-description="A month's subscription"
+									data-amount="<%= (@amount.to_i * 100) %>"
+									data-locale="auto">
+								</script>
+							<% end %>
+							<%= link_to "Back to Order Review", orders_make_payment_orders_path %>
+						</div>
+					</div><!--/login form-->
+				</div>
+			</div>
+		</section><!--/form-->
+	</body>
 </html>

@@ -1,0 +1,30 @@
+<h1>Welcome to shopoholics.com, <%= @email %></h1>
+<p>
+	Response for your request : <br>
+</p>
+<p>
+	<% @orders.each do |order| %>
+		<%= order.id %>
+		<%= order.user %>
+		<% billing_address = UserAddress.where(id: order.billing_address_id) %>
+		<% billing_address.each do |billing| %>
+			<%= billing.address_1 %>
+			<%= billing.address_2 %>
+			<%= billing.city %>
+			<%= billing.state %>
+			<%= billing.country %>
+			<%= billing.zipcode %>
+		<% end %>
+		<% shipping_address = UserAddress.where(id: order.shipping_address_id) %>
+		<%= shipping_address.each do |shipping| %>
+			<%= shipping.address_1 %>
+			<%= shipping.address_2 %>
+			<%= shipping.city %>
+			<%= shipping.state %>
+			<%= shipping.country %>
+			<%= shipping.zipcode %>
+		<% end %>
+		<%= order.status %>
+		<%= order.grand_total %>
+	<% end %>
+</p>
