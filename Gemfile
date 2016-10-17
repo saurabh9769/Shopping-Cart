@@ -28,6 +28,10 @@ gem 'mailchimp-api', require: 'mailchimp'
 
 gem 'gibbon', '~> 1.0', '>= 1.0.4'
 
+gem 'whenever', :require => false
+
+gem 'lazy_high_charts'
+
 # gem 'errdo'
 
 # Use jquery as the JavaScript library

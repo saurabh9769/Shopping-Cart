@@ -6,8 +6,6 @@ class Order < ActiveRecord::Base
 	has_many :products, through: :order_details
 	after_update :change_status
 
-  # scope :published_in_month, ->(date) { where("DATE_PART('month', timestamp created_at) = ?", date.month) }
-
 	private
 
     def change_status

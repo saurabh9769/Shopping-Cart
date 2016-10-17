@@ -185,101 +185,239 @@ class OrdersController < ApplicationController
 
   def index
     @orders = Order.order("created_at desc")
-    @chart_data ||= []
     total = []
+    @chart_data ||= []
     @orders.each do |mon|
       @id = mon.id
       @month = mon.created_at.strftime("%b")
-      binding.pry
-      @chart_data.each do |data|
+      if @chart_data.present?
+        @chart_data.each do |data|
+          if @month == "Jan"
+            total = mon.grand_total
+          elsif @month == "Feb"
+            total = mon.grand_total
+          elsif @month == "Mar"
+            total = mon.grand_total
+          elsif @month == "Apr"
+            total = mon.grand_total
+          elsif @month == "May"
+            total = mon.grand_total
+          elsif @month == "Jun"
+            total = mon.grand_total
+          elsif @month == "Jul"
+            total = mon.grand_total
+          elsif @month == "Aug"
+            total = mon.grand_total
+          elsif @month == "Sep"
+            total = mon.grand_total
+          elsif @month == "Oct"
+            total = mon.grand_total
+          elsif @month == "Nov"
+            total = mon.grand_total
+          elsif @month == "Dec"
+            total = mon.grand_total
+          end
+        end
+      else
         if @month == "Jan"
-          if data.keys.include?("Jan")
-            total = data.fetch("Jan") + mon.grand_total
-          else
-            total = mon.grand_total
-          # @totalvalue = total.inject(0){|sum,x| sum + x }
-          end
+          total = mon.grand_total
         elsif @month == "Feb"
-          if data.keys.include?("Feb")
-            total = data.fetch("Feb") + mon.grand_total
-          else  
-            total = mon.grand_total
-          # @totalvalue = total.inject(0){|sum,x| sum + x }
-          end
+          total = mon.grand_total
         elsif @month == "Mar"
-          if data.keys.include?("Mar")
-            total = data.fetch("Mar") + mon.grand_total
-          else
-            total = mon.grand_total
-          # @totalvalue = total.inject(0){|sum,x| sum + x }
-          end
+          total = mon.grand_total
         elsif @month == "Apr"
-          if data.keys.include?("Apr")
-            total = data.fetch("Apr") + mon.grand_total
-          else
-            total = mon.grand_total
-          # @totalvalue = total.inject(0){|sum,x| sum + x }
-          end
+          total = mon.grand_total
         elsif @month == "May"
-          if data.keys.include?("May")
-            total = data.fetch("May") + mon.grand_total
-          else
-            total = mon.grand_total
-          # @totalvalue = total.inject(0){|sum,x| sum + x }
-          end
+          total = mon.grand_total
         elsif @month == "Jun"
-          if data.keys.include?("Jun")
-            total = data.fetch("Jun") + mon.grand_total
-          else
-            total = mon.grand_total
-            # @totalvalue = total.inject(0){|sum,x| sum + x }
-          end
+          total = mon.grand_total
         elsif @month == "Jul"
-          if data.keys.include?("Jul")
-            total = data.fetch("Jul") + mon.grand_total
-          else  
-            total = mon.grand_total
-            # @totalvalue = total.inject(0){|sum,x| sum + x }
-          end
+          total = mon.grand_total
         elsif @month == "Aug"
-          if data.keys.include?("Aug")
-            total = data.fetch("Aug") + mon.grand_total
-          else
-            total = mon.grand_total
-            # @totalvalue = total.inject(0){|sum,x| sum + x }
-          end
+          total = mon.grand_total
         elsif @month == "Sep"
-            binding.pry
-          if data.keys.include?("Sep")
-            total = data.fetch("Sep") + mon.grand_total
-          else
-            total = mon.grand_total
-            # @totalvalue = total.inject(0){|sum,x| sum + x }
-          end
+          total = mon.grand_total
         elsif @month == "Oct"
-          if data.keys.include?("Oct")
-            total = data.fetch("Oct") + mon.grand_total
-          else
-            total = mon.grand_total
-            # @totalvalue = total.inject(0){|sum,x| sum + x }
-          end
+          total = mon.grand_total
         elsif @month == "Nov"
-          if data.keys.include?("Nov")
-            total = data.fetch("Nov") + mon.grand_total
-          else
-            total = mon.grand_total
-            # @totalvalue = total.inject(0){|sum,x| sum + x }
-          end
+          total = mon.grand_total
         elsif @month == "Dec"
-          if data.keys.include?("Dec")
-            total = data.fetch("Dec") + mon.grand_total
-          else  
-            total = mon.grand_total
-            # @totalvalue = total.inject(0){|sum,x| sum + x }
-          end
+          total = mon.grand_total
         end
       end
       @chart_data << { @month => total }
+    end
+    jan = []
+    jan_total = []
+    feb = []
+    feb_total = []
+    mar = []
+    mar_total = []
+    apr = []
+    apr_total = []
+    may = []
+    may_total = []
+    jun = []
+    jun_total = []
+    jul = []
+    jul_total = []
+    aug = []
+    aug_total = []
+    sep = []
+    sep_total = []
+    oct = []
+    oct_total = []
+    nov = []
+    nov_total = []
+    dec = []
+    dec_total = []
+    @chart_data.each do |chart_data|
+      if chart_data.include?("Jan")
+        jan << chart_data.keys.count("Jan")
+        @jan = jan.inject(0){|sum,x| sum + x }
+        jan_total << chart_data.fetch("Jan")
+        @jan_total = jan_total.inject(0){|sum,x| sum + x }
+      elsif chart_data.include?("Feb")
+        feb << chart_data.keys.count("Feb")
+        @feb = feb.inject(0){|sum,x| sum + x }
+        feb_total << chart_data.fetch("Feb")
+        @feb_total = feb_total.inject(0){|sum,x| sum + x }
+      elsif chart_data.include?("Mar")
+        mar << chart_data.keys.count("Mar")
+        @mar = mar.inject(0){|sum,x| sum + x }
+        mar_total << chart_data.fetch("Mar")
+        @mar_total = mar_total.inject(0){|sum,x| sum + x }
+      elsif chart_data.include?("Apr")
+        apr << chart_data.keys.count("Apr")
+        @apr = apr.inject(0){|sum,x| sum + x }
+        apr_total << chart_data.fetch("Apr")
+        @apr_total = apr_total.inject(0){|sum,x| sum + x }
+      elsif chart_data.include?("May")
+        may << chart_data.keys.count("May")
+        @may = may.inject(0){|sum,x| sum + x }
+        may_total << chart_data.fetch("May")
+        @may_total = may_total.inject(0){|sum,x| sum + x }
+      elsif chart_data.include?("Jun")
+        jun << chart_data.keys.count("Jun")
+        @jun = jun.inject(0){|sum,x| sum + x }
+        jun_total << chart_data.fetch("Jun")
+        @jun_total = jun_total.inject(0){|sum,x| sum + x }
+      elsif chart_data.include?("Jul")
+        jul << chart_data.keys.count("Jul")
+        @jul = jul.inject(0){|sum,x| sum + x }
+        jul_total << chart_data.fetch("Jul")
+        @jul_total = jul_total.inject(0){|sum,x| sum + x }
+      elsif chart_data.include?("Aug")
+        aug << chart_data.keys.count("Aug")
+        @aug = aug.inject(0){|sum,x| sum + x }
+        aug_total << chart_data.fetch("Aug")
+        @aug_total = aug_total.inject(0){|sum,x| sum + x }
+      elsif chart_data.include?("Sep")
+        sep << chart_data.keys.count("Sep")
+        @sep = sep.inject(0){|sum,x| sum + x }
+        sep_total << chart_data.fetch("Sep")
+        @sep_total = sep_total.inject(0){|sum,x| sum + x }
+      elsif chart_data.include?("Oct")
+        oct << chart_data.keys.count("Oct")
+        @oct = oct.inject(0){|sum,x| sum + x }
+        oct_total << chart_data.fetch("Oct")
+        @oct_total = oct_total.inject(0){|sum,x| sum + x }
+      elsif chart_data.include?("Nov")
+        nov << chart_data.keys.count("Nov")
+        @nov = nov.inject(0){|sum,x| sum + x }
+        nov_total << chart_data.fetch("Nov")
+        @nov_total = nov_total.inject(0){|sum,x| sum + x }
+      elsif chart_data.include?("Dec")
+        dec << chart_data.keys.count("Dec")
+        @dec = dec.inject(0){|sum,x| sum + x }
+        dec_total << chart_data.fetch("Dec")
+        @dec_total = dec_total.inject(0){|sum,x| sum + x }
+      end
+    end
+    @customers = User.all
+    @chart_customer = []
+    customer_data = []
+    @customer_count = []
+    @customers.each do |customer|
+      @month = customer.created_at.strftime("%b")
+      if @month == "Jan"
+        customer_data = customer.id
+      elsif @month == "Feb"
+        customer_data = customer.id
+      elsif @month == "Mar"
+        customer_data = customer.id
+      elsif @month == "Apr"
+        customer_data = customer.id
+      elsif @month == "May"
+        customer_data = customer.id
+      elsif @month == "Jun"
+        customer_data = customer.id
+      elsif @month == "Jul"
+        customer_data = customer.id
+      elsif @month == "Aug"
+        customer_data = customer.id
+      elsif @month == "Sep"
+        customer_data = customer.id
+      elsif @month == "Oct"
+        customer_data = customer.id
+      elsif @month == "Nov"
+        customer_data = customer.id
+      elsif @month == "Dec"
+        customer_data = customer.id
+      end
+      @chart_customer << { @month => customer_data }
+    end
+
+    jan_customer = []
+    feb_customer = []
+    mar_customer = []
+    apr_customer = []
+    may_customer = []
+    jun_customer = []
+    jul_customer = []
+    aug_customer = []
+    sep_customer = []
+    oct_customer = []
+    nov_customer = []
+    dec_customer = []
+    @chart_customer.each do |customer|
+      if customer.include?("Jan")
+        jan_customer << customer.keys.count("Jan")
+        @jan_customer = jan_customer.inject(0){|sum,x| sum + x }
+      elsif customer.include?("Feb")
+        feb_customer << customer.keys.count("Feb")
+        @feb_customer = feb_customer.inject(0){|sum,x| sum + x }
+      elsif customer.include?("Mar")
+        mar_customer << customer.keys.count("Mar")
+        @mar_customer = mar_customer.inject(0){|sum,x| sum + x }
+      elsif customer.include?("Apr")
+        apr_customer << customer.keys.count("Apr")
+        @apr_customer = apr_customer.inject(0){|sum,x| sum + x }
+      elsif customer.include?("May")
+        may_customer << customer.keys.count("May")
+        @may_customer = may_customer.inject(0){|sum,x| sum + x }
+      elsif customer.include?("Jun")
+        jun_customer << customer.keys.count("Jun")
+        @jun_customer = jun_customer.inject(0){|sum,x| sum + x }
+      elsif customer.include?("Jul")
+        jul_customer << customer.keys.count("Jul")
+        @jul_customer = jul_customer.inject(0){|sum,x| sum + x }
+      elsif customer.include?("Aug")
+        aug_customer << customer.keys.count("Aug")
+        @aug_customer = aug_customer.inject(0){|sum,x| sum + x }
+      elsif customer.include?("Sep")
+        sep_customer << customer.keys.count("Sep")
+        @sep_customer = sep_customer.inject(0){|sum,x| sum + x }
+      elsif customer.include?("Oct")
+        oct_customer << customer.keys.count("Oct")
+        @oct_customer = oct_customer.inject(0){|sum,x| sum + x }
+      elsif customer.include?("Nov")
+        nov_customer << customer.keys.count("Nov")
+        @nov_customer = nov_customer.inject(0){|sum,x| sum + x }
+      elsif customer.include?("Dec")
+        dec_customer << customer.keys.count("Dec")
+        @dec_customer = dec_customer.inject(0){|sum,x| sum + x }
+      end
     end
   end
 end
