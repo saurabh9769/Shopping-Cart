@@ -14,8 +14,8 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require bootstrap.min
-//= require turbolinks
 //= require highcharts
+//= require turbolinks
 //= require highcharts-more
 //= require no-data-to-display
 //= require ckeditor/init

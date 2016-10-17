@@ -24,24 +24,24 @@ Email: info@shopoholics.com
 
 	<% billing_address = UserAddress.where(id: order.billing_address_id) %>
 	<% billing_address.each do |b_address| %>
-	Billing Address : <%= "Address 1: #{b_address.address_1} " %><br>
-										<%= "Address 2: #{b_address.address_2} " %><br>
-										<%= "City: #{b_address.city}" %><br>
-										<%= "State: #{b_address.state}" %><br>
-										<%= "Country: #{b_address.country}" %><br>
-										<%= "Zip Code: #{b_address.zipcode}" %><br>
+	Billing Address : <%= "Address 1: #{b_address.address_1} " %>
+										<%= "Address 2: #{b_address.address_2} " %>
+										<%= "City: #{b_address.city}" %>
+										<%= "State: #{b_address.state}" %>
+										<%= "Country: #{b_address.country}" %>
+										<%= "Zip Code: #{b_address.zipcode}" %>
 	<% end %>
 
 	SHIP TO:
 
 	<% shipping_address = UserAddress.where(id: order.shipping_address_id) %>
 	<% shipping_address.each do |s_address| %>
-	Shipping Address :  <%= "Address 1:  #{s_address.address_1} " %><br>
-										  <%= "Address 2: #{s_address.address_2} " %><br>
-											<%= "City: #{s_address.city}" %><br>
-											<%= "State: #{s_address.state}" %><br>
-											<%= "Country: #{s_address.country}" %><br>
-											<%= "Zip Code: #{s_address.zipcode}" %><br>
+	Shipping Address :  <%= "Address 1:  #{s_address.address_1} " %>
+										  <%= "Address 2: #{s_address.address_2} " %>
+											<%= "City: #{s_address.city}" %>
+											<%= "State: #{s_address.state}" %>
+											<%= "Country: #{s_address.country}" %>
+											<%= "Zip Code: #{s_address.zipcode}" %>
 	<% end %>
 
 	PAYMENT METHOD: <%=  %>

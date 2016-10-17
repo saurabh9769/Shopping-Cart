@@ -1,1 +1,29 @@
-<%= high_chart("some_id", @chart) %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function () { 
+    var myChart = Highcharts.chart('orders_chart', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+          name: 'Jane',
+          data: [1, 5, 4]
+        }, {
+          name: 'John',
+          data: [5, 10, 3]
+        }]
+    });
+});
+</script>
+<div id="orders_chart" style="width:70%; height:300px;"></div>
