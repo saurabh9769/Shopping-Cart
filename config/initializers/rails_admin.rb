@@ -69,9 +69,14 @@ RailsAdmin.config do |config|
         field :shipping_charges
         field :coupon_id
       end
-      config.navigation_static_links = {
-        'View Reports' => 'http://localhost:3000/orders'
-      }
+      if Rails.env.development?
+        config.navigation_static_links = {
+          'View Reports' => 'http://localhost:3000/orders'
+        }
+      elsif Rails.env.production?
+        config.navigation_static_links = {
+          'View Reports' => 'https://shopoholics.herokuapp.com/orders'
+        }
     end
   end
 end
