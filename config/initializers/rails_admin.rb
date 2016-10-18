@@ -77,6 +77,7 @@ RailsAdmin.config do |config|
         config.navigation_static_links = {
           'View Reports' => 'https://shopoholics.herokuapp.com/orders'
         }
+      end
     end
   end
 end
