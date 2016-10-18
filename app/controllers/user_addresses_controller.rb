@@ -17,7 +17,7 @@ class UserAddressesController < ApplicationController
     @address.user_id = current_user.id
     # @address = current_user.user_addresses.create(address_params) if user_addresses.present?
     @address.save
-    redirect_to orders_checkout_path(@address)
+    redirect_to orders_checkout_orders_path(@address)
   end
 
   def edit
