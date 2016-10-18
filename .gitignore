@@ -12,3 +12,14 @@
 !/log/.keep
 /tmp
 /public
+
+/.codeclimate.yml
+/.csslintrc
+/.each do |price|
+/.eslintignore
+/.eslintrc
+/.rubocop.yml
+/codeclimate-config.patch
+/coffeelint.json
+/config.ru
+/um(:grand_total)
