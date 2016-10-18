@@ -184,7 +184,7 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @cart = session[:product_ids].uniq.count
+    # @cart = session[:product_ids].uniq.count
     @orders = Order.order("created_at desc")
     total = []
     @chart_data ||= []
@@ -321,12 +321,7 @@ class OrdersController < ApplicationController
         oct << chart_data.keys.count("Oct")
         @oct = oct.inject(0){|sum,x| sum + x }
         oct_total << chart_data.fetch("Oct")
-        if oct_total == nil
-          @oct_total = 0
-        else
-          binding.pry
-          @oct_total = oct_total.inject(0){|sum,x| sum + x }
-        end
+        @oct_total = oct_total.inject(0){|sum,x| sum + x }
       elsif chart_data.include?("Nov")
         nov << chart_data.keys.count("Nov")
         @nov = nov.inject(0){|sum,x| sum + x }
