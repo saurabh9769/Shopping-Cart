@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
   before_action :authenticate_admin!, only: [:index]
   after_action :coupon_used
 
@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
         end
       end
     end
-    @cart = session[:product_ids].count if session[:product_ids].present?
+    @cart = session[:product_ids].uniq.count if session[:product_ids].present?
   end
 
   def show
@@ -61,7 +61,7 @@ class OrdersController < ApplicationController
         end
       end
     end
-    @cart = session[:product_ids].count if session[:product_ids].present?
+    @cart = session[:product_ids].uniq.count if session[:product_ids].present?
   end
 
   def redeem_coupon
@@ -69,7 +69,7 @@ class OrdersController < ApplicationController
     @shipping_addresses = current_user.user_addresses.all
     @cart_products = []
     @products_cart = Product.find(session[:product_ids])
-    @cart = session[:product_ids].count
+    @cart = session[:product_ids].uniq.count
     @products_cart.each do |product|
       if session[:product_ids].include?(product.id.to_s)
         @quantity = session[:product_ids].count(product.id.to_s)
@@ -92,7 +92,6 @@ class OrdersController < ApplicationController
     @addresses = current_user.user_addresses.all
     session[:product_ids] ||= []
     session[:product_ids].delete(params[:product_id])
-    @cart = session[:product_ids].count
     product_ids = session[:product_ids].flatten.reject{|r| r == ""}
     @cart_products = []
     @products_cart = Product.find(session[:product_ids])
@@ -107,14 +106,14 @@ class OrdersController < ApplicationController
       end
       @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
     end
-    @cart = session[:product_ids].count
+    @cart = session[:product_ids].uniq.count
   end
 
   def quantity_up
     @addresses = current_user.user_addresses.all
     @cart_products = []
     session[:product_ids] << params[:product_id] if params[:product_id].present?
-    @cart = session[:product_ids].count
+    @cart = session[:product_ids].uniq.count
     @products_cart = Product.find(session[:product_ids])
     @products_cart.each do |product|
       if session[:product_ids].include?(product.id.to_s)
@@ -162,7 +161,7 @@ class OrdersController < ApplicationController
         end
       end
     end
-    @cart = session[:product_ids].count if session[:product_ids].present?
+    @cart = session[:product_ids].uniq.count if session[:product_ids].present?
     @code = Coupon.where(code: params[:coupon_code]).first
     if @code.present?
       @order = Order.create(coupon_id: @code.id, user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id], status: 0)
@@ -175,16 +174,17 @@ class OrdersController < ApplicationController
   end
 
   def my_orders
-    @cart = session[:product_ids].count if session[:product_ids].present?
+    @cart = session[:product_ids].uniq.count if session[:product_ids].present?
     @orders = Order.where(user_id: current_user.id)
   end
 
   def track_package
-    @cart = session[:product_ids].count if session[:product_ids].present?
+    @cart = session[:product_ids].uniq.count if session[:product_ids].present?
     @order = Order.find(params[:order_id])
   end
 
   def index
+    @cart = session[:product_ids].uniq.count
     @orders = Order.order("created_at desc")
     total = []
     @chart_data ||= []

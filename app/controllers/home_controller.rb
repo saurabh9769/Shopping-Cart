@@ -7,13 +7,13 @@
 		@categories = Category.where( parent_id: nil)
 		@products = Product.per_page_kaminari(params[:page]).per(3)
 		@products = @products.where(category_id: params[:category_id]) if params[:category_id].present?
-		@cart = session[:product_ids].count if session[:product_ids].present?
+		@cart = session[:product_ids].uniq.count if session[:product_ids].present?
 	end
 
 	def add_to_cart
 		session[:product_ids] ||= []
     session[:product_ids] << params[:product_id] if params[:product_id].present?
-    @cart = session[:product_ids].count
+    @cart = session[:product_ids].uniq.count
   end
 
   def show_cart
@@ -37,13 +37,13 @@
         end
       end
     end
-    @cart = session[:product_ids].count if session[:product_ids].present?
+    @cart = session[:product_ids].uniq.count if session[:product_ids].present?
   end
 
   def redeem_coupon
     @cart_products = []
     @products_cart = Product.find(session[:product_ids])
-    @cart = session[:product_ids].count
+    @cart = session[:product_ids].uniq.count
     @products_cart.each do |product|
       if session[:product_ids].include?(product.id.to_s)
         @quantity = session[:product_ids].count(product.id.to_s)
@@ -65,7 +65,7 @@
   def remove_from_cart
     session[:product_ids] ||= []
     session[:product_ids].delete(params[:product_id])
-    @cart = session[:product_ids].count
+    @cart = session[:product_ids].uniq.count
     product_ids = session[:product_ids].flatten.reject{|r| r == ""}
     @cart_products = []
     @products_cart = Product.find(session[:product_ids])
@@ -86,7 +86,7 @@
   def cart_quantity_up
     @cart_products = []
     session[:product_ids] << params[:product_id] if params[:product_id].present?
-    @cart = session[:product_ids].count
+    @cart = session[:product_ids].uniq.count
     @products_cart = Product.find(session[:product_ids])
     @products_cart.each do |product|
       if session[:product_ids].include?(product.id.to_s)
@@ -107,10 +107,11 @@
       @quantity = session[:product_ids].count(product.id.to_s)
       @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
     end
-    @cart = session[:product_ids].count
+    @cart = session[:product_ids].uniq.count
   end
 
   def contact_us
+    @cart = session[:product_ids].uniq.count
     if params[:name].present?
       @contact_us = ContactUs.create(name: params[:name], email: params[:email], message: params[:message])
       flash[:success] = "You will be contacted shortly!"
@@ -119,13 +120,13 @@
     end
   end
 
-  def subscribe
-    @list_id = "711123f3ee"
-    gb = Gibbon::API.new
+  # def subscribe
+  #   @list_id = "711123f3ee"
+  #   gb = Gibbon::API.new
 
-    gb.lists.subscribe({
-      :id => @list_id,
-      :email => {:email => params[:email][:address]}
-    })
-  end
+  #   gb.lists.subscribe({
+  #     :id => @list_id,
+  #     :email => {:email => params[:email][:address]}
+  #   })
+  # end
 end
