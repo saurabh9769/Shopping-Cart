@@ -35,7 +35,7 @@ class UserAddressesController < ApplicationController
   def destroy
     @address = UserAddress.find(params[:id])
     @address.destroy
-    redirect_to orders_checkout_path
+    redirect_to orders_checkout_orders_path
   end
 
   private
