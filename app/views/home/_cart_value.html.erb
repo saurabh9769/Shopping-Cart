@@ -1,0 +1,11 @@
+<% @discounted_price = @totalvalue - (@code.percent_off * @totalvalue/100) if @code.present? %>
+<ul>
+	<li>Cart Sub Total <span><%= @totalvalue.to_i %></span></li>
+	<li>Shipping Cost <span>Free</span></li>
+	<li>Total
+		<span>
+			<%= @price = @totalvalue %>
+		</span>
+	</li>
+</ul>
+<%= link_to "CheckOut", orders_checkout_orders_path, id: "address" , class: 'btn btn-default check_out', method: :post %>
