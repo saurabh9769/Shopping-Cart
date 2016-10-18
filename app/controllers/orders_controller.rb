@@ -324,6 +324,7 @@ class OrdersController < ApplicationController
         if oct_total == nil
           @oct_total = 0
         else
+          binding.pry
           @oct_total = oct_total.inject(0){|sum,x| sum + x }
         end
       elsif chart_data.include?("Nov")
