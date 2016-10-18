@@ -5,7 +5,7 @@ class AdminsController < ApplicationController
 
 	def after_sign_in_path_for(admin)
 		if current_admin.present?
-			rails_admin.index_path('rails_admin')
+			stored_location_for(admin) || rails_admin.index_path('rails_admin')
 		else
 			new_admin_session_path
 		end

@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_admin!, only: [:index]
   after_action :coupon_used
 
   def checkout
@@ -188,7 +189,6 @@ class OrdersController < ApplicationController
     total = []
     @chart_data ||= []
     @orders.each do |mon|
-      @id = mon.id
       @month = mon.created_at.strftime("%b")
       if @chart_data.present?
         @chart_data.each do |data|
@@ -334,6 +334,8 @@ class OrdersController < ApplicationController
         @dec_total = dec_total.inject(0){|sum,x| sum + x }
       end
     end
+
+    # Users Registered
     @customers = User.all
     @chart_customer = []
     customer_data = []
@@ -417,6 +419,92 @@ class OrdersController < ApplicationController
       elsif customer.include?("Dec")
         dec_customer << customer.keys.count("Dec")
         @dec_customer = dec_customer.inject(0){|sum,x| sum + x }
+      end
+    end
+
+    # Coupons Used
+    coupons_used = CouponsUsed.all
+    coupon_count = []
+    @chart_coupon_used = []
+    coupons_used.each do |coupon|
+      @month = coupon.created_at.strftime("%b")
+      if @month == "Jan"
+        coupon_used_count = coupon.id
+      elsif @month == "Feb"
+        coupon_used_count = coupon.id
+      elsif @month == "Mar"
+        coupon_used_count = coupon.id
+      elsif @month == "Apr"
+        coupon_used_count = coupon.id
+      elsif @month == "May"
+        coupon_used_count = coupon.id
+      elsif @month == "Jun"
+        coupon_used_count = coupon.id
+      elsif @month == "Jul"
+        coupon_used_count = coupon.id
+      elsif @month == "Aug"
+        coupon_used_count = coupon.id
+      elsif @month == "Sep"
+        coupon_used_count = coupon.id
+      elsif @month == "Oct"
+        coupon_used_count = coupon.id
+      elsif @month == "Nov"
+        coupon_used_count = coupon.id
+      elsif @month == "Dec"
+        coupon_used_count = coupon.id
+      end
+      @chart_coupon_used << { @month => coupon_used_count }
+    end
+
+    jan_coupon = []
+    feb_coupon = []
+    mar_coupon = []
+    apr_coupon = []
+    may_coupon = []
+    jun_coupon = []
+    jul_coupon = []
+    aug_coupon = []
+    sep_coupon = []
+    oct_coupon = []
+    nov_coupon = []
+    dec_coupon = []
+    @chart_coupon_used.each do |coupon_used|
+      if coupon_used.include?("Jan")
+        jan_coupon << coupon_used.keys.count("Jan")
+        @jan_coupon = jan_coupon.inject(0){|sum,x| sum + x }
+      elsif coupon_used.include?("Feb")
+        feb_coupon << coupon_used.keys.count("Feb")
+        @feb_coupon = feb_coupon.inject(0){|sum,x| sum + x }
+      elsif coupon_used.include?("Mar")
+        mar_coupon << coupon_used.keys.count("Mar")
+        @mar_coupon = mar_coupon.inject(0){|sum,x| sum + x }
+      elsif coupon_used.include?("Apr")
+        apr_coupon << coupon_used.keys.count("Apr")
+        @apr_coupon = apr_coupon.inject(0){|sum,x| sum + x }
+      elsif coupon_used.include?("May")
+        may_coupon << coupon_used.keys.count("May")
+        @may_coupon = may_coupon.inject(0){|sum,x| sum + x }
+      elsif coupon_used.include?("Jun")
+        jun_coupon << coupon_used.keys.count("Jun")
+        @jun_coupon = jun_coupon.inject(0){|sum,x| sum + x }
+      elsif coupon_used.include?("Jul")
+        jul_coupon << coupon_used.keys.count("Jul")
+        @jul_coupon = jul_coupon.inject(0){|sum,x| sum + x }
+      elsif coupon_used.include?("Aug")
+        aug_coupon << coupon_used.keys.count("Aug")
+        @aug_coupon = aug_coupon.inject(0){|sum,x| sum + x }
+      elsif coupon_used.include?("Sep")
+        sep_coupon << coupon_used.keys.count("Sep")
+        @sep_coupon = sep_coupon.inject(0){|sum,x| sum + x }
+      elsif coupon_used.include?("Oct")
+        oct_coupon << coupon_used.keys.count("Oct")
+        @oct_coupon = oct_coupon.inject(0){|sum,x| sum + x }
+      elsif coupon_used.include?("Nov")
+        nov_coupon << coupon_used.keys.count("Nov")
+        @nov_coupon = nov_coupon.inject(0){|sum,x| sum + x }
+      elsif coupon_used.include?("Dec")
+        dec_coupon << coupon_used.keys.count("Dec")
+        @dec_coupon = dec_coupon.inject(0){|sum,x| sum + x }
       end
     end
   end

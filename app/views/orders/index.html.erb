@@ -23,6 +23,7 @@
         data: [<%= @jan_total %>, <%= @feb_total %>, <%= @mar_total %>, <%= @apr_total %>, <%= @may_total %>, <%= @jun_total %>, <%= @jul_total %>, <%= @aug_total %>, <%= @sep_total %>, <%= @oct_total %>, <%= @nov_total %>, <%= @dec_total %>]
       }]
   });
+
     var myChart1 = Highcharts.chart('customer_chart', {
       chart: {
         type: 'column'
@@ -103,6 +104,87 @@
         data: [<%= @jan_customer_total %>, <%= @feb_customer_total %>, <%= @mar_customer_total %>, <%= @apr_customer_total %>, <%= @may_customer_total %>, <%= @jun_customer_total %>, <%= @jul_customer_total %>, <%= @aug_customer_total %>, <%= @sep_customer_total %>, <%= @oct_customer_total %>, <%= @nov_customer_total %>, <%= @dec_customer_total %>]
       }]
   });
+
+    var myChart = Highcharts.chart('coupons_chart', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Coupons Used'
+      },
+      xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      },
+      yAxis: {
+        title: {
+            text: 'Total Coupons Used'
+        }
+      },
+      series: [{
+        name: 'Total Coupon Used',
+        <% if @jan_coupon == nil %>
+          <% @jan_coupon_total = 0 %>
+        <% else %>
+          <% @jan_coupon_total = @jan_coupon %>
+        <% end %>
+        <% if @feb_coupon == nil %>
+          <% @feb_coupon_total = 0 %>
+        <% else %>
+          <% @feb_coupon_total = @feb_coupon %>
+        <% end %>
+        <% if @mar_coupon == nil %>
+          <% @mar_coupon_total = 0 %>
+        <% else %>
+          <% @mar_coupon_total = @mar_coupon %>
+        <% end %>
+        <% if @apr_coupon == nil %>
+          <% @apr_coupon_total = 0 %>
+        <% else %>
+          <% @apr_coupon_total = @apr_coupon %>
+        <% end %>
+        <% if @may_coupon == nil %>
+          <% @may_coupon_total = 0 %>
+        <% else %>
+          <% @may_coupon_total = @may_coupon %>
+        <% end %>
+        <% if @jun_coupon == nil %>
+          <% @jun_coupon_total = 0 %>
+        <% else %>
+          <% @jun_coupon_total = @jun_coupon %>
+        <% end %>
+        <% if @jul_coupon == nil %>
+          <% @jul_coupon_total = 0 %>
+        <% else %>
+          <% @jul_coupon_total = @jul_coupon %>
+        <% end %>
+        <% if @aug_coupon == nil %>
+          <% @aug_coupon_total = 0 %>
+        <% else %>
+          <% @aug_coupon_total = @aug_coupon %>
+        <% end %>
+        <% if @sep_coupon == nil %>
+          <% @sep_coupon_total = 0 %>
+        <% else %>
+          <% @sep_coupon_total = @sep_coupon %>
+        <% end %>
+        <% if @oct_coupon == nil %>
+          <% @oct_coupon_total = 0 %>
+        <% else %>
+          <% @oct_coupon_total = @oct_coupon %>
+        <% end %>
+        <% if @nov_coupon == nil %>
+          <% @nov_coupon_total = 0 %>
+        <% else %>
+          <% @nov_coupon_total = @nov_coupon %>
+        <% end %>
+        <% if @dec_coupon == nil %>
+          <% @dec_coupon_total = 0 %>
+        <% else %>
+          <% @dec_coupon_total = @dec_coupon %>
+        <% end %>
+        data: [<%= @jan_coupon_total %>, <%= @feb_coupon_total %>, <%= @mar_coupon_total %>, <%= @apr_coupon_total %>, <%= @may_coupon_total %>, <%= @jun_coupon_total %>, <%= @jul_coupon_total %>, <%= @aug_coupon_total %>, <%= @sep_coupon_total %>, <%= @oct_coupon_total %>, <%= @nov_coupon_total %>, <%= @dec_coupon_total %>]
+      }]
+  });
 });
 </script>
 
@@ -111,3 +193,7 @@
 <br>
 <br>
 <div class="container" id="customer_chart" style="width:70%; height:300px;"></div>
+<br>
+<br>
+<br>
+<div class="container" id="coupons_chart" style="width:70%; height:300px;"></div>
