@@ -321,7 +321,11 @@ class OrdersController < ApplicationController
         oct << chart_data.keys.count("Oct")
         @oct = oct.inject(0){|sum,x| sum + x }
         oct_total << chart_data.fetch("Oct")
-        @oct_total = oct_total.inject(0){|sum,x| sum + x }
+        if oct_total == nil
+          @oct_total = 0
+        else
+          @oct_total = oct_total.inject(0){|sum,x| sum + x }
+        end
       elsif chart_data.include?("Nov")
         nov << chart_data.keys.count("Nov")
         @nov = nov.inject(0){|sum,x| sum + x }
