@@ -69,6 +69,9 @@ RailsAdmin.config do |config|
         field :shipping_charges
         field :coupon_id
       end
+      config.navigation_static_links = {
+        'View Reports' => 'http://localhost:3000/orders'
+      }
     end
   end
 end
