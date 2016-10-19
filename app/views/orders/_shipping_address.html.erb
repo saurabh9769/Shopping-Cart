@@ -1,0 +1,24 @@
+<div class="row">
+	<div class="container">
+		<div class="bill-to"><p>Ship To</p></div>
+    <div class="row grid-divider">
+			<% @shipping_addresses.each do |address| %>
+		    <div class="col-sm-4" style="margin-bottom: 15px;">
+		      <div class="bill-to">
+						<div class="form-one shipping-address">
+							<%= radio_button_tag(:shipping_address, "#{address.id}") %>
+							<%= "Address 1:  #{address.address_1} " %><br>
+							<%= "Address 2: #{address.address_2} " %><br>
+							<%= "City: #{address.city}" %><br>
+							<%= "State: #{address.state}" %><br>
+							<%= "Country: #{address.country}" %><br>
+							<%= "Zip Code: #{address.zipcode}" %><br>
+							<%= link_to "Edit Address", edit_user_address_path(address.id), class:"btn btn-primary" %>
+							<%= link_to "Delete Address", order_path(address.id), class:"btn btn-primary", method: :delete %>
+						</div>
+					</div>
+		    </div>
+			<% end %>
+    </div>
+	</div>
+</div>

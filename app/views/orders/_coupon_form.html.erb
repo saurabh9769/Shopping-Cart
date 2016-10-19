@@ -1,0 +1,19 @@
+<div class="col-sm-6">
+	<div class="chose_area">
+		<ul class="user_option">
+			<li>
+				<input type="checkbox" class="checkbox1">
+				<label>Use Coupon Code</label>
+				<div class="coupon_code" style="display:none;">
+					<%= form_tag orders_redeem_coupon_orders_path, id: "coupon_form", method: "post" do %>
+						<%= text_field_tag(:coupon_code) %>
+						<%= hidden_field_tag :id, @code.id if @code.present? %>
+						<%= hidden_field_tag 'billing_address_id', 'billing_address_id' %>
+						<%= hidden_field_tag 'shipping_address_id', 'shipping_address_id' %>
+						<%= submit_tag "Redeem Coupon", class: 'btn btn-default check_out', style: 'margin-bottom: 22px;' %>
+					<% end %>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
