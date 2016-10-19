@@ -104,16 +104,14 @@
 						<ul>
 						<li>Cart Sub Total <span><%= @totalvalue %></span></li>
 						<li>Discount <span>
-							<% if @discounted_price.present? %>
-								<% if @discounted_price.present? %>
-									<%= "#{@code.percent_off.to_i}%" %>
-								<% end %>
+							<% if params[:discount_percent].present? %>
+								<%= "#{params[:discount_percent].to_i}%" %>
 							<% end %>
 						</span></li>
 						<li>Shipping Cost <span>Free</span></li>
 						<li>Total <span>
-							<% if @discounted_price.present? %>
-								<%= @price = @discounted_price %>
+							<% if params[:discount_price].present? %>
+								<%= @price = params[:discount_price] %>
 							<% else %>
 								<%= @price = @totalvalue %>
 							<% end %>

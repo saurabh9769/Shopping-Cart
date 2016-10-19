@@ -136,53 +136,10 @@
 										<%= form_tag orders_redeem_coupon_orders_path, method: "post" do %>
 											<%= text_field_tag(:coupon_code) %>
 											<%= hidden_field_tag :id, @code.id if @code.present? %>
-											<%= submit_tag("Submit") %>
+											<%= submit_tag "Redeem Coupon", class: 'btn btn-default check_out', style: 'margin-bottom: 22px;' %>
 										<% end %>
 									</div>
 								</li>
-								<li>
-									<input type="checkbox">
-									<label>Use Gift Voucher</label>
-								</li>
-								<li>
-									<input type="checkbox">
-									<label>Estimate Shipping & Taxes</label>
-								</li>
-							</ul>
-							<ul class="user_info">
-								<li class="single_field">
-									<label>Country:</label>
-									<select>
-										<option>United States</option>
-										<option>Bangladesh</option>
-										<option>UK</option>
-										<option>India</option>
-										<option>Pakistan</option>
-										<option>Ucrane</option>
-										<option>Canada</option>
-										<option>Dubai</option>
-									</select>
-								</li>
-								<li class="single_field">
-									<label>Region / State:</label>
-									<select>
-										<option>Select</option>
-										<option>Dhaka</option>
-										<option>London</option>
-										<option>Dillih</option>
-										<option>Lahore</option>
-										<option>Alaska</option>
-										<option>Canada</option>
-										<option>Dubai</option>
-									</select>
-								</li>
-								<li class="single_field zip-field">
-									<label>Zip Code:</label>
-									<input type="text">
-								</li>
-							</ul>
-							<a class="btn btn-default update" href="">Get Quotes</a>
-							<a class="btn btn-default check_out" href="">Continue</a>
 						</div>
 					</div>
 					<div class="col-sm-6">
@@ -191,10 +148,8 @@
 								<li>Cart Sub Total <span><%= @totalvalue %></span></li>
 								<li>Discount <span>
 									<% if @discounted_price.present? %>
-										<% if @discounted_price.present? %>
-											<%= "#{@code.percent_off.to_i}%" %>
-											<%= hidden_field_tag :id, @code.id %>
-										<% end %>
+										<%= "#{@code.percent_off.to_i}%" %>
+										<%= hidden_field_tag :id, @code.id %>
 									<% end %>
 								</span></li>
 								<li>Shipping Cost <span>Free</span></li>
@@ -206,24 +161,17 @@
 									<% end %>
 								</span></li>
 							</ul>
-							<%= link_to "Proceed To Payment", orders_proceed_to_payment_orders_path(), id: "address" , class: 'btn btn-default check_out', method: :post %>
+							<% if @discounted_price.present? %>
+								<%= link_to "Proceed To Payment", orders_proceed_to_payment_orders_path(discount_percent: @code.percent_off, discount_price: @discounted_price), id: "address" , class: 'btn btn-default check_out', method: :post %>
+							<% else %>
+								<%= link_to "Proceed To Payment", orders_proceed_to_payment_orders_path, id: "address" , class: 'btn btn-default check_out', method: :post %>
+							<% end %>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 		<!-- </div> -->
-		<div class="payment-options">
-			<span>
-				<label><input type="checkbox"> Direct Bank Transfer</label>
-			</span>
-			<span>
-				<label><input type="checkbox"> Check Payment</label>
-			</span>
-			<span>
-				<label><input type="checkbox"> Paypal</label>
-			</span>
-		</div>
 	</div>
 </section> <!--/#cart_items-->
 <script type="text/javascript">
@@ -241,7 +189,6 @@
   	  	var url = $('#address').attr('href') + '?billing_address_id=' + billingAddress;
   	    $('#address').attr('href', url);
   	  }
-      alert(url);
 	  });
     $(".shipping-address").click(function(){
       var shippingAddress = $("input[name='shipping_address']:checked").val();
@@ -253,7 +200,6 @@
     		var url = $('#address').attr('href') + '?shipping_address_id=' + shippingAddress;
 	      $('#address').attr('href', url);
     	}
-      alert(url);
     });
 	});
 </script>
