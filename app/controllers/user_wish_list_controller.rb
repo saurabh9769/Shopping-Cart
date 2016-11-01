@@ -4,7 +4,6 @@ class UserWishListController < ApplicationController
 
 	def show_wish_list
 		$wishlist ||= []
-		@cart = session[:product_ids].count if @cart.present?
 		if params[:product_id].present?
 			if $wishlist.include?(params[:product_id])
 				flash[:notice] = "Product Already in WishList"
@@ -24,7 +23,6 @@ class UserWishListController < ApplicationController
 	def add_to_cart
 		session[:product_ids] ||= []
     session[:product_ids] << params[:product_id] if params[:product_id].present?
-    @cart = session[:product_ids].count if @cart.present?
     UserWishList.delete_all(product_id: params[:product_id])
   end
 

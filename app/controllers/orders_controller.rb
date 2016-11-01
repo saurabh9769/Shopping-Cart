@@ -7,9 +7,9 @@ class OrdersController < ApplicationController
     @billing_addresses = current_user.user_addresses.all
     @shipping_addresses = current_user.user_addresses.all
     @cart_products = []
-    add = [params[:id]] * params[:quantity].to_i if params[:quantity].present?
-    session[:product_ids] << add if add.present?
-    session[:product_ids] = session[:product_ids].flatten if session[:product_ids].present?
+    session[:product_ids] ||= []
+    product_show_quantity = Array.new(params[:quantity].to_i,params[:id]) if params[:quantity].present?
+    session[:product_ids] << product_show_quantity.flatten if product_show_quantity.present?
     @cart_products_show = []
     @cart_products_show << {params[:id] => { :quantity => add.count.to_s }} if add.present?
     @products_cart = Product.find(session[:product_ids]) if session[:product_ids].present?
@@ -26,7 +26,6 @@ class OrdersController < ApplicationController
         end
       end
     end
-    @cart = session[:product_ids].uniq.count if session[:product_ids].present?
   end
 
   def show
@@ -42,10 +41,9 @@ class OrdersController < ApplicationController
 
   def show_cart
     @cart_products = []
-    add = [params[:id]] * params[:quantity].to_i if params[:quantity].present?
-    session[:product_ids] << add if add.present?
-    session[:product_ids] = session[:product_ids].flatten if session[:product_ids].present?
-    @cart_products_show = []
+    session[:product_ids] ||= []
+    product_show_quantity = Array.new(params[:quantity].to_i,params[:id]) if params[:quantity].present?
+    session[:product_ids] << product_show_quantity.flatten if product_show_quantity.present?    @cart_products_show = []
     @cart_products_show << {params[:id] => { :quantity => add.count.to_s }} if add.present?
     @products_cart = Product.find(session[:product_ids]) if session[:product_ids].present?
     if @products_cart.present?
@@ -61,7 +59,6 @@ class OrdersController < ApplicationController
         end
       end
     end
-    @cart = session[:product_ids].uniq.count if session[:product_ids].present?
   end
 
   def redeem_coupon
@@ -69,7 +66,6 @@ class OrdersController < ApplicationController
     @shipping_addresses = current_user.user_addresses.all
     @cart_products = []
     @products_cart = Product.find(session[:product_ids])
-    @cart = session[:product_ids].uniq.count
     @products_cart.each do |product|
       if session[:product_ids].include?(product.id.to_s)
         @quantity = session[:product_ids].count(product.id.to_s)
@@ -106,14 +102,12 @@ class OrdersController < ApplicationController
       end
       @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
     end
-    @cart = session[:product_ids].uniq.count
   end
 
   def quantity_up
     @addresses = current_user.user_addresses.all
     @cart_products = []
     session[:product_ids] << params[:product_id] if params[:product_id].present?
-    @cart = session[:product_ids].uniq.count
     @products_cart = Product.find(session[:product_ids])
     @products_cart.each do |product|
       if session[:product_ids].include?(product.id.to_s)
@@ -135,16 +129,15 @@ class OrdersController < ApplicationController
       @quantity = session[:product_ids].count(product.id.to_s)
       @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
     end
-    @cart = session[:product_ids].count
   end
 
   def proceed_to_payment
     @billing_address = UserAddress.find(params[:billing_address_id])
     @shipping_address = UserAddress.find(params[:shipping_address_id])
     @cart_products = []
-    add = [params[:id]] * params[:quantity].to_i if params[:quantity].present?
-    session[:product_ids] << add if add.present?
-    session[:product_ids] = session[:product_ids].flatten if session[:product_ids].present?
+    session[:product_ids] ||= []
+    product_show_quantity = Array.new(params[:quantity].to_i,params[:id]) if params[:quantity].present?
+    session[:product_ids] << product_show_quantity.flatten if product_show_quantity.present?
     @cart_products_show = []
     @cart_products_show << {params[:id] => { :quantity => add.count.to_s }} if add.present?
     @products_cart = Product.find(session[:product_ids]) if session[:product_ids].present?
@@ -161,7 +154,6 @@ class OrdersController < ApplicationController
         end
       end
     end
-    @cart = session[:product_ids].uniq.count if session[:product_ids].present?
     @code = Coupon.where(code: params[:coupon_code]).first
     if @code.present?
       @order = Order.create(coupon_id: @code.id, user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id], status: 0)
@@ -174,167 +166,14 @@ class OrdersController < ApplicationController
   end
 
   def my_orders
-    @cart = session[:product_ids].uniq.count if session[:product_ids].present?
     @orders = Order.where(user_id: current_user.id)
   end
 
   def track_package
-    @cart = session[:product_ids].uniq.count if session[:product_ids].present?
     @order = Order.find(params[:order_id])
   end
 
   def index
-    # @cart = session[:product_ids].uniq.count
-    @orders = Order.order("created_at desc")
-    total = []
-    @chart_data ||= []
-    @orders.each do |mon|
-      @month = mon.created_at.strftime("%b")
-      if @chart_data.present?
-        @chart_data.each do |data|
-          if @month == "Jan"
-            total = mon.grand_total
-          elsif @month == "Feb"
-            total = mon.grand_total
-          elsif @month == "Mar"
-            total = mon.grand_total
-          elsif @month == "Apr"
-            total = mon.grand_total
-          elsif @month == "May"
-            total = mon.grand_total
-          elsif @month == "Jun"
-            total = mon.grand_total
-          elsif @month == "Jul"
-            total = mon.grand_total
-          elsif @month == "Aug"
-            total = mon.grand_total
-          elsif @month == "Sep"
-            total = mon.grand_total
-          elsif @month == "Oct"
-            total = mon.grand_total
-          elsif @month == "Nov"
-            total = mon.grand_total
-          elsif @month == "Dec"
-            total = mon.grand_total
-          end
-        end
-      else
-        if @month == "Jan"
-          total = mon.grand_total
-        elsif @month == "Feb"
-          total = mon.grand_total
-        elsif @month == "Mar"
-          total = mon.grand_total
-        elsif @month == "Apr"
-          total = mon.grand_total
-        elsif @month == "May"
-          total = mon.grand_total
-        elsif @month == "Jun"
-          total = mon.grand_total
-        elsif @month == "Jul"
-          total = mon.grand_total
-        elsif @month == "Aug"
-          total = mon.grand_total
-        elsif @month == "Sep"
-          total = mon.grand_total
-        elsif @month == "Oct"
-          total = mon.grand_total
-        elsif @month == "Nov"
-          total = mon.grand_total
-        elsif @month == "Dec"
-          total = mon.grand_total
-        end
-      end
-      @chart_data << { @month => total }
-    end
-    jan = []
-    jan_total = []
-    feb = []
-    feb_total = []
-    mar = []
-    mar_total = []
-    apr = []
-    apr_total = []
-    may = []
-    may_total = []
-    jun = []
-    jun_total = []
-    jul = []
-    jul_total = []
-    aug = []
-    aug_total = []
-    sep = []
-    sep_total = []
-    oct = []
-    oct_total = []
-    nov = []
-    nov_total = []
-    dec = []
-    dec_total = []
-    @chart_data.each do |chart_data|
-      if chart_data.include?("Jan")
-        jan << chart_data.keys.count("Jan")
-        @jan = jan.inject(0){|sum,x| sum + x }
-        jan_total << chart_data.fetch("Jan")
-        @jan_total = jan_total.inject(0){|sum,x| sum + x }
-      elsif chart_data.include?("Feb")
-        feb << chart_data.keys.count("Feb")
-        @feb = feb.inject(0){|sum,x| sum + x }
-        feb_total << chart_data.fetch("Feb")
-        @feb_total = feb_total.inject(0){|sum,x| sum + x }
-      elsif chart_data.include?("Mar")
-        mar << chart_data.keys.count("Mar")
-        @mar = mar.inject(0){|sum,x| sum + x }
-        mar_total << chart_data.fetch("Mar")
-        @mar_total = mar_total.inject(0){|sum,x| sum + x }
-      elsif chart_data.include?("Apr")
-        apr << chart_data.keys.count("Apr")
-        @apr = apr.inject(0){|sum,x| sum + x }
-        apr_total << chart_data.fetch("Apr")
-        @apr_total = apr_total.inject(0){|sum,x| sum + x }
-      elsif chart_data.include?("May")
-        may << chart_data.keys.count("May")
-        @may = may.inject(0){|sum,x| sum + x }
-        may_total << chart_data.fetch("May")
-        @may_total = may_total.inject(0){|sum,x| sum + x }
-      elsif chart_data.include?("Jun")
-        jun << chart_data.keys.count("Jun")
-        @jun = jun.inject(0){|sum,x| sum + x }
-        jun_total << chart_data.fetch("Jun")
-        @jun_total = jun_total.inject(0){|sum,x| sum + x }
-      elsif chart_data.include?("Jul")
-        jul << chart_data.keys.count("Jul")
-        @jul = jul.inject(0){|sum,x| sum + x }
-        jul_total << chart_data.fetch("Jul")
-        @jul_total = jul_total.inject(0){|sum,x| sum + x }
-      elsif chart_data.include?("Aug")
-        aug << chart_data.keys.count("Aug")
-        @aug = aug.inject(0){|sum,x| sum + x }
-        aug_total << chart_data.fetch("Aug")
-        @aug_total = aug_total.inject(0){|sum,x| sum + x }
-      elsif chart_data.include?("Sep")
-        sep << chart_data.keys.count("Sep")
-        @sep = sep.inject(0){|sum,x| sum + x }
-        sep_total << chart_data.fetch("Sep")
-        @sep_total = sep_total.inject(0){|sum,x| sum + x }
-      elsif chart_data.include?("Oct")
-        oct << chart_data.keys.count("Oct")
-        @oct = oct.inject(0){|sum,x| sum + x }
-        oct_total << chart_data.fetch("Oct")
-        @oct_total = oct_total.inject(0){|sum,x| sum + x }
-      elsif chart_data.include?("Nov")
-        nov << chart_data.keys.count("Nov")
-        @nov = nov.inject(0){|sum,x| sum + x }
-        nov_total << chart_data.fetch("Nov")
-        @nov_total = nov_total.inject(0){|sum,x| sum + x }
-      elsif chart_data.include?("Dec")
-        dec << chart_data.keys.count("Dec")
-        @dec = dec.inject(0){|sum,x| sum + x }
-        dec_total << chart_data.fetch("Dec")
-        @dec_total = dec_total.inject(0){|sum,x| sum + x }
-      end
-    end
-
     # Users Registered
     @customers = User.all
     @chart_customer = []

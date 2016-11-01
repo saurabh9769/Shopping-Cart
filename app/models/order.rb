@@ -6,6 +6,19 @@ class Order < ActiveRecord::Base
 	has_many :products, through: :order_details
 	after_update :change_status
 
+
+	def self.get_grand_total(month, order)
+	  order_month = order.created_at.strftime("%b").downcase
+	  total = 0
+	  if (order_month == month)
+	    total = order.grand_total
+	  end
+	  total
+	end
+
+  scope :count_of_orders, -> { (group("date_trunc('month', created_at)").order("date_trunc('month', created_at) ASC")) }
+  scope :grand_total, -> { select("date_trunc('month', created_at)").group("date_trunc('month', created_at)").order("date_trunc('month', created_at) ASC").sum("grand_total") }
+
 	private
 
     def change_status

@@ -276,7 +276,7 @@ Devise.setup do |config|
 
   config.sign_out_all_scopes = false
 
-  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET'] , callback_url: "http://localhost:3000/users/auth/facebook/callback"
+  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET']
   config.omniauth :twitter, ENV["TWITTER_KEY"], ENV["TWITTER_SECRET"]
   # config.authenticate_with do
   #   warden.authenticate! scope: :user

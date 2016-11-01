@@ -1,28 +1,26 @@
 <script type="text/javascript" charset="utf-8">
   $(function () {
-    var myChart = Highcharts.chart('orders_chart', {
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: 'Sales Report'
-      },
-      xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-      },
+    var myChart = Highcharts.chart('ordering_chart', {
+      chart: { type: 'column' },
+      title: { text: 'Orders by Day' },
+      xAxis: { categories: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ] },
       yAxis: {
-        title: {
-            text: 'Total'
-        }
+        title: { text: 'Rupees'}
       },
-      series: [{
-        name: 'Total Orders',
-        data: [<%= @jan %>, <%= @feb %>, <%= @mar %>, <%= @apr %>, <%= @may %>, <%= @jun %>, <%= @jul %>, <%= @aug %>, <%= @sep %>, <%= @oct %>, <%= @nov %>, <%= @dec %>]
-      }, {
-        name: 'Total Sales',
-        data: [<%= @jan_total %>, <%= @feb_total %>, <%= @mar_total %>, <%= @apr_total %>, <%= @may_total %>, <%= @jun_total %>, <%= @jul_total %>, <%= @aug_total %>, <%= @sep_total %>, <%= @oct_total %>, <%= @nov_total %>, <%= @dec_total %>]
-      }]
+      series: [
+        {
+          name: "Total Orders",
+          <% order_count = Order.count_of_orders.count %>
+          data: <%= order_count.map {|count| count[1] }%>
+        },
+        {
+          name: "Total Sales",
+          <% order_total = Order.grand_total %>
+          data: <%= order_total.map {|total| total[1] }%>
+        }
+      ]
     });
+
     var myChart1 = Highcharts.chart('customer_chart', {
       chart: {
         type: 'column'
@@ -40,10 +38,21 @@
       },
       series: [{
         name: 'Total Customer Registered',
-        <% render 'orders/customer_chart' %>
-        data: [<%= @jan_customer_total %>, <%= @feb_customer_total %>, <%= @mar_customer_total %>, <%= @apr_customer_total %>, <%= @may_customer_total %>, <%= @jun_customer_total %>, <%= @jul_customer_total %>, <%= @aug_customer_total %>, <%= @sep_customer_total %>, <%= @oct_customer_total %>, <%= @nov_customer_total %>, <%= @dec_customer_total %>]
+        <% months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] %>
+        <% users_registered_count = User.users_registered.count %>
+        <% @compare_month = [] %>
+        <% months.each do |month| %>
+          <% users_registered_count.each do |count| %>
+            <% value = count[0].strftime("%b") %>
+            <% if value == month %>
+              <%  %>
+            <% end %>
+          <% end %>
+        <% end %>
+        data: <%= users_registered_count.map {|count| count[1] } %>
       }]
     });
+
     var myChart2 = Highcharts.chart('coupons_chart', {
       chart: {
         type: 'column'
@@ -61,14 +70,13 @@
       },
       series: [{
         name: 'Total Coupon Used',
-        <% render 'orders/coupon_chart' %>
-        data: [<%= @jan_coupon_total %>, <%= @feb_coupon_total %>, <%= @mar_coupon_total %>, <%= @apr_coupon_total %>, <%= @may_coupon_total %>, <%= @jun_coupon_total %>, <%= @jul_coupon_total %>, <%= @aug_coupon_total %>, <%= @sep_coupon_total %>, <%= @oct_coupon_total %>, <%= @nov_coupon_total %>, <%= @dec_coupon_total %>]
+        <% used_coupons_count = CouponsUsed.total_coupons.count %>
+        data: <%= used_coupons_count.map {|count| count[1] }%>
       }]
     });
   });
 </script>
-
-<div class="container" id="orders_chart" style="width:70%; height:300px;"></div>
+<div class="container" id="ordering_chart" style="width:70%; height:300px;"></div>
 <br>
 <br>
 <br>

@@ -1,5 +1,5 @@
 $('.flash-display').html(" Added To Cart").slideDown();
-$('.cartcount').html("<%= @cart %>");
+$('.cartcount').html("<%= get_cart_count_from_session %>");
 setTimeout(function(){
 	$('.flash-display').html("").slideUp();
 }, 3000);
