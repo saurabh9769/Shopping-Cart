@@ -43,7 +43,9 @@ class OrdersController < ApplicationController
     @cart_products = []
     session[:product_ids] ||= []
     product_show_quantity = Array.new(params[:quantity].to_i,params[:id]) if params[:quantity].present?
-    session[:product_ids] << product_show_quantity.flatten if product_show_quantity.present?    @cart_products_show = []
+    session[:product_ids] << product_show_quantity if product_show_quantity.present?
+    session[:product_ids] = session[:product_ids].flatten! if product_show_quantity.present?
+    @cart_products_show = []
     @cart_products_show << {params[:id] => { :quantity => add.count.to_s }} if add.present?
     @products_cart = Product.find(session[:product_ids]) if session[:product_ids].present?
     if @products_cart.present?
