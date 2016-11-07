@@ -3,4 +3,4 @@ $('.cartcount').html("<%= get_cart_count_from_session %>");
 setTimeout(function(){
 	$('.flash-display').html("").slideUp();
 }, 3000);
-window.location.replace("<%= home_show_cart_path %>");
+window.location.replace("<%= orders_show_cart_orders_path %>");

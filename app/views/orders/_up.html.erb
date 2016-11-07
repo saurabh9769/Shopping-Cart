@@ -33,14 +33,14 @@
 							<%= link_to "-" , orders_quantity_down_orders_path(product_quantity: cart.fetch(product.id).fetch(:quantity), product_id: product.id), class: "cart_quantity_down" , remote: true %>
 						</div>
 					<td class="cart_total">
-						<p class="cart_total_price"><%= product.price * cart.fetch(product.id).fetch(:quantity).to_f %></p>
+						<p class="cart_total_price"><%= calculate_total_of_products(cart, product) %></p>
 					</td>
 					<td class="cart_delete">
-						<%= link_to (raw('<i class="fa fa-times"></i>')), home_remove_from_cart_path(product_id: product.id), class: "cart_quantity_delete" ,remote: true , confirm: 'are you sure?' %>
+						<%= link_to (raw('<i class="fa fa-times"></i>')), orders_remove_from_cart_orders_path(product_id: product.id), class: "cart_quantity_delete" ,remote: true , confirm: 'are you sure?' %>
 					</td>
 				</tr>
-				<% total << (product.price * cart.fetch(product.id).fetch(:quantity).to_f) %>
-				<% @totalvalue = total.inject(0){|sum,x| sum + x } %>
+				<% total << calculate_total_of_products(cart, product) %>
+				<% @totalvalue = calculate_total_price(total) %>
 			<% end %>
 	</tbody>
 </table>

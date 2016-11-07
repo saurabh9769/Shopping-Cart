@@ -6,14 +6,12 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
 	def after_sign_in_path_for(user)
-
 		if resource.class == User
 			if current_user.present?
 				stored_location_for(user) || root_url
 			else
 			  new_user_session_path
 			end
-
 		elsif resource.class == Admin
 			if current_admin.present?
 				rails_admin.index_path('rails_admin')

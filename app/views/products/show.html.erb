@@ -31,7 +31,7 @@
         <span>
           <span>Rs. <%= @product.price.to_i %></span>
         </span>
-        <%= form_tag "/home/show_cart", method: "post" do %>
+        <%= form_tag "/orders/orders/show_cart", method: "post" do %>
           <label>Quantity:</label><%= text_field_tag :quantity, '1' %>
           <%= hidden_field_tag :id, @product.id %>
           <%= submit_tag("Add To Cart")%>

@@ -7,17 +7,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { :omniauth_callbacks => "omniauth_callbacks" }
   resources :products
   get 'home/add_to_cart' => 'home#add_to_cart'
-  get 'home/remove_from_cart' => 'home#remove_from_cart'
-  get 'home/show_cart' => 'home#show_cart'
-  post 'home/show_cart' => 'home#show_cart'
-  get 'home/redeem_coupon' => 'home#redeem_coupon'
-  post 'home/redeem_coupon' => 'home#redeem_coupon'
-  get 'home/product_show_cart' => 'home#product_show_cart'
-  get 'home/coupon_used' => 'home#coupon_used'
-  get 'home/cart_quantity_up' => 'home#cart_quantity_up'
-  get 'home/cart_quantity_down' => 'home#cart_quantity_down'
   match 'home/contact_us' => 'home#contact_us', via: [:get, :post]
   resources :orders do
+    match 'orders/show_cart' => 'orders#show_cart', on: :collection, via: [:get, :post]
     match 'orders/checkout' => 'orders#checkout', on: :collection, via: [:get, :post]
     match 'orders/redeem_coupon' => 'orders#redeem_coupon', on: :collection, via: [:get, :post]
     match 'orders/remove_from_cart' => 'orders#remove_from_cart', on: :collection, via: [:get, :post]

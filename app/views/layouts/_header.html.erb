@@ -65,7 +65,7 @@
 	            </li>
 	            <li><%= link_to (raw('<i class="fa fa-star"></i>Wishlist')), user_wish_list_show_wish_list_path %></li>
 							<li><%= link_to (raw('<i class="fa fa-crosshairs"></i>CheckOut')), orders_checkout_orders_path %></li>
-							<li><%= link_to (raw('<i class="fa fa-shopping-cart"></i>Cart (<span class="cartcount">' + "#{get_cart_count_from_session}" +'</span>)')), home_show_cart_path, id: 'cart' , class:'addtocart' %></li>
+							<li><%= link_to (raw('<i class="fa fa-shopping-cart"></i>Cart (<span class="cartcount">' + "#{get_cart_count_from_session}" +'</span>)')), orders_show_cart_orders_path, id: 'cart' , class:'addtocart' %></li>
 							<% if user_signed_in? %>
 								<li><a href="/users/sign_out" data-method="delete"><% link_to destroy_user_session_path, method: :delete %><i class="fa fa-lock"></i> Logout</a></li>
 							<% else %>
@@ -97,7 +97,7 @@
                 <ul role="menu" class="sub-menu">
                   <li><%= link_to "Products" , products_path %></li>
 									<li><a href="checkout.html">Checkout</a></li>
-									<li><%= link_to "Cart" , home_show_cart_path %></li>
+									<li><%= link_to "Cart" , orders_show_cart_orders_path %></li>
 									<li><%= link_to "Login", new_user_session_path %></li>
                 </ul>
 	            </li>
