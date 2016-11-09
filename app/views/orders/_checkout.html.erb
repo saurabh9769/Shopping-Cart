@@ -16,7 +16,7 @@
 					<% total ||= [] %>
 					<tr>
 						<% @cart_products.each do |cart| %>
-					  	<% product = Product.find(cart.keys[0]) %>
+					  	<% product = find_products(cart) %>
 								<td class="cart_product">
 									<% if product.product_images.length > 0 %>
 	      						<%= image_tag product.product_images[0].image.url , style: " width: 110px; height: 110px;" %>
@@ -31,9 +31,9 @@
 								</td>
 								<td class="cart_quantity">
 									<div class="cart_quantity_button">
-										<%= link_to "+" , orders_quantity_up_orders_path(product_quantity: cart.fetch(product.id).fetch(:quantity), product_id: product.id), class: "cart_quantity_up" , remote: true %>
+										<%= link_to "+" , orders_add_quantity_orders_path(product_quantity: cart.fetch(product.id).fetch(:quantity), product_id: product.id), class: "cart_quantity_up" , remote: true %>
 										<input class="cart_quantity_input" type="text" name="quantity" value="<%= cart.fetch(product.id).fetch(:quantity) %>" autocomplete="off" size="2">
-										<%= link_to "-" , orders_quantity_down_orders_path(product_quantity: cart.fetch(product.id).fetch(:quantity), product_id: product.id), class: "cart_quantity_down" , remote: true %>
+										<%= link_to "-" , orders_remove_quantity_orders_path(product_quantity: cart.fetch(product.id).fetch(:quantity), product_id: product.id), class: "cart_quantity_down" , remote: true %>
 									</div>
 								<td class="cart_total">
 									<p class="cart_total_price"><%= calculate_total_of_products(cart, product) %></p>

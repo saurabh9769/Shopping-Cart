@@ -4,17 +4,16 @@ class OrdersController < ApplicationController
   after_action :coupon_used
 
   def checkout
-    @billing_addresses = current_user.user_addresses.all
-    @shipping_addresses = current_user.user_addresses.all
+    @billing_addresses = @shipping_addresses = current_user.user_addresses
     @cart_products = []
-    session_product_ids
-    cart_quantity = @cart_products_show.first.fetch(params[:id]).fetch(:quantity) if @cart_products_show.present?
+    get_products_quantity_show_page
+    cart_quantity = product_show_get_quantity
     orders_find_product_from_session_ids
-    cart_products(@products_cart, cart_quantity)
+    cart_products(cart_quantity)
   end
 
   def show
-    @address = current_user.user_addresses.all
+    @address = current_user.user_addresses
     redirect_to orders_checkout_orders_path
   end
 
@@ -26,24 +25,22 @@ class OrdersController < ApplicationController
 
   def show_cart
     @cart_products = []
-    session_product_ids
-    cart_quantity = @cart_products_show.first.fetch(params[:id]).fetch(:quantity) if @cart_products_show.present?
+    get_products_quantity_show_page
+    cart_quantity = product_show_get_quantity
     orders_find_product_from_session_ids
-    cart_products(@products_cart, cart_quantity)
+    cart_products(cart_quantity)
   end
 
   def redeem_coupon
-    @billing_addresses = current_user.user_addresses.all
-    @shipping_addresses = current_user.user_addresses.all
+    @billing_addresses = @shipping_addresses = current_user.user_addresses
     @cart_products = []
     orders_find_product_from_session_ids
-    redeem_coupon_quantity(@products_cart)
+    redeem_coupon_quantity
     @code = Coupon.where(code: params[:coupon_code]).first
   end
 
   def coupon_used
     if @code.present?
-      @code = Coupon.where(code: params[:coupon_code]).first
       Coupon.where(id: @code.id).each do |coupon_used|
         CouponsUsed.create(coupon_id: coupon_used.id, user_id: current_user.id)
       end
@@ -51,43 +48,43 @@ class OrdersController < ApplicationController
   end
 
   def remove_from_cart
-    @addresses = current_user.user_addresses.all
+    @addresses = current_user.user_addresses
     session[:product_ids] ||= []
     session[:product_ids].delete(params[:product_id])
-    product_ids = session[:product_ids].flatten.reject{|r| r == ""}
+    session[:product_ids] = session[:product_ids].flatten.reject{|r| r == ""}
     @cart_products = []
     orders_find_product_from_session_ids
     @cart_products_show = {params[:id] => { :quantity => params[:quantity] }}
-    remove_from_cart_quantity(@products_cart, @cart_products_show)
+    remove_from_cart_quantity
   end
 
-  def quantity_up
-    @addresses = current_user.user_addresses.all
+  def add_quantity
+    @addresses = current_user.user_addresses
     @cart_products = []
     session[:product_ids] << params[:product_id] if params[:product_id].present?
     orders_find_product_from_session_ids
-    quantity(@products_cart)
+    quantity
   end
 
-  def quantity_down
-    @addresses = current_user.user_addresses.all
+  def remove_quantity
+    @addresses = current_user.user_addresses
     @cart_products = []
     remove_element = [params[:product_id].to_s]
     remove_element.each do |del|
       session[:product_ids].delete_at(session[:product_ids].index(del)) if params[:product_quantity] > "1"
     end
     orders_find_product_from_session_ids
-    quantity(@products_cart)
+    quantity
   end
 
   def proceed_to_payment
     @billing_address = UserAddress.find(params[:billing_address_id])
     @shipping_address = UserAddress.find(params[:shipping_address_id])
     @cart_products = []
-    session_product_ids
+    get_products_quantity_show_page
     orders_find_product_from_session_ids
-    cart_quantity = @cart_products_show.first.fetch(params[:id]).fetch(:quantity) if @cart_products_show.present?
-    cart_products(@products_cart, cart_quantity)
+    cart_quantity = product_show_get_quantity
+    cart_products(cart_quantity)
     @code = Coupon.where(code: params[:coupon_code]).first
     if @code.present?
       @order = Order.create(coupon_id: @code.id, user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id], status: 0)
@@ -117,9 +114,9 @@ class OrdersController < ApplicationController
     @products_cart = Product.find(session[:product_ids]) if session[:product_ids].present?
   end
 
-  def cart_products(products, cart_quantity)
+  def cart_products(cart_quantity)
     if @products_cart.present?
-      products.each do |product|
+      @products_cart.each do |product|
         if session[:product_ids].include?(product.id.to_s)
           if @cart_products_show.present? && @cart_products_show.first.keys[0] == product.id.to_s
             @quantity = cart_quantity
@@ -137,7 +134,7 @@ class OrdersController < ApplicationController
     session[:product_ids].count(product.id.to_s) + cart_quantity.to_i
   end
 
-  def redeem_coupon_quantity(products)
+  def redeem_coupon_quantity
     @products_cart.each do |product|
       if session[:product_ids].include?(product.id.to_s)
         @quantity = session[:product_ids].count(product.id.to_s)
@@ -146,11 +143,11 @@ class OrdersController < ApplicationController
     end
   end
 
-  def remove_from_cart_quantity(products, cart_products)
+  def remove_from_cart_quantity
     if session[:product_ids].present?
-      products.each do |product|
+      @products_cart.each do |product|
         if session[:product_ids].include?(product.id.to_s)
-          if cart_products.first[0] == product.id.to_s
+          if @cart_products_show.first[0] == product.id.to_s
             @quantity = session[:product_ids].count(product.id.to_s)
           else
             @quantity = session[:product_ids].count(product.id.to_s)
@@ -161,8 +158,8 @@ class OrdersController < ApplicationController
     end
   end
 
-  def quantity(products)
-    products.each do |product|
+  def quantity
+    @products_cart.each do |product|
       if session[:product_ids].include?(product.id.to_s)
         @quantity = session[:product_ids].count(product.id.to_s)
         @cart_products << {product.id => { :quantity => @quantity , :price => product.price }}
@@ -170,12 +167,16 @@ class OrdersController < ApplicationController
     end
   end
 
-  def session_product_ids
+  def get_products_quantity_show_page
     @cart_products_show = []
     session[:product_ids] ||= []
     product_show_quantity = Array.new(params[:quantity].to_i,params[:id]) if params[:quantity].present?
     session[:product_ids] << product_show_quantity if product_show_quantity.present?
     session[:product_ids] = session[:product_ids].flatten! if product_show_quantity.present?
     @cart_products_show << {params[:id] => { :quantity => product_show_quantity.count.to_s }} if product_show_quantity.present?
+  end
+
+  def product_show_get_quantity
+    @cart_products_show.first.fetch(params[:id]).fetch(:quantity) if @cart_products_show.present?
   end
 end
