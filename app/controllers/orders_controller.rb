@@ -85,7 +85,6 @@ class OrdersController < ApplicationController
     orders_find_product_from_session_ids
     cart_quantity = product_show_get_quantity
     cart_products(cart_quantity)
-    @code = Coupon.where(code: params[:coupon_code]).first
     if @code.present?
       @order = Order.create(coupon_id: @code.id, user_id: current_user.id, billing_address_id: params[:billing_address_id], shipping_address_id: params[:shipping_address_id], status: 0)
     else
