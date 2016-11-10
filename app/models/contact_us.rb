@@ -5,7 +5,7 @@ class ContactUs < ActiveRecord::Base
 	private
 		def check_note_admin
 		  if self.note_admin.present?
-		  	@contact_us_id = id
+		  	@contact_us_id = self.id
 		    UserMailer.check_note_admin_mail(email, note_admin, @contact_us_id).deliver_now
 			end
 		end

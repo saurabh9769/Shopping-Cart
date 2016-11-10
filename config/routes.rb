@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   root 'home#index'
   devise_for :admins
   devise_for :users, controllers: { :omniauth_callbacks => "omniauth_callbacks" }
-  resources :products
+  resources :products do
+    collection { post :import }
+  end
   get 'home/add_to_cart' => 'home#add_to_cart'
   match 'home/contact_us' => 'home#contact_us', via: [:get, :post]
   resources :orders do

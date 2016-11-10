@@ -79,5 +79,15 @@ RailsAdmin.config do |config|
         }
       end
     end
+    config.model Product do
+      list do
+        field :id
+        field :name
+        field :price
+        field :status
+        field :category_id
+      end
+
+    end
   end
 end
