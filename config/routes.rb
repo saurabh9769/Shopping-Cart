@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     collection { post :import }
   end
   get 'home/add_to_cart' => 'home#add_to_cart'
-  match 'home/contact_us' => 'home#contact_us', via: [:get, :post]
+  match 'contact_us/contact_us' => 'contact_us#contact_us', via: [:get, :post]
   resources :orders do
     match 'orders/show_cart' => 'orders#show_cart', on: :collection, via: [:get, :post]
     match 'orders/checkout' => 'orders#checkout', on: :collection, via: [:get, :post]
@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   end
   resources :user_addresses
   resources :charges
+  # match 'coupons/redeem_coupon' => 'coupons#redeem_coupon', via: [:get, :post]
+  # match 'coupons/coupon_used' => 'coupons#coupon_used', via: [:get, :post]
   match 'user_wish_list/show_wish_list' => 'user_wish_list#show_wish_list', via: [:get, :post]
   delete 'user_wish_list/remove_from_wish_list' => 'user_wish_list#remove_from_wish_list'
   get 'user_wish_list/add_to_cart' => 'user_wish_list#add_to_cart'

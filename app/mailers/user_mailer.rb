@@ -76,16 +76,16 @@ class UserMailer < ApplicationMailer
     mail(to: 'admin@shopoholics.com', subject: "User's Wishlist for the week")
   end
 
-  def feedback_message(business, user)
-    @business = business
-    @user = user
-    mail
-  end
+  # def feedback_message(business, user)
+  #   @business = business
+  #   @user = user
+  #   mail
+  # end
 
-  def campaign_message(business, user)
-    @business = business
-    @user = user
-  end
+  # def campaign_message(business, user)
+  #   @business = business
+  #   @user = user
+  # end
 
   private
 
